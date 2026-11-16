@@ -1,0 +1,38 @@
+DELIMITER //
+CREATE PROCEDURE createProgList(OUT pList VARCHAR(1000))
+BEGIN
+
+	-- DECLARE LOCAL VARIABLES
+	DECLARE done INT DEFAULT 0;
+	DECLARE fullName VARCHAR(100);
+	
+	-- DECLARE THE CURSOR
+	DECLARE curProgNames CURSOR FOR
+		SELECT CONCAT(firstname, ' ', lastname) FROM Emp WHERE job = 'Programmer';
+	
+	-- DECLARE THE NOT FOUND HANDLER	
+	DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
+	
+	-- INITIALISE OUTPUT VARIABLE
+	SET pList = '';
+	
+	-- OPEN CURSOR AND LOOP
+	OPEN curProgNames;
+	
+	getProgNames: LOOP
+		FETCH curProgNames INTO fullName;
+		IF done = 1 THEN LEAVE getProgNames;
+		END IF;
+		
+		-- HANDLE COMMA SEPARATION SAFELY
+		IF pList = '' THEN
+			SET pList = fullName;
+		ELSE
+			SET pList = CONCAT(pList, ', ', fullName);
+		END IF;
+	END LOOP getProgNames;
+	CLOSE curProgNames;
+END //
+
+-- RESET THE DELIMITER BACK TO NORMAL
+DELIMITER ;

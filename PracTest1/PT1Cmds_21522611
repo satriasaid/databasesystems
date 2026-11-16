@@ -1,0 +1,69 @@
+-- Name: Satria Pamungkas
+-- Student ID: 21522611
+-- Lab Class : 314.117
+-- Date : 07/08/2026
+-- Starting Time: 10AM
+
+-- TASK 1.1
+SHOW DATABASES;
+
+-- TASK 1.2a
+USE dswork;
+
+CREATE TABLE Conference(confID CHAR(4),name VARCHAR(40),city VARCHAR(15),date DATE,count INT);
+
+-- TASK 1.2b
+SHOW COLUMNS FROM Conference;
+
+
+-- TASK 1.3
+INSERT INTO Conference (confID, name, city, date, count) VALUES ('5002', 'ACM Computational Thinking Conference', NULL, NULL, NULL);
+
+SELECT * FROM Conference;
+
+INSERT INTO Conference (confID, name, city, date, count) VALUES ('5003', 'ACM AI Conference', 'Perth','2027-05-01' , 350);
+
+SELECT * FROM Conference;
+
+-- Task 1.5
+UPDATE Conference SET count = 250 WHERE confID = '5003';
+
+SELECT * FROM Conference;
+
+
+-- Task 2.6
+-- staffID INT(6) NOT NULL PRIMARY KEY,firstname VARCHAR(12) NOT NULL,lastname VARCHAR(15),telephone CHAR(10),rate DECIMAL(4,2)
+
+-- Task 2.7
+CREATE TABLE CasualStaff(staffID INT(6) NOT NULL PRIMARY KEY,firstname VARCHAR(12) NOT NULL,lastname VARCHAR(15),telephone CHAR(10),rate DECIMAL(4,2) );
+
+-- Task 2.8
+INSERT INTO CasualStaff(staffID,firstname,lastname,telephone,rate) VALUES (000001, 'Andrea', 'Louis D''Livera', '0478245869',37.85);
+
+SELECT * FROM CasualStaff;
+
+
+-- TASK 3.9
+\. Stadium.txt
+
+
+SHOW TABLES;
+
+
+SHOW COLUMNS FROM Stadium;
+
+
+SELECT * FROM Stadium;
+
+
+-- TASK 3.10
+-- TASK 3.10a
+UPDATE Stadium SET capacity = 78000 WHERE capacity < 80000;
+
+SELECT * FROM Stadium;
+
+-- TASK 3.10b
+DELETE FROM Stadium WHERE has_roof = 1;
+
+
+SELECT * FROM Stadium;

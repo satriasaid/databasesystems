@@ -1,0 +1,18 @@
+INSERT INTO Customer VALUES('100011','Christine','Haas','30', 'Albacore Crescent', 'Cannington','6107','WA', 'Australia','0756438413','2020-03-15','1998-08-14',1000,500);                                         
+INSERT INTO Customer VALUES('100012','Michael','Thompson','27', 'Endeavour Drive','East Cannington','6107','WA','Australia', '0887299354','2016-03-15','2001-07-05',1000,500);  
+INSERT INTO Customer VALUES('100013','Aryan','Seth','92', 'Ross Street','Cannington','6107','QLD','Australia', '0887299354','2026-03-15','2000-06-12',900,500);
+INSERT INTO Customer VALUES('104004','John','Hendrickson','59', 'Frencham Street','Canning Vale','6155','WA','Australia', '0261309944','2021-03-20','1998-08-14',1700,NULL);
+INSERT INTO Customer VALUES('202350','Irving','Chai','11', 'Devon Street','Cannington','6107','WA','Australia', '0882510341','2023-02-22','1985-04-12',2100,NULL);
+INSERT INTO Customer VALUES('223456','Eva','Kurtz','54', 'Manchester Road','East Cannington','6107','WA','Australia', '0882510341','2022-02-10','1997-03-15',1800,600);
+INSERT INTO Customer VALUES('235670','Leondro','Wall','45', 'Panorama Loop','Canning Vale','6155','WA','Australia', '0267657272','2016-06-12','1990-11-25',1750, NULL);
+INSERT INTO Customer VALUES('250011','Eva','Pulaski','72', 'Pelican Road','Lynwood','6147','WA','Australia', NULL,'2025-03-10','1991-10-12',900,500);
+INSERT INTO Customer VALUES('250201','Michelle','Mckinley','58','Pipeclay Road','Lynwood','6147','WA','Australia', NULL,'2020-06-16','1999-04-22',1950,600);
+INSERT INTO Customer VALUES('250015','Nathan','Rao','13', 'Loop Court','Bakers Creek','6107','WA','Australia', '0749994295','2025-02-11','1998-02-23',500,700);
+INSERT INTO Customer VALUES('213688','James','Walker','36', 'Chester Street','Koonyum Range','6108','WA','Australia','0246743839','2015-04-20','1979-03-22',300,NULL); 
+INSERT INTO Customer VALUES('204577','Masatoshi','Yoshimura','20', 'Sinclair Street','Paramatta','5015','NSW','Australia', '0883518827','2019-02-25','1980-08-30',2100,200);
+INSERT INTO Customer VALUES('100211','Jacki','Willard', '21','Garden Place','Serpentine','6125','WA','Australia', NULL,'2018-07-22','1997-05-03',800,200); 
+INSERT INTO Customer VALUES('105003','Ragnar','Bower', '57', 'Maritime Avenue','Carlingford','2118','NSW','Australia', '0890462968','2020-02-20','1996-02-23',1400,500);                            
+INSERT INTO Customer VALUES('214561','Perera','Rahula', '7', 'Silvertop Loop','Parkwood','6147','WA','Australia', '0890432177','2021-02-20','2000-08-24',1400,500);                            
+INSERT INTO Customer VALUES('214600','Jacki','Tish', '21','Longton Place','Serpentine','6125','WA','Australia', NULL,'2018-05-24','1999-05-03',800,200); 
+INSERT INTO Customer VALUES('215500','Rayan','Patel', '57', 'Smile Avenue','Welshpool','6106','WA','Australia', NULL,'2020-08-28','1989-02-23',1400,500);                            
+INSERT INTO Customer VALUES('214656','Pathirage','Lelum', '7', 'Birds Loop','Welshpool','6106','WA','Australia','0267361937','2025-02-20','2000-08-24',1400,600);

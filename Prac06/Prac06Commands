@@ -1,0 +1,194 @@
+-- Name: Satria Pamungkas
+-- Student ID: 21522611
+-- Prac06
+
+-- Task 1
+-- Q1
+SELECT
+deptname,
+COUNT(projno) as no_proj
+FROM Dept
+INNER JOIN Proj ON Dept.deptno = Proj.deptno
+GROUP BY 1
+HAVING COUNT(projno) > 1;
+
+SELECT
+deptname
+FROM (
+SELECT
+deptname,
+COUNT(projno) as no_projss
+FROM Dept
+INNER JOIN Proj ON Dept.deptno = Proj.deptno
+GROUP BY 1
+HAVING COUNT(projno) > 1
+) AS deptwithmorethanoneproj;
+
+
+-- Q2
+SELECT
+projname,
+prstdate,
+ROUND((DATEDIFF(prendate, prstdate)/30),0) AS duration
+FROM Proj
+WHERE prendate = (SELECT prendate FROM Proj ORDER BY 1 ASC LIMIT 1);
+
+-- Q3
+SELECT
+empno,
+firstname,
+lastname,
+gender
+FROM Emp
+WHERE gender = 'F' 
+AND
+edlevel > 
+(SELECT AVG(edlevel) FROM Emp);
+
+-- Q4
+SELECT
+lastname,
+job,
+salary
+FROM(
+SELECT
+lastname,
+job,
+salary,
+COUNT(p.projno)
+FROM Emp e
+LEFT JOIN Pworks p ON e.empno = p.empno
+GROUP BY 1,2,3
+HAVING COUNT(p.projno) < 1
+) AS empnotworkingonproj;
+
+-- Q5
+SELECT
+firstname,
+lastname,
+edlevel
+FROM Emp
+WHERE edlevel >(
+SELECT
+max(edlevel)
+FROM Emp
+WHERE job = 'Designer'
+);
+
+-- Q6
+SELECT
+deptname
+FROM (
+SELECT
+deptname,
+COUNT(projno)
+FROM Dept
+INNER JOIN Proj ON Dept.deptno = Proj.deptno
+GROUP BY deptname
+HAVING COUNT(projno) = 1
+) AS noofproj;
+
+-- Q7
+SELECT
+projno,
+projname,
+prendate,
+remark
+FROM(
+SELECT
+sub.projno,
+sub.projname,
+sub.prendate,
+sub.projname AS 'Sub-project',
+CASE
+WHEN sub.majproj IS NOT NULL THEN 'Sub-project'
+ELSE 'Not a sub-project'
+END AS remark
+FROM Proj p
+LEFT JOIN Proj sub ON p.projno = sub.majproj
+) AS subornotsub
+ORDER BY prendate ASC;
+
+
+-- Q8
+-- need to follow this sequence
+-- SOURCE createdept.sql;
+-- SOURCE createemp.sql;
+-- SOURCE createproj.sql;
+-- SOURCE createpworks.sql;
+-- SOURCE insdept.sql;
+-- SOURCE insemp.sql;
+-- SOURCE insproj.sql;
+-- SOURCE inspworks.sql;
+
+-- Task 2
+-- Q1
+CREATE DATABASE NewCompany;
+USE NewCompany;
+
+-- Q2
+SOURCE Prac02/create_tables.sql;
+SOURCE Prac02/insdept.sql;
+SOURCE Prac02/insemp.sql;
+
+-- Q3
+CREATE TABLE Emp2(
+SELECT
+empno AS eID,
+CONCAT(lastname, ',', SUBSTRING(firstname,1,1),'.') as eName,
+ROUND((DATEDIFF(CURDATE(), birthdate)/365.25),0) AS age,
+gender,
+salary
+FROM Emp
+);
+
+-- Q4
+ALTER TABLE Emp2 ADD PRIMARY KEY (eID);
+
+
+-- Q5
+CREATE TABLE Dept2(
+did CHAR(3),
+dname VARCHAR(36),
+budget DECIMAL(12,2),
+managerid CHAR(6),
+PRIMARY KEY (did),
+FOREIGN KEY (managerid) REFERENCES Emp2 (eID)
+);
+
+-- Q6
+INSERT INTO Dept2(did, dname, budget, managerid)
+SELECT
+deptno AS did,
+deptname AS dname,
+(SUM(salary) * 0.2) AS budget,
+mgrno AS managerid
+FROM Dept
+INNER JOIN Emp ON Dept.deptno = Emp.workdept
+-- WHERE Dept.mgrno IN (SELECT eID FROM Emp2)
+GROUP BY did, dname, managerid
+;
+
+-- Q7
+CREATE TABLE Works2(
+SELECT
+empno as eID,
+workdept as did,
+1 AS percenttime
+FROM Emp
+);
+
+-- Q8
+ALTER TABLE Works2 ADD since TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
+
+-- Q9
+DELETE FROM Works2
+WHERE eID IN (SELECT managerid FROM Dept2);
+
+-- Q10. change since column values of Works2s to hiredate values of the Emp table
+UPDATE Works2 AS w
+JOIN Emp AS e on w.eID = e.empno
+SET w.since = e.hiredate;
+
+-- Q11
+ALTER TABLE Works2 ADD PRIMARY KEY(eID, workdept);

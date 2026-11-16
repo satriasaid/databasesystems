@@ -1,0 +1,11 @@
+countryCode,iso2Code,countryName,capitalCity,regionCode,regionName,incomeCode,incomeName
+AUS,AU,Australia,Canberra,EAS,East Asia & Pacific,HIC,High income
+BRA,BR,Brazil,Brasilia,LCN,Latin America & Caribbean,UMC,Upper middle income
+EGY,EG,"Egypt, Arab Rep.",Cairo,MEA,"Middle East, North Africa, Afghanistan & Pakistan",LMC,Lower middle income
+ESP,ES,Spain,Madrid,ECS,Europe & Central Asia,HIC,High income
+FRA,FR,France,Paris,ECS,Europe & Central Asia,HIC,High income
+IDN,ID,Indonesia,Jakarta,EAS,East Asia & Pacific,UMC,Upper middle income
+ITA,IT,Italy,Rome,ECS,Europe & Central Asia,HIC,High income
+JPN,JP,Japan,Tokyo,EAS,East Asia & Pacific,HIC,High income
+THA,TH,Thailand,Bangkok,EAS,East Asia & Pacific,UMC,Upper middle income
+USA,US,United States,Washington D.C.,NAC,North America,HIC,High income

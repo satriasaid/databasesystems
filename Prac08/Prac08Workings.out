@@ -1,0 +1,1991 @@
+mysql> USE dsworks;
+ERROR 1044 (42000): Access denied for user 'me'@'localhost' to database 'dsworks'
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| dswork             |
+| information_schema |
+| performance_schema |
++--------------------+
+3 rows in set (0.03 sec)
+
+mysql> USE dswork;
+Database changed
+mysql> DROP TABLE IF EXISTS Emp1;
+Query OK, 0 rows affected, 1 warning (0.01 sec)
+
+mysql> CREATE TABLE Emp1(
+    ->         emp_no     CHAR(6) ,
+    ->         name  VARCHAR(40)           ,
+    ->         dept_no    CHAR(3)               ,
+    ->         salary    DECIMAL(8,2)          ,
+    ->         supervisor CHAR(6),
+    -> PRIMARY KEY(emp_no),
+    ->         FOREIGN KEY(dept_no) REFERENCES Dept1(dept_no)
+    -> );
+ERROR 1824 (HY000): Failed to open the referenced table 'Dept1'
+mysql> DROP TABLE IF EXISTS Dept;
+Query OK, 0 rows affected, 1 warning (0.02 sec)
+
+mysql> CREATE TABLE Dept1(
+    ->             dept_no   CHAR(3),
+    ->             dept_name VARCHAR(36) NOT NULL,
+    ->             total_sal    DECIMAL(8,2),
+    ->             mgr    CHAR(6),
+    ->         PRIMARY KEY(dept_no)
+    -> );
+Query OK, 0 rows affected (0.12 sec)
+
+mysql> DROP TABLE IF EXISTS Emp1;
+Query OK, 0 rows affected, 1 warning (0.01 sec)
+
+mysql> CREATE TABLE Emp1(
+    ->         emp_no     CHAR(6) ,
+    ->         name  VARCHAR(40)           ,
+    ->         dept_no    CHAR(3)               ,
+    ->         salary    DECIMAL(8,2)          ,
+    ->         supervisor CHAR(6),
+    -> PRIMARY KEY(emp_no),
+    ->         FOREIGN KEY(dept_no) REFERENCES Dept1(dept_no)
+    -> );
+Query OK, 0 rows affected (0.15 sec)
+
+mysql> DELIMITER //
+mysql> CREATE TRIGGER after_emp_insert_total2
+    -> AFTER INSERT ON Emp1
+    -> FOR EACH ROW
+    -> Y
+    -> y
+    -> ^C
+mysql> SOURCE after_emp_insert_total2.sql
+ERROR 1419 (HY000): You do not have the SUPER privilege and binary logging is enabled (you *might* want to use the less safe log_bin_trust_function_creators variable)
+mysql> SHOW TABLES;
++------------------+
+| Tables_in_dswork |
++------------------+
+| Dept1            |
+| Emp1             |
++------------------+
+2 rows in set (0.00 sec)
+
+mysql> SHOW COLUMNS FROM Dept1;
++-----------+--------------+------+-----+---------+-------+
+| Field     | Type         | Null | Key | Default | Extra |
++-----------+--------------+------+-----+---------+-------+
+| dept_no   | char(3)      | NO   | PRI | NULL    |       |
+| dept_name | varchar(36)  | NO   |     | NULL    |       |
+| total_sal | decimal(8,2) | YES  |     | NULL    |       |
+| mgr       | char(6)      | YES  |     | NULL    |       |
++-----------+--------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> SHOW COLUMNS FROM Emp1;
++------------+--------------+------+-----+---------+-------+
+| Field      | Type         | Null | Key | Default | Extra |
++------------+--------------+------+-----+---------+-------+
+| emp_no     | char(6)      | NO   | PRI | NULL    |       |
+| name       | varchar(40)  | YES  |     | NULL    |       |
+| dept_no    | char(3)      | YES  | MUL | NULL    |       |
+| salary     | decimal(8,2) | YES  |     | NULL    |       |
+| supervisor | char(6)      | YES  |     | NULL    |       |
++------------+--------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+mysql> SET GLOBAL log_bin_trust_function_creators = 1;
+ERROR 1227 (42000): Access denied; you need (at least one of) the SUPER or SYSTEM_VARIABLES_ADMIN privilege(s) for this operation
+mysql> mysql> DROP TABLE IF EXISTS Dept;
+Query OK, 0 rows affected, 1 warning (0.02 sec)
+
+mysql> CREATE TABLE Dept1(
+    ->             dept_no   CHAR(3),
+    ->             dept_name VARCHAR(36) NOT NULL,
+    ->             total_sal    DECIMAL(8,2),
+    ->             mgr    CHAR(6),
+    ->         PRIMARY KEY(dept_no)
+    -> );
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> DROP TABLE IF EXISTS Emp1;
+Query OK, 0 rows affected, 1 warning (0.02 sec)
+
+mysql> CREATE TABLE Emp1(
+    ->         emp_no     CHAR(6) ,
+    ->         name  VARCHAR(40)           ,
+    ->         dept_no    CHAR(3)               ,
+    ->         salary    DECIMAL(8,2)          ,
+    ->         supervisor CHAR(6),
+    -> PRIMARY KEY(emp_no),
+    ->         FOREIGN KEY(dept_no) REFERENCES Dept1(dept_no)
+    -> );
+Query OK, 0 rows affected (0.16 sec)
+
+mysql> SOURCE after_emp_insert_total2.sql
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> SOURCE after_emp_update_total2.sql
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> SOURCE after_emp_update_total3.sql
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> SOURCE after_emp_delete_total.sql
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'END' at line 11
+mysql> SOURCE after_emp_delete_total.sql
+ERROR 1054 (42S22): Unknown column 'dept_num' in 'OLD'
+mysql> SOURCE after_emp_delete_total.sql
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> SOURCE before_upsert_error.sql
+ERROR: 
+Failed to open file 'before_upsert_error.sql', error: 2
+mysql> SOURCE before_emp_upsert_error.sql
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ';
+		IF NEW.salary < 24000 THEN
+				SIGNAL SQLSTATE '45000'
+					SET MESSAGE_TEXT' at line 6
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ';
+		IF NEW.salary < 24000 THEN
+				SIGNAL SQLSTATE '45000'
+					SET MESSAGE_TEXT' at line 6
+mysql> SOURCE before_emp_upsert_error.sql
+ERROR 1193 (HY000): Unknown system variable 'err_msg_less_less_24k'
+ERROR 1193 (HY000): Unknown system variable 'err_msg_less_less_24k'
+mysql> SOURCE before_emp_upsert_error.sql
+Query OK, 0 rows affected (0.03 sec)
+
+ERROR 1359 (HY000): Trigger already exists
+mysql> DROP TRIGGER before_emp_upsert_error;
+ERROR 1360 (HY000): Trigger does not exist
+mysql> SHOW TRIGGERS
+    -> ;
++-------------------------+--------+-------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------+------------------------+-----------------------------------------------------------------------------------------------------------------------+------------------+----------------------+----------------------+--------------------+
+| Trigger                 | Event  | Table | Statement                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | Timing | Created                | sql_mode                                                                                                              | Definer          | character_set_client | collation_connection | Database Collation |
++-------------------------+--------+-------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------+------------------------+-----------------------------------------------------------------------------------------------------------------------+------------------+----------------------+----------------------+--------------------+
+| after_emp_insert_total2 | INSERT | Emp1  | BEGIN
+			IF NEW.salary IS NOT NULL THEN
+				UPDATE Dept1
+					SET total_sal = total_sal + NEW.salary
+					WHERE dept_no = NEW.dept_no;
+			END IF;
+		END                                                                                                                                                                                                                                                                                                                                                                                                                                                | AFTER  | 2026-10-09 10:07:00.99 | ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION | dsuser@localhost | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| before_emp_update_total | UPDATE | Emp1  | BEGIN
+		DECLARE err_msg_less_24k VARCHAR(100);
+		SET err_msg_less_24k = CONCAT('The new salary, ', NEW.salary, ' cannot be lower than 24000');
+		IF NEW.salary < 24000 THEN
+				SIGNAL SQLSTATE '45000'
+					SET MESSAGE_TEXT = err_msg_less_24k;
+		END IF;
+	END                                                                                                                                                                                                                                                                                                                                       | BEFORE | 2026-10-09 10:12:09.27 | ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION | dsuser@localhost | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| after_emp_update_total2 | UPDATE | Emp1  | BEGIN
+		IF OLD.salary IS NOT NULL
+			AND NEW.salary IS NOT NULL THEN
+				UPDATE Dept1
+				SET total_sal = total_sal + NEW.salary - OLD.salary
+				WHERE dept_no = NEW.dept_no;
+		END IF;
+	END                                                                                                                                                                                                                                                                                                                                                                                                          | AFTER  | 2026-10-09 10:07:08.23 | ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION | dsuser@localhost | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| after_emp_update_total3 | UPDATE | Emp1  | BEGIN
+		
+		IF OLD.salary IS NOT NULL
+			AND NEW.salary IS NOT NULL THEN
+				UPDATE Dept1
+				SET total_sal = total_sal + NEW.salary - OLD.salary
+				WHERE dept_no = NEW.dept_no;
+		
+		
+		
+		ELSEIF (NEW.salary IS NULL AND OLD.salary IS NOT NULL)
+			THEN
+				UPDATE Dept1
+				SET total_sal = total_sal - OLD.salary
+				WHERE dept_no = OLD.dept_no;
+		
+		
+		ELSEIF (NEW.salary IS NOT NULL AND OLD.salary IS NULL)
+			THEN
+				UPDATE Dept1
+				SET total_sal = total_sal + NEW.salary
+				WHERE dept_no = NEW.dept_no;
+		
+		
+		ELSE
+			UPDATE Dept1
+			SET total_sal = total_sal;
+		END IF;
+	END | AFTER  | 2026-10-09 10:07:14.23 | ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION | dsuser@localhost | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| after_emp_delete_total2 | DELETE | Emp1  | BEGIN
+		IF OLD.dept_no IS NOT NULL
+			AND OLD.salary IS NOT NULL THEN
+			UPDATE Dept1
+			SET total_sal = total_sal - OLD.salary
+			WHERE dept_no = OLD.dept_no;
+		END IF;
+	END                                                                                                                                                                                                                                                                                                                                                                                                                         | AFTER  | 2026-10-09 10:08:08.28 | ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION | dsuser@localhost | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
++-------------------------+--------+-------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------+------------------------+-----------------------------------------------------------------------------------------------------------------------+------------------+----------------------+----------------------+--------------------+
+5 rows in set (0.00 sec)
+
+mysql> SHOW TRIGGERS;
++-------------------------+--------+-------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------+------------------------+-----------------------------------------------------------------------------------------------------------------------+------------------+----------------------+----------------------+--------------------+
+| Trigger                 | Event  | Table | Statement                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | Timing | Created                | sql_mode                                                                                                              | Definer          | character_set_client | collation_connection | Database Collation |
++-------------------------+--------+-------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------+------------------------+-----------------------------------------------------------------------------------------------------------------------+------------------+----------------------+----------------------+--------------------+
+| after_emp_insert_total2 | INSERT | Emp1  | BEGIN
+			IF NEW.salary IS NOT NULL THEN
+				UPDATE Dept1
+					SET total_sal = total_sal + NEW.salary
+					WHERE dept_no = NEW.dept_no;
+			END IF;
+		END                                                                                                                                                                                                                                                                                                                                                                                                                                                | AFTER  | 2026-10-09 10:07:00.99 | ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION | dsuser@localhost | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| before_emp_update_total | UPDATE | Emp1  | BEGIN
+		DECLARE err_msg_less_24k VARCHAR(100);
+		SET err_msg_less_24k = CONCAT('The new salary, ', NEW.salary, ' cannot be lower than 24000');
+		IF NEW.salary < 24000 THEN
+				SIGNAL SQLSTATE '45000'
+					SET MESSAGE_TEXT = err_msg_less_24k;
+		END IF;
+	END                                                                                                                                                                                                                                                                                                                                       | BEFORE | 2026-10-09 10:12:09.27 | ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION | dsuser@localhost | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| after_emp_update_total2 | UPDATE | Emp1  | BEGIN
+		IF OLD.salary IS NOT NULL
+			AND NEW.salary IS NOT NULL THEN
+				UPDATE Dept1
+				SET total_sal = total_sal + NEW.salary - OLD.salary
+				WHERE dept_no = NEW.dept_no;
+		END IF;
+	END                                                                                                                                                                                                                                                                                                                                                                                                          | AFTER  | 2026-10-09 10:07:08.23 | ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION | dsuser@localhost | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| after_emp_update_total3 | UPDATE | Emp1  | BEGIN
+		
+		IF OLD.salary IS NOT NULL
+			AND NEW.salary IS NOT NULL THEN
+				UPDATE Dept1
+				SET total_sal = total_sal + NEW.salary - OLD.salary
+				WHERE dept_no = NEW.dept_no;
+		
+		
+		
+		ELSEIF (NEW.salary IS NULL AND OLD.salary IS NOT NULL)
+			THEN
+				UPDATE Dept1
+				SET total_sal = total_sal - OLD.salary
+				WHERE dept_no = OLD.dept_no;
+		
+		
+		ELSEIF (NEW.salary IS NOT NULL AND OLD.salary IS NULL)
+			THEN
+				UPDATE Dept1
+				SET total_sal = total_sal + NEW.salary
+				WHERE dept_no = NEW.dept_no;
+		
+		
+		ELSE
+			UPDATE Dept1
+			SET total_sal = total_sal;
+		END IF;
+	END | AFTER  | 2026-10-09 10:07:14.23 | ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION | dsuser@localhost | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| after_emp_delete_total2 | DELETE | Emp1  | BEGIN
+		IF OLD.dept_no IS NOT NULL
+			AND OLD.salary IS NOT NULL THEN
+			UPDATE Dept1
+			SET total_sal = total_sal - OLD.salary
+			WHERE dept_no = OLD.dept_no;
+		END IF;
+	END                                                                                                                                                                                                                                                                                                                                                                                                                         | AFTER  | 2026-10-09 10:08:08.28 | ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION | dsuser@localhost | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
++-------------------------+--------+-------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------+------------------------+-----------------------------------------------------------------------------------------------------------------------+------------------+----------------------+----------------------+--------------------+
+5 rows in set (0.00 sec)
+
+mysql> DROP TRIGGER before_emp_update_total;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> DROP TRIGGER before_emp_insert_total;
+ERROR 1360 (HY000): Trigger does not exist
+mysql> SOURCE before_emp_upsert_error.sql
+Query OK, 0 rows affected (0.03 sec)
+
+ERROR 1359 (HY000): Trigger already exists
+mysql> DROP TRIGGER before_emp_update_total;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> SOURCE before_emp_upsert_error.sql
+Query OK, 0 rows affected (0.02 sec)
+
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> SHOW TABLES;
++------------------+
+| Tables_in_dswork |
++------------------+
+| Dept1            |
+| Emp1             |
++------------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM Dept1;
+Empty set (0.00 sec)
+
+mysql> SOURCE rebuild.sql
+Query OK, 0 rows affected, 1 warning (0.01 sec)
+
+Query OK, 0 rows affected (0.08 sec)
+
+Query OK, 0 rows affected, 1 warning (0.01 sec)
+
+Query OK, 0 rows affected, 1 warning (0.22 sec)
+
+Query OK, 0 rows affected, 1 warning (0.01 sec)
+
+Query OK, 0 rows affected (0.14 sec)
+
+Query OK, 0 rows affected, 1 warning (0.01 sec)
+
+Query OK, 0 rows affected (0.13 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.03 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.04 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.08 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.03 sec)
+
+Query OK, 1 row affected (0.03 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected, 2 warnings (0.02 sec)
+
+Query OK, 1 row affected, 2 warnings (0.01 sec)
+
+Query OK, 1 row affected, 2 warnings (0.01 sec)
+
+Query OK, 1 row affected, 2 warnings (0.01 sec)
+
+Query OK, 1 row affected, 2 warnings (0.01 sec)
+
+Query OK, 1 row affected, 2 warnings (0.01 sec)
+
+Query OK, 1 row affected, 2 warnings (0.01 sec)
+
+Query OK, 1 row affected, 2 warnings (0.01 sec)
+
+Query OK, 1 row affected, 2 warnings (0.01 sec)
+
+Query OK, 1 row affected, 2 warnings (0.01 sec)
+
+Query OK, 1 row affected, 2 warnings (0.02 sec)
+
+Query OK, 1 row affected, 2 warnings (0.01 sec)
+
+Query OK, 1 row affected, 2 warnings (0.02 sec)
+
+Query OK, 1 row affected, 2 warnings (0.01 sec)
+
+Query OK, 1 row affected, 2 warnings (0.01 sec)
+
+Query OK, 1 row affected, 2 warnings (0.01 sec)
+
+Query OK, 1 row affected, 2 warnings (0.01 sec)
+
+Query OK, 1 row affected, 2 warnings (0.01 sec)
+
+Query OK, 1 row affected, 2 warnings (0.01 sec)
+
+Query OK, 1 row affected, 2 warnings (0.01 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.03 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+mysql> ALTER TABLE Proj ADD COLUMN empcnt INT NULL, ADD COLUMN hrstotal DECIMAL(8,2) NULL;
+Query OK, 0 rows affected (0.10 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> UPDATE Proj pj
+    -> INNER JOIN (
+    -> SELECT projno, SUM(hours) AS hrstotal
+    -> FROM Pworks
+    -> GROUP BY projno
+    -> ) AS pw ON pj.projno = pw.projno
+    -> SET pj.hrstotal = pw.hrstotal;
+Query OK, 18 rows affected (0.02 sec)
+Rows matched: 18  Changed: 18  Warnings: 0
+
+mysql> SELECT * FROM Proj;
++--------+----------------------+--------+---------+------------+------------+---------+--------+----------+
+| projno | projname             | deptno | respemp | prstdate   | prendate   | majproj | empcnt | hrstotal |
++--------+----------------------+--------+---------+------------+------------+---------+--------+----------+
+| AD3100 | Admin Services       | D01    | 000010  | 2014-01-01 | 2015-02-01 | NULL    |   NULL |     NULL |
+| AD3110 | General AD Systems   | D21    | 000070  | 2014-01-01 | 2015-02-01 | AD3100  |   NULL |    44.00 |
+| AD3111 | Payroll Programming  | D21    | 000230  | 2014-01-01 | 2015-02-01 | AD3110  |   NULL |    42.00 |
+| AD3112 | Personnel Programmg  | D21    | 000250  | 2014-01-01 | 2015-02-01 | AD3110  |   NULL |    42.00 |
+| AD3113 | Account.Programming  | D21    | 000270  | 2014-01-01 | 2015-02-01 | AD3110  |   NULL |    42.00 |
+| IF1000 | Query Services       | C01    | 000030  | 2014-01-01 | 2015-02-01 | NULL    |   NULL |    31.00 |
+| IF2000 | User Education       | C01    | 000030  | 2014-01-01 | 2015-02-01 | NULL    |   NULL |    30.00 |
+| MA2100 | Weld Line Automation | D01    | 000010  | 2014-01-01 | 2015-02-01 | NULL    |   NULL |     NULL |
+| MA2110 | W L Programming      | D11    | 000060  | 2014-01-01 | 2015-02-01 | MA2100  |   NULL |    64.00 |
+| MA2111 | W L Program Design   | D11    | 000220  | 2014-01-01 | 2014-12-01 | MA2110  |   NULL |    63.00 |
+| MA2112 | W L Robot Design     | D11    | 000150  | 2014-01-01 | 2014-12-01 | MA2110  |   NULL |    63.00 |
+| MA2113 | W L Prod Cont Progs  | D11    | 000160  | 2014-02-15 | 2014-12-01 | MA2110  |   NULL |    63.00 |
+| OP1000 | Operation Support    | E01    | 000050  | 2014-01-01 | 2015-02-01 | NULL    |   NULL |    16.00 |
+| OP1010 | Operation            | E11    | 000090  | 2014-01-01 | 2015-02-01 | OP1000  |   NULL |   152.00 |
+| OP2000 | GEN Systems Services | E01    | 000050  | 2014-01-01 | 2015-02-01 | OP1000  |   NULL |    15.00 |
+| OP2010 | Systems Support      | E21    | 000100  | 2014-01-01 | 2015-02-01 | OP2000  |   NULL |    30.00 |
+| OP2011 | SCP Systems Support  | E21    | 000320  | 2014-01-01 | 2015-02-01 | OP2010  |   NULL |    28.00 |
+| OP2012 | Applications Support | E21    | 000330  | 2014-01-01 | 2015-02-01 | OP2010  |   NULL |    28.00 |
+| OP2013 | DB/DC Support        | E21    | 000340  | 2014-01-01 | 2015-02-01 | OP2010  |   NULL |    28.00 |
+| PL2100 | Weld Line Planning   | B01    | 000020  | 2014-01-01 | 2014-09-15 | MA2100  |   NULL |    31.00 |
++--------+----------------------+--------+---------+------------+------------+---------+--------+----------+
+20 rows in set (0.00 sec)
+
+mysql> SELECT * FROM Pworks;
++--------+--------+-------+
+| empno  | projno | hours |
++--------+--------+-------+
+| 000020 | PL2100 |    31 |
+| 000030 | IF1000 |    11 |
+| 000030 | IF2000 |    10 |
+| 000050 | OP1000 |    16 |
+| 000050 | OP2000 |    15 |
+| 000060 | MA2110 |     8 |
+| 000060 | MA2111 |     7 |
+| 000060 | MA2112 |     7 |
+| 000060 | MA2113 |     7 |
+| 000070 | AD3110 |     8 |
+| 000070 | AD3111 |     7 |
+| 000070 | AD3112 |     7 |
+| 000070 | AD3113 |     7 |
+| 000090 | OP1010 |    31 |
+| 000100 | OP2010 |     8 |
+| 000100 | OP2011 |     7 |
+| 000100 | OP2012 |     7 |
+| 000100 | OP2013 |     7 |
+| 000130 | IF1000 |    10 |
+| 000130 | IF2000 |    10 |
+| 000140 | IF1000 |    10 |
+| 000140 | IF2000 |    10 |
+| 000150 | MA2110 |     7 |
+| 000150 | MA2111 |     7 |
+| 000150 | MA2112 |     7 |
+| 000150 | MA2113 |     7 |
+| 000160 | MA2110 |     7 |
+| 000160 | MA2111 |     7 |
+| 000160 | MA2112 |     7 |
+| 000160 | MA2113 |     7 |
+| 000170 | MA2110 |     7 |
+| 000170 | MA2111 |     7 |
+| 000170 | MA2112 |     7 |
+| 000170 | MA2113 |     7 |
+| 000180 | MA2110 |     7 |
+| 000180 | MA2111 |     7 |
+| 000180 | MA2112 |     7 |
+| 000180 | MA2113 |     7 |
+| 000190 | MA2110 |     7 |
+| 000190 | MA2111 |     7 |
+| 000190 | MA2112 |     7 |
+| 000190 | MA2113 |     7 |
+| 000200 | MA2110 |     7 |
+| 000200 | MA2111 |     7 |
+| 000200 | MA2112 |     7 |
+| 000200 | MA2113 |     7 |
+| 000210 | MA2110 |     7 |
+| 000210 | MA2111 |     7 |
+| 000210 | MA2112 |     7 |
+| 000210 | MA2113 |     7 |
+| 000220 | MA2110 |     7 |
+| 000220 | MA2111 |     7 |
+| 000220 | MA2112 |     7 |
+| 000220 | MA2113 |     7 |
+| 000230 | AD3110 |     8 |
+| 000230 | AD3111 |     7 |
+| 000230 | AD3112 |     7 |
+| 000230 | AD3113 |     7 |
+| 000240 | AD3110 |     7 |
+| 000240 | AD3111 |     7 |
+| 000240 | AD3112 |     7 |
+| 000240 | AD3113 |     7 |
+| 000250 | AD3110 |     7 |
+| 000250 | AD3111 |     7 |
+| 000250 | AD3112 |     7 |
+| 000250 | AD3113 |     7 |
+| 000260 | AD3110 |     7 |
+| 000260 | AD3111 |     7 |
+| 000260 | AD3112 |     7 |
+| 000260 | AD3113 |     7 |
+| 000270 | AD3110 |     7 |
+| 000270 | AD3111 |     7 |
+| 000270 | AD3112 |     7 |
+| 000270 | AD3113 |     7 |
+| 000280 | OP1010 |    31 |
+| 000290 | OP1010 |    30 |
+| 000300 | OP1010 |    30 |
+| 000310 | OP1010 |    30 |
+| 000320 | OP2010 |     8 |
+| 000320 | OP2011 |     7 |
+| 000320 | OP2012 |     7 |
+| 000320 | OP2013 |     7 |
+| 000330 | OP2010 |     7 |
+| 000330 | OP2011 |     7 |
+| 000330 | OP2012 |     7 |
+| 000330 | OP2013 |     7 |
+| 000340 | OP2010 |     7 |
+| 000340 | OP2011 |     7 |
+| 000340 | OP2012 |     7 |
+| 000340 | OP2013 |     7 |
++--------+--------+-------+
+90 rows in set (0.00 sec)
+
+mysql> UPDATE Proj pj
+    -> INNER JOIN (
+    -> SELECT projno, COUNT(*) AS empcnt
+    -> FROM Pworks
+    -> GROUP BY projno
+    -> ) AS pw ON pj.projno = pw.projno
+    -> SET pj.empcnt = pw.empcnt;
+Query OK, 18 rows affected (0.02 sec)
+Rows matched: 18  Changed: 18  Warnings: 0
+
+mysql> SELECT * FROM Proj;
++--------+----------------------+--------+---------+------------+------------+---------+--------+----------+
+| projno | projname             | deptno | respemp | prstdate   | prendate   | majproj | empcnt | hrstotal |
++--------+----------------------+--------+---------+------------+------------+---------+--------+----------+
+| AD3100 | Admin Services       | D01    | 000010  | 2014-01-01 | 2015-02-01 | NULL    |   NULL |     NULL |
+| AD3110 | General AD Systems   | D21    | 000070  | 2014-01-01 | 2015-02-01 | AD3100  |      6 |    44.00 |
+| AD3111 | Payroll Programming  | D21    | 000230  | 2014-01-01 | 2015-02-01 | AD3110  |      6 |    42.00 |
+| AD3112 | Personnel Programmg  | D21    | 000250  | 2014-01-01 | 2015-02-01 | AD3110  |      6 |    42.00 |
+| AD3113 | Account.Programming  | D21    | 000270  | 2014-01-01 | 2015-02-01 | AD3110  |      6 |    42.00 |
+| IF1000 | Query Services       | C01    | 000030  | 2014-01-01 | 2015-02-01 | NULL    |      3 |    31.00 |
+| IF2000 | User Education       | C01    | 000030  | 2014-01-01 | 2015-02-01 | NULL    |      3 |    30.00 |
+| MA2100 | Weld Line Automation | D01    | 000010  | 2014-01-01 | 2015-02-01 | NULL    |   NULL |     NULL |
+| MA2110 | W L Programming      | D11    | 000060  | 2014-01-01 | 2015-02-01 | MA2100  |      9 |    64.00 |
+| MA2111 | W L Program Design   | D11    | 000220  | 2014-01-01 | 2014-12-01 | MA2110  |      9 |    63.00 |
+| MA2112 | W L Robot Design     | D11    | 000150  | 2014-01-01 | 2014-12-01 | MA2110  |      9 |    63.00 |
+| MA2113 | W L Prod Cont Progs  | D11    | 000160  | 2014-02-15 | 2014-12-01 | MA2110  |      9 |    63.00 |
+| OP1000 | Operation Support    | E01    | 000050  | 2014-01-01 | 2015-02-01 | NULL    |      1 |    16.00 |
+| OP1010 | Operation            | E11    | 000090  | 2014-01-01 | 2015-02-01 | OP1000  |      5 |   152.00 |
+| OP2000 | GEN Systems Services | E01    | 000050  | 2014-01-01 | 2015-02-01 | OP1000  |      1 |    15.00 |
+| OP2010 | Systems Support      | E21    | 000100  | 2014-01-01 | 2015-02-01 | OP2000  |      4 |    30.00 |
+| OP2011 | SCP Systems Support  | E21    | 000320  | 2014-01-01 | 2015-02-01 | OP2010  |      4 |    28.00 |
+| OP2012 | Applications Support | E21    | 000330  | 2014-01-01 | 2015-02-01 | OP2010  |      4 |    28.00 |
+| OP2013 | DB/DC Support        | E21    | 000340  | 2014-01-01 | 2015-02-01 | OP2010  |      4 |    28.00 |
+| PL2100 | Weld Line Planning   | B01    | 000020  | 2014-01-01 | 2014-09-15 | MA2100  |      1 |    31.00 |
++--------+----------------------+--------+---------+------------+------------+---------+--------+----------+
+20 rows in set (0.00 sec)
+
+mysql> SOUCE after_prworks_upsert_total.sql
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'SOUCE after_prworks_upsert_total.sql' at line 1
+mysql> SOURCE after_prworks_upsert_total.sql
+ERROR: 
+Failed to open file 'after_prworks_upsert_total.sql', error: 2
+mysql> SOURCE after_pworks_upsert_total.sql
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'FROM Pworks) THEN
+				UPDATE Proj
+					SET hrstotal = hrstotal + NEW.hrs;
+					S' at line 6
+ERROR 1193 (HY000): Unknown system variable 'hrstotal'
+mysql> SOURCE after_pworks_upsert_total.sql
+ERROR 1193 (HY000): Unknown system variable 'empcnt'
+ERROR 1193 (HY000): Unknown system variable 'hrstotal'
+mysql> SOURCE after_pworks_upsert_total.sql
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'SET empcnt = empcnt + 1
+					WHERE projno = NEW.projno;
+			
+			ELSE
+				UPDATE P' at line 9
+mysql> SOURCE after_pworks_upsert_total.sql
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'SET empcnt = empcnt + 1
+					WHERE projno = NEW.projno;
+			
+			ELSE
+				UPDATE P' at line 9
+mysql> SOURCE after_pworks_upsert_total.sql
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE projno = OLD.projno;
+				
+			END IF;
+		END' at line 16
+mysql> SOURCE after_pworks_upsert_total.sql
+ERROR 1363 (HY000): There is no OLD row in on INSERT trigger
+mysql> SOURCE after_pworks_upsert_total.sql
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> DROP TRIGGER after_pworks_insert_total;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> INSERT INTO Pworks(empno, projno, hours) VALUES ('000341', 'OP2013', 20);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`dswork`.`Pworks`, CONSTRAINT `Pworks_ibfk_1` FOREIGN KEY (`empno`) REFERENCES `Emp` (`empno`) ON DELETE CASCADE)
+mysql> DESC EMP;
+ERROR 1146 (42S02): Table 'dswork.EMP' doesn't exist
+mysql> DESC Emp;
++-----------+--------------+------+-----+---------+-------+
+| Field     | Type         | Null | Key | Default | Extra |
++-----------+--------------+------+-----+---------+-------+
+| empno     | char(6)      | NO   | PRI | NULL    |       |
+| firstname | varchar(12)  | YES  |     | NULL    |       |
+| midinit   | char(1)      | YES  |     | NULL    |       |
+| lastname  | varchar(15)  | YES  |     | NULL    |       |
+| workdept  | char(3)      | YES  | MUL | NULL    |       |
+| phoneno   | char(4)      | YES  |     | NULL    |       |
+| hiredate  | date         | YES  |     | NULL    |       |
+| job       | char(10)     | YES  |     | NULL    |       |
+| edlevel   | int          | YES  |     | NULL    |       |
+| gender    | char(1)      | YES  |     | NULL    |       |
+| birthdate | date         | YES  |     | NULL    |       |
+| salary    | decimal(8,2) | YES  |     | NULL    |       |
+| bonus     | decimal(8,2) | YES  |     | NULL    |       |
+| comm      | decimal(8,2) | YES  |     | NULL    |       |
++-----------+--------------+------+-----+---------+-------+
+14 rows in set (0.01 sec)
+
+mysql> DESC Pworks;
++--------+----------+------+-----+---------+-------+
+| Field  | Type     | Null | Key | Default | Extra |
++--------+----------+------+-----+---------+-------+
+| empno  | char(6)  | NO   | PRI | NULL    |       |
+| projno | char(6)  | NO   | PRI | NULL    |       |
+| hours  | smallint | YES  |     | NULL    |       |
++--------+----------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM Emp;
++--------+-----------+---------+-----------+----------+---------+------------+------------+---------+--------+------------+-----------+---------+---------+
+| empno  | firstname | midinit | lastname  | workdept | phoneno | hiredate   | job        | edlevel | gender | birthdate  | salary    | bonus   | comm    |
++--------+-----------+---------+-----------+----------+---------+------------+------------+---------+--------+------------+-----------+---------+---------+
+| 000010 | Christine | I       | Haas      | A00      | 3978    | 2000-01-01 | Pres       |      18 | F      | 1968-08-14 | 312750.00 | 1000.00 | 4220.00 |
+| 000020 | Michael   | L       | Thompson  | B01      | 3476    | 2008-10-10 | Manager    |      18 | M      | 1983-02-02 | 161250.00 |  800.00 | 3000.00 |
+| 000030 | Sally     | A       | Kwan      | C01      | 4738    | 2010-05-05 | Manager    |      20 | F      | 1980-05-11 | 158250.00 |  800.00 | 3060.00 |
+| 000050 | John      | B       | Geyer     | E01      | 6789    | 2003-08-17 | Manager    |      16 | M      | 1975-09-15 | 160175.00 |  800.00 | 3214.00 |
+| 000060 | Irving    | F       | Stern     | D11      | 6423    | 2003-09-14 | Manager    |      16 | M      | 1975-07-07 | 155555.00 |  600.00 | 2580.00 |
+| 000070 | Eva       | D       | Pulaski   | D21      | 7831    | 2000-09-30 | Manager    |      16 | F      | 1983-05-26 | 156170.00 |  700.00 | 2893.00 |
+| 000090 | Eileen    | W       | Henderson | E11      | 5498    | 2002-08-15 | Manager    |      16 | F      | 1976-05-15 | 149750.00 |  600.00 | 2380.00 |
+| 000100 | Theodore  | Q       | Spenser   | E21      | 0972    | 2006-06-19 | Manager    |      14 | M      | 1989-12-18 | 146150.00 |  500.00 | 2092.00 |
+| 000110 | Vincenzo  | G       | Lucchesi  | A00      | 3490    | 2003-05-16 | Salesrep   |      19 | M      | 1983-11-05 | 156500.00 |  900.00 | 3720.00 |
+| 000120 | Sean      |         | Oconnell  | A00      | 2167    | 2003-10-05 | Programmer |      14 | M      | 1982-10-18 |  99250.00 |  600.00 | 2340.00 |
+| 000130 | Dolores   | M       | Quintana  | C01      | 4578    | 2006-07-28 | Analyst    |      16 | F      | 1985-09-15 |  93800.00 |  500.00 | 1904.00 |
+| 000140 | Heather   | A       | Nicholls  | C01      | 1793    | 2006-12-15 | Analyst    |      18 | F      | 1986-10-19 |  88420.00 |  600.00 | 2274.00 |
+| 000150 | Bruce     |         | Adamson   | D11      | 4510    | 2007-02-12 | Designer   |      16 | M      | 1982-05-17 |  95280.00 |  500.00 | 2022.00 |
+| 000160 | Elizabeth | R       | Pianka    | D11      | 3782    | 2009-10-11 | Designer   |      17 | F      | 1987-04-12 |  92250.00 |  400.00 | 1780.00 |
+| 000170 | Masatoshi | J       | Yoshimura | D11      | 2890    | 2008-01-01 | Designer   |      16 | M      | 1986-01-05 |  84680.00 |  500.00 | 1974.00 |
+| 000180 | Marilyn   | S       | Scoutten  | D11      | 1682    | 2003-07-07 | Designer   |      17 | F      | 1982-02-21 |  81340.00 |  500.00 | 1707.00 |
+| 000190 | James     | H       | Walker    | D11      | 2986    | 2012-07-26 | Designer   |      16 | M      | 1992-06-25 |  70450.00 |  400.00 | 1636.00 |
+| 000200 | David     |         | Brown     | D11      | 4501    | 2008-03-03 | Designer   |      16 | M      | 1986-05-29 |  77740.00 |  600.00 | 2217.00 |
+| 000210 | William   | T       | Jones     | D11      | 0942    | 2009-04-11 | Designer   |      17 | M      | 1983-03-23 |  88270.00 |  400.00 | 1462.00 |
+| 000220 | Jennifer  | K       | Lutz      | D11      | 0672    | 2004-08-29 | Designer   |      18 | F      | 1979-03-19 |  89840.00 |  600.00 | 2387.00 |
+| 000230 | James     | J       | Jefferson | D21      | 2094    | 2011-11-21 | Programmer |      14 | M      | 1985-05-30 |  62180.00 |  400.00 | 1774.00 |
+| 000240 | Salvatore | M       | Marino    | D21      | 3780    | 2009-12-05 | Programmer |      17 | M      | 1984-03-31 |  68760.00 |  600.00 | 2301.00 |
+| 000250 | Daniel    | S       | Smith     | D21      | 0961    | 2009-10-30 | Programmer |      15 | M      | 1982-11-12 |  59180.00 |  400.00 | 1534.00 |
+| 000260 | Sybil     | V       | Johnson   | D21      | 8953    | 2005-09-11 | Programmer |      16 | F      | 1986-10-05 |  57250.00 |  300.00 | 1380.00 |
+| 000270 | 03ia      | L       | Perez     | D21      | 9001    | 2009-09-30 | Programmer |      15 | F      | 1983-05-26 |  57380.00 |  500.00 | 2190.00 |
+| 000280 | Ethel     | R       | Schneider | E11      | 8997    | 2009-03-24 | Operator   |      17 | F      | 1986-03-28 |  86250.00 |  500.00 | 2100.00 |
+| 000290 | John      | R       | Parker    | E11      | 4502    | 2006-05-30 | Operator   |      12 | M      | 1988-07-09 |  75340.00 |  300.00 | 1227.00 |
+| 000300 | Philip    | X       | Smith     | E11      | 2095    | 2007-06-19 | Operator   |      14 | M      | 1986-10-27 |  77750.00 |  400.00 | 1420.00 |
+| 000310 | Maude     | F       | Setright  | E11      | 3332    | 2001-09-12 | Operator   |      12 | F      | 1981-04-21 |  75900.00 |  300.00 | 1272.00 |
+| 000320 | Ramlal    | V       | Mehta     | E21      | 9990    | 2005-07-07 | Fieldrep   |      16 | M      | 1982-08-11 |  99950.00 |  400.00 | 1596.00 |
+| 000330 | Wing      |         | Lee       | E21      | 2103    | 1999-02-23 | Fieldrep   |      14 | M      | 1981-07-18 |  95370.00 |  500.00 | 2030.00 |
+| 000340 | Jason     | R       | Gounot    | E21      | 5698    | 1999-05-05 | Fieldrep   |      16 | M      | 1976-05-17 | 123840.00 |  500.00 | 1907.00 |
++--------+-----------+---------+-----------+----------+---------+------------+------------+---------+--------+------------+-----------+---------+---------+
+32 rows in set (0.00 sec)
+
+mysql> INSERT INTO Pworks(empno, projno, hours) VALUES ('000340', 'OP2013', 20);
+ERROR 1062 (23000): Duplicate entry '000340-OP2013' for key 'Pworks.PRIMARY'
+mysql> INSERT INTO Pworks(empno, projno, hours) VALUES ('000130', 'OP2013', 20);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO Emp(empno, workdept) VALUES ('000341','E21');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO Pworks(empno, projno, hours) VALUES ('000341', 'OP2013', 20);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM Proj;
++--------+----------------------+--------+---------+------------+------------+---------+--------+----------+
+| projno | projname             | deptno | respemp | prstdate   | prendate   | majproj | empcnt | hrstotal |
++--------+----------------------+--------+---------+------------+------------+---------+--------+----------+
+| AD3100 | Admin Services       | D01    | 000010  | 2014-01-01 | 2015-02-01 | NULL    |   NULL |     NULL |
+| AD3110 | General AD Systems   | D21    | 000070  | 2014-01-01 | 2015-02-01 | AD3100  |      6 |    44.00 |
+| AD3111 | Payroll Programming  | D21    | 000230  | 2014-01-01 | 2015-02-01 | AD3110  |      6 |    42.00 |
+| AD3112 | Personnel Programmg  | D21    | 000250  | 2014-01-01 | 2015-02-01 | AD3110  |      6 |    42.00 |
+| AD3113 | Account.Programming  | D21    | 000270  | 2014-01-01 | 2015-02-01 | AD3110  |      6 |    42.00 |
+| IF1000 | Query Services       | C01    | 000030  | 2014-01-01 | 2015-02-01 | NULL    |      3 |    31.00 |
+| IF2000 | User Education       | C01    | 000030  | 2014-01-01 | 2015-02-01 | NULL    |      3 |    30.00 |
+| MA2100 | Weld Line Automation | D01    | 000010  | 2014-01-01 | 2015-02-01 | NULL    |   NULL |     NULL |
+| MA2110 | W L Programming      | D11    | 000060  | 2014-01-01 | 2015-02-01 | MA2100  |      9 |    64.00 |
+| MA2111 | W L Program Design   | D11    | 000220  | 2014-01-01 | 2014-12-01 | MA2110  |      9 |    63.00 |
+| MA2112 | W L Robot Design     | D11    | 000150  | 2014-01-01 | 2014-12-01 | MA2110  |      9 |    63.00 |
+| MA2113 | W L Prod Cont Progs  | D11    | 000160  | 2014-02-15 | 2014-12-01 | MA2110  |      9 |    63.00 |
+| OP1000 | Operation Support    | E01    | 000050  | 2014-01-01 | 2015-02-01 | NULL    |      1 |    16.00 |
+| OP1010 | Operation            | E11    | 000090  | 2014-01-01 | 2015-02-01 | OP1000  |      5 |   152.00 |
+| OP2000 | GEN Systems Services | E01    | 000050  | 2014-01-01 | 2015-02-01 | OP1000  |      1 |    15.00 |
+| OP2010 | Systems Support      | E21    | 000100  | 2014-01-01 | 2015-02-01 | OP2000  |      4 |    30.00 |
+| OP2011 | SCP Systems Support  | E21    | 000320  | 2014-01-01 | 2015-02-01 | OP2010  |      4 |    28.00 |
+| OP2012 | Applications Support | E21    | 000330  | 2014-01-01 | 2015-02-01 | OP2010  |      4 |    28.00 |
+| OP2013 | DB/DC Support        | E21    | 000340  | 2014-01-01 | 2015-02-01 | OP2010  |      4 |    28.00 |
+| PL2100 | Weld Line Planning   | B01    | 000020  | 2014-01-01 | 2014-09-15 | MA2100  |      1 |    31.00 |
++--------+----------------------+--------+---------+------------+------------+---------+--------+----------+
+20 rows in set (0.00 sec)
+
+mysql> SELECT * FROM Pworks;
++--------+--------+-------+
+| empno  | projno | hours |
++--------+--------+-------+
+| 000020 | PL2100 |    31 |
+| 000030 | IF1000 |    11 |
+| 000030 | IF2000 |    10 |
+| 000050 | OP1000 |    16 |
+| 000050 | OP2000 |    15 |
+| 000060 | MA2110 |     8 |
+| 000060 | MA2111 |     7 |
+| 000060 | MA2112 |     7 |
+| 000060 | MA2113 |     7 |
+| 000070 | AD3110 |     8 |
+| 000070 | AD3111 |     7 |
+| 000070 | AD3112 |     7 |
+| 000070 | AD3113 |     7 |
+| 000090 | OP1010 |    31 |
+| 000100 | OP2010 |     8 |
+| 000100 | OP2011 |     7 |
+| 000100 | OP2012 |     7 |
+| 000100 | OP2013 |     7 |
+| 000130 | IF1000 |    10 |
+| 000130 | IF2000 |    10 |
+| 000130 | OP2013 |    20 |
+| 000140 | IF1000 |    10 |
+| 000140 | IF2000 |    10 |
+| 000150 | MA2110 |     7 |
+| 000150 | MA2111 |     7 |
+| 000150 | MA2112 |     7 |
+| 000150 | MA2113 |     7 |
+| 000160 | MA2110 |     7 |
+| 000160 | MA2111 |     7 |
+| 000160 | MA2112 |     7 |
+| 000160 | MA2113 |     7 |
+| 000170 | MA2110 |     7 |
+| 000170 | MA2111 |     7 |
+| 000170 | MA2112 |     7 |
+| 000170 | MA2113 |     7 |
+| 000180 | MA2110 |     7 |
+| 000180 | MA2111 |     7 |
+| 000180 | MA2112 |     7 |
+| 000180 | MA2113 |     7 |
+| 000190 | MA2110 |     7 |
+| 000190 | MA2111 |     7 |
+| 000190 | MA2112 |     7 |
+| 000190 | MA2113 |     7 |
+| 000200 | MA2110 |     7 |
+| 000200 | MA2111 |     7 |
+| 000200 | MA2112 |     7 |
+| 000200 | MA2113 |     7 |
+| 000210 | MA2110 |     7 |
+| 000210 | MA2111 |     7 |
+| 000210 | MA2112 |     7 |
+| 000210 | MA2113 |     7 |
+| 000220 | MA2110 |     7 |
+| 000220 | MA2111 |     7 |
+| 000220 | MA2112 |     7 |
+| 000220 | MA2113 |     7 |
+| 000230 | AD3110 |     8 |
+| 000230 | AD3111 |     7 |
+| 000230 | AD3112 |     7 |
+| 000230 | AD3113 |     7 |
+| 000240 | AD3110 |     7 |
+| 000240 | AD3111 |     7 |
+| 000240 | AD3112 |     7 |
+| 000240 | AD3113 |     7 |
+| 000250 | AD3110 |     7 |
+| 000250 | AD3111 |     7 |
+| 000250 | AD3112 |     7 |
+| 000250 | AD3113 |     7 |
+| 000260 | AD3110 |     7 |
+| 000260 | AD3111 |     7 |
+| 000260 | AD3112 |     7 |
+| 000260 | AD3113 |     7 |
+| 000270 | AD3110 |     7 |
+| 000270 | AD3111 |     7 |
+| 000270 | AD3112 |     7 |
+| 000270 | AD3113 |     7 |
+| 000280 | OP1010 |    31 |
+| 000290 | OP1010 |    30 |
+| 000300 | OP1010 |    30 |
+| 000310 | OP1010 |    30 |
+| 000320 | OP2010 |     8 |
+| 000320 | OP2011 |     7 |
+| 000320 | OP2012 |     7 |
+| 000320 | OP2013 |     7 |
+| 000330 | OP2010 |     7 |
+| 000330 | OP2011 |     7 |
+| 000330 | OP2012 |     7 |
+| 000330 | OP2013 |     7 |
+| 000340 | OP2010 |     7 |
+| 000340 | OP2011 |     7 |
+| 000340 | OP2012 |     7 |
+| 000340 | OP2013 |     7 |
+| 000341 | OP2013 |    20 |
++--------+--------+-------+
+92 rows in set (0.00 sec)
+
+mysql> SELECT * FROM Proj;
++--------+----------------------+--------+---------+------------+------------+---------+--------+----------+
+| projno | projname             | deptno | respemp | prstdate   | prendate   | majproj | empcnt | hrstotal |
++--------+----------------------+--------+---------+------------+------------+---------+--------+----------+
+| AD3100 | Admin Services       | D01    | 000010  | 2014-01-01 | 2015-02-01 | NULL    |   NULL |     NULL |
+| AD3110 | General AD Systems   | D21    | 000070  | 2014-01-01 | 2015-02-01 | AD3100  |      6 |    44.00 |
+| AD3111 | Payroll Programming  | D21    | 000230  | 2014-01-01 | 2015-02-01 | AD3110  |      6 |    42.00 |
+| AD3112 | Personnel Programmg  | D21    | 000250  | 2014-01-01 | 2015-02-01 | AD3110  |      6 |    42.00 |
+| AD3113 | Account.Programming  | D21    | 000270  | 2014-01-01 | 2015-02-01 | AD3110  |      6 |    42.00 |
+| IF1000 | Query Services       | C01    | 000030  | 2014-01-01 | 2015-02-01 | NULL    |      3 |    31.00 |
+| IF2000 | User Education       | C01    | 000030  | 2014-01-01 | 2015-02-01 | NULL    |      3 |    30.00 |
+| MA2100 | Weld Line Automation | D01    | 000010  | 2014-01-01 | 2015-02-01 | NULL    |   NULL |     NULL |
+| MA2110 | W L Programming      | D11    | 000060  | 2014-01-01 | 2015-02-01 | MA2100  |      9 |    64.00 |
+| MA2111 | W L Program Design   | D11    | 000220  | 2014-01-01 | 2014-12-01 | MA2110  |      9 |    63.00 |
+| MA2112 | W L Robot Design     | D11    | 000150  | 2014-01-01 | 2014-12-01 | MA2110  |      9 |    63.00 |
+| MA2113 | W L Prod Cont Progs  | D11    | 000160  | 2014-02-15 | 2014-12-01 | MA2110  |      9 |    63.00 |
+| OP1000 | Operation Support    | E01    | 000050  | 2014-01-01 | 2015-02-01 | NULL    |      1 |    16.00 |
+| OP1010 | Operation            | E11    | 000090  | 2014-01-01 | 2015-02-01 | OP1000  |      5 |   152.00 |
+| OP2000 | GEN Systems Services | E01    | 000050  | 2014-01-01 | 2015-02-01 | OP1000  |      1 |    15.00 |
+| OP2010 | Systems Support      | E21    | 000100  | 2014-01-01 | 2015-02-01 | OP2000  |      4 |    30.00 |
+| OP2011 | SCP Systems Support  | E21    | 000320  | 2014-01-01 | 2015-02-01 | OP2010  |      4 |    28.00 |
+| OP2012 | Applications Support | E21    | 000330  | 2014-01-01 | 2015-02-01 | OP2010  |      4 |    28.00 |
+| OP2013 | DB/DC Support        | E21    | 000340  | 2014-01-01 | 2015-02-01 | OP2010  |      4 |    28.00 |
+| PL2100 | Weld Line Planning   | B01    | 000020  | 2014-01-01 | 2014-09-15 | MA2100  |      1 |    31.00 |
++--------+----------------------+--------+---------+------------+------------+---------+--------+----------+
+20 rows in set (0.00 sec)
+
+mysql> SELECT * FROM Emp;
++--------+-----------+---------+-----------+----------+---------+------------+------------+---------+--------+------------+-----------+---------+---------+
+| empno  | firstname | midinit | lastname  | workdept | phoneno | hiredate   | job        | edlevel | gender | birthdate  | salary    | bonus   | comm    |
++--------+-----------+---------+-----------+----------+---------+------------+------------+---------+--------+------------+-----------+---------+---------+
+| 000010 | Christine | I       | Haas      | A00      | 3978    | 2000-01-01 | Pres       |      18 | F      | 1968-08-14 | 312750.00 | 1000.00 | 4220.00 |
+| 000020 | Michael   | L       | Thompson  | B01      | 3476    | 2008-10-10 | Manager    |      18 | M      | 1983-02-02 | 161250.00 |  800.00 | 3000.00 |
+| 000030 | Sally     | A       | Kwan      | C01      | 4738    | 2010-05-05 | Manager    |      20 | F      | 1980-05-11 | 158250.00 |  800.00 | 3060.00 |
+| 000050 | John      | B       | Geyer     | E01      | 6789    | 2003-08-17 | Manager    |      16 | M      | 1975-09-15 | 160175.00 |  800.00 | 3214.00 |
+| 000060 | Irving    | F       | Stern     | D11      | 6423    | 2003-09-14 | Manager    |      16 | M      | 1975-07-07 | 155555.00 |  600.00 | 2580.00 |
+| 000070 | Eva       | D       | Pulaski   | D21      | 7831    | 2000-09-30 | Manager    |      16 | F      | 1983-05-26 | 156170.00 |  700.00 | 2893.00 |
+| 000090 | Eileen    | W       | Henderson | E11      | 5498    | 2002-08-15 | Manager    |      16 | F      | 1976-05-15 | 149750.00 |  600.00 | 2380.00 |
+| 000100 | Theodore  | Q       | Spenser   | E21      | 0972    | 2006-06-19 | Manager    |      14 | M      | 1989-12-18 | 146150.00 |  500.00 | 2092.00 |
+| 000110 | Vincenzo  | G       | Lucchesi  | A00      | 3490    | 2003-05-16 | Salesrep   |      19 | M      | 1983-11-05 | 156500.00 |  900.00 | 3720.00 |
+| 000120 | Sean      |         | Oconnell  | A00      | 2167    | 2003-10-05 | Programmer |      14 | M      | 1982-10-18 |  99250.00 |  600.00 | 2340.00 |
+| 000130 | Dolores   | M       | Quintana  | C01      | 4578    | 2006-07-28 | Analyst    |      16 | F      | 1985-09-15 |  93800.00 |  500.00 | 1904.00 |
+| 000140 | Heather   | A       | Nicholls  | C01      | 1793    | 2006-12-15 | Analyst    |      18 | F      | 1986-10-19 |  88420.00 |  600.00 | 2274.00 |
+| 000150 | Bruce     |         | Adamson   | D11      | 4510    | 2007-02-12 | Designer   |      16 | M      | 1982-05-17 |  95280.00 |  500.00 | 2022.00 |
+| 000160 | Elizabeth | R       | Pianka    | D11      | 3782    | 2009-10-11 | Designer   |      17 | F      | 1987-04-12 |  92250.00 |  400.00 | 1780.00 |
+| 000170 | Masatoshi | J       | Yoshimura | D11      | 2890    | 2008-01-01 | Designer   |      16 | M      | 1986-01-05 |  84680.00 |  500.00 | 1974.00 |
+| 000180 | Marilyn   | S       | Scoutten  | D11      | 1682    | 2003-07-07 | Designer   |      17 | F      | 1982-02-21 |  81340.00 |  500.00 | 1707.00 |
+| 000190 | James     | H       | Walker    | D11      | 2986    | 2012-07-26 | Designer   |      16 | M      | 1992-06-25 |  70450.00 |  400.00 | 1636.00 |
+| 000200 | David     |         | Brown     | D11      | 4501    | 2008-03-03 | Designer   |      16 | M      | 1986-05-29 |  77740.00 |  600.00 | 2217.00 |
+| 000210 | William   | T       | Jones     | D11      | 0942    | 2009-04-11 | Designer   |      17 | M      | 1983-03-23 |  88270.00 |  400.00 | 1462.00 |
+| 000220 | Jennifer  | K       | Lutz      | D11      | 0672    | 2004-08-29 | Designer   |      18 | F      | 1979-03-19 |  89840.00 |  600.00 | 2387.00 |
+| 000230 | James     | J       | Jefferson | D21      | 2094    | 2011-11-21 | Programmer |      14 | M      | 1985-05-30 |  62180.00 |  400.00 | 1774.00 |
+| 000240 | Salvatore | M       | Marino    | D21      | 3780    | 2009-12-05 | Programmer |      17 | M      | 1984-03-31 |  68760.00 |  600.00 | 2301.00 |
+| 000250 | Daniel    | S       | Smith     | D21      | 0961    | 2009-10-30 | Programmer |      15 | M      | 1982-11-12 |  59180.00 |  400.00 | 1534.00 |
+| 000260 | Sybil     | V       | Johnson   | D21      | 8953    | 2005-09-11 | Programmer |      16 | F      | 1986-10-05 |  57250.00 |  300.00 | 1380.00 |
+| 000270 | 03ia      | L       | Perez     | D21      | 9001    | 2009-09-30 | Programmer |      15 | F      | 1983-05-26 |  57380.00 |  500.00 | 2190.00 |
+| 000280 | Ethel     | R       | Schneider | E11      | 8997    | 2009-03-24 | Operator   |      17 | F      | 1986-03-28 |  86250.00 |  500.00 | 2100.00 |
+| 000290 | John      | R       | Parker    | E11      | 4502    | 2006-05-30 | Operator   |      12 | M      | 1988-07-09 |  75340.00 |  300.00 | 1227.00 |
+| 000300 | Philip    | X       | Smith     | E11      | 2095    | 2007-06-19 | Operator   |      14 | M      | 1986-10-27 |  77750.00 |  400.00 | 1420.00 |
+| 000310 | Maude     | F       | Setright  | E11      | 3332    | 2001-09-12 | Operator   |      12 | F      | 1981-04-21 |  75900.00 |  300.00 | 1272.00 |
+| 000320 | Ramlal    | V       | Mehta     | E21      | 9990    | 2005-07-07 | Fieldrep   |      16 | M      | 1982-08-11 |  99950.00 |  400.00 | 1596.00 |
+| 000330 | Wing      |         | Lee       | E21      | 2103    | 1999-02-23 | Fieldrep   |      14 | M      | 1981-07-18 |  95370.00 |  500.00 | 2030.00 |
+| 000340 | Jason     | R       | Gounot    | E21      | 5698    | 1999-05-05 | Fieldrep   |      16 | M      | 1976-05-17 | 123840.00 |  500.00 | 1907.00 |
+| 000341 | NULL      | NULL    | NULL      | E21      | NULL    | NULL       | NULL       |    NULL | NULL   | NULL       |      NULL |    NULL |    NULL |
++--------+-----------+---------+-----------+----------+---------+------------+------------+---------+--------+------------+-----------+---------+---------+
+33 rows in set (0.01 sec)
+
+mysql> SELECT * FROM Pworks;
++--------+--------+-------+
+| empno  | projno | hours |
++--------+--------+-------+
+| 000020 | PL2100 |    31 |
+| 000030 | IF1000 |    11 |
+| 000030 | IF2000 |    10 |
+| 000050 | OP1000 |    16 |
+| 000050 | OP2000 |    15 |
+| 000060 | MA2110 |     8 |
+| 000060 | MA2111 |     7 |
+| 000060 | MA2112 |     7 |
+| 000060 | MA2113 |     7 |
+| 000070 | AD3110 |     8 |
+| 000070 | AD3111 |     7 |
+| 000070 | AD3112 |     7 |
+| 000070 | AD3113 |     7 |
+| 000090 | OP1010 |    31 |
+| 000100 | OP2010 |     8 |
+| 000100 | OP2011 |     7 |
+| 000100 | OP2012 |     7 |
+| 000100 | OP2013 |     7 |
+| 000130 | IF1000 |    10 |
+| 000130 | IF2000 |    10 |
+| 000130 | OP2013 |    20 |
+| 000140 | IF1000 |    10 |
+| 000140 | IF2000 |    10 |
+| 000150 | MA2110 |     7 |
+| 000150 | MA2111 |     7 |
+| 000150 | MA2112 |     7 |
+| 000150 | MA2113 |     7 |
+| 000160 | MA2110 |     7 |
+| 000160 | MA2111 |     7 |
+| 000160 | MA2112 |     7 |
+| 000160 | MA2113 |     7 |
+| 000170 | MA2110 |     7 |
+| 000170 | MA2111 |     7 |
+| 000170 | MA2112 |     7 |
+| 000170 | MA2113 |     7 |
+| 000180 | MA2110 |     7 |
+| 000180 | MA2111 |     7 |
+| 000180 | MA2112 |     7 |
+| 000180 | MA2113 |     7 |
+| 000190 | MA2110 |     7 |
+| 000190 | MA2111 |     7 |
+| 000190 | MA2112 |     7 |
+| 000190 | MA2113 |     7 |
+| 000200 | MA2110 |     7 |
+| 000200 | MA2111 |     7 |
+| 000200 | MA2112 |     7 |
+| 000200 | MA2113 |     7 |
+| 000210 | MA2110 |     7 |
+| 000210 | MA2111 |     7 |
+| 000210 | MA2112 |     7 |
+| 000210 | MA2113 |     7 |
+| 000220 | MA2110 |     7 |
+| 000220 | MA2111 |     7 |
+| 000220 | MA2112 |     7 |
+| 000220 | MA2113 |     7 |
+| 000230 | AD3110 |     8 |
+| 000230 | AD3111 |     7 |
+| 000230 | AD3112 |     7 |
+| 000230 | AD3113 |     7 |
+| 000240 | AD3110 |     7 |
+| 000240 | AD3111 |     7 |
+| 000240 | AD3112 |     7 |
+| 000240 | AD3113 |     7 |
+| 000250 | AD3110 |     7 |
+| 000250 | AD3111 |     7 |
+| 000250 | AD3112 |     7 |
+| 000250 | AD3113 |     7 |
+| 000260 | AD3110 |     7 |
+| 000260 | AD3111 |     7 |
+| 000260 | AD3112 |     7 |
+| 000260 | AD3113 |     7 |
+| 000270 | AD3110 |     7 |
+| 000270 | AD3111 |     7 |
+| 000270 | AD3112 |     7 |
+| 000270 | AD3113 |     7 |
+| 000280 | OP1010 |    31 |
+| 000290 | OP1010 |    30 |
+| 000300 | OP1010 |    30 |
+| 000310 | OP1010 |    30 |
+| 000320 | OP2010 |     8 |
+| 000320 | OP2011 |     7 |
+| 000320 | OP2012 |     7 |
+| 000320 | OP2013 |     7 |
+| 000330 | OP2010 |     7 |
+| 000330 | OP2011 |     7 |
+| 000330 | OP2012 |     7 |
+| 000330 | OP2013 |     7 |
+| 000340 | OP2010 |     7 |
+| 000340 | OP2011 |     7 |
+| 000340 | OP2012 |     7 |
+| 000340 | OP2013 |     7 |
+| 000341 | OP2013 |    20 |
++--------+--------+-------+
+92 rows in set (0.00 sec)
+
+mysql> SELECT * FROM Proj;
++--------+----------------------+--------+---------+------------+------------+---------+--------+----------+
+| projno | projname             | deptno | respemp | prstdate   | prendate   | majproj | empcnt | hrstotal |
++--------+----------------------+--------+---------+------------+------------+---------+--------+----------+
+| AD3100 | Admin Services       | D01    | 000010  | 2014-01-01 | 2015-02-01 | NULL    |   NULL |     NULL |
+| AD3110 | General AD Systems   | D21    | 000070  | 2014-01-01 | 2015-02-01 | AD3100  |      6 |    44.00 |
+| AD3111 | Payroll Programming  | D21    | 000230  | 2014-01-01 | 2015-02-01 | AD3110  |      6 |    42.00 |
+| AD3112 | Personnel Programmg  | D21    | 000250  | 2014-01-01 | 2015-02-01 | AD3110  |      6 |    42.00 |
+| AD3113 | Account.Programming  | D21    | 000270  | 2014-01-01 | 2015-02-01 | AD3110  |      6 |    42.00 |
+| IF1000 | Query Services       | C01    | 000030  | 2014-01-01 | 2015-02-01 | NULL    |      3 |    31.00 |
+| IF2000 | User Education       | C01    | 000030  | 2014-01-01 | 2015-02-01 | NULL    |      3 |    30.00 |
+| MA2100 | Weld Line Automation | D01    | 000010  | 2014-01-01 | 2015-02-01 | NULL    |   NULL |     NULL |
+| MA2110 | W L Programming      | D11    | 000060  | 2014-01-01 | 2015-02-01 | MA2100  |      9 |    64.00 |
+| MA2111 | W L Program Design   | D11    | 000220  | 2014-01-01 | 2014-12-01 | MA2110  |      9 |    63.00 |
+| MA2112 | W L Robot Design     | D11    | 000150  | 2014-01-01 | 2014-12-01 | MA2110  |      9 |    63.00 |
+| MA2113 | W L Prod Cont Progs  | D11    | 000160  | 2014-02-15 | 2014-12-01 | MA2110  |      9 |    63.00 |
+| OP1000 | Operation Support    | E01    | 000050  | 2014-01-01 | 2015-02-01 | NULL    |      1 |    16.00 |
+| OP1010 | Operation            | E11    | 000090  | 2014-01-01 | 2015-02-01 | OP1000  |      5 |   152.00 |
+| OP2000 | GEN Systems Services | E01    | 000050  | 2014-01-01 | 2015-02-01 | OP1000  |      1 |    15.00 |
+| OP2010 | Systems Support      | E21    | 000100  | 2014-01-01 | 2015-02-01 | OP2000  |      4 |    30.00 |
+| OP2011 | SCP Systems Support  | E21    | 000320  | 2014-01-01 | 2015-02-01 | OP2010  |      4 |    28.00 |
+| OP2012 | Applications Support | E21    | 000330  | 2014-01-01 | 2015-02-01 | OP2010  |      4 |    28.00 |
+| OP2013 | DB/DC Support        | E21    | 000340  | 2014-01-01 | 2015-02-01 | OP2010  |      4 |    28.00 |
+| PL2100 | Weld Line Planning   | B01    | 000020  | 2014-01-01 | 2014-09-15 | MA2100  |      1 |    31.00 |
++--------+----------------------+--------+---------+------------+------------+---------+--------+----------+
+20 rows in set (0.00 sec)
+
+mysql> DROP TRIGGER after_pworks_insert_total;
+ERROR 1360 (HY000): Trigger does not exist
+mysql> before_pworks_insert_total;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'before_pworks_insert_total' at line 1
+mysql> SHOW TRIGGERS;
++-------------------------+--------+-------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------+------------------------+-----------------------------------------------------------------------------------------------------------------------+------------------+----------------------+----------------------+--------------------+
+| Trigger                 | Event  | Table | Statement                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | Timing | Created                | sql_mode                                                                                                              | Definer          | character_set_client | collation_connection | Database Collation |
++-------------------------+--------+-------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------+------------------------+-----------------------------------------------------------------------------------------------------------------------+------------------+----------------------+----------------------+--------------------+
+| before_emp_insert_total | INSERT | Emp1  | BEGIN
+		DECLARE err_msg_less_24k VARCHAR(100);
+		SET err_msg_less_24k = CONCAT('The new salary, ', NEW.salary, ' cannot be lower than 24000');
+		IF NEW.salary < 24000 THEN
+				SIGNAL SQLSTATE '45000'
+					SET MESSAGE_TEXT = err_msg_less_24k;
+		END IF;
+	END                                                                                                                                                                                                                                                                                                                                       | BEFORE | 2026-10-09 10:15:03.22 | ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION | dsuser@localhost | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| after_emp_insert_total2 | INSERT | Emp1  | BEGIN
+			IF NEW.salary IS NOT NULL THEN
+				UPDATE Dept1
+					SET total_sal = total_sal + NEW.salary
+					WHERE dept_no = NEW.dept_no;
+			END IF;
+		END                                                                                                                                                                                                                                                                                                                                                                                                                                                | AFTER  | 2026-10-09 10:07:00.99 | ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION | dsuser@localhost | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| before_emp_update_total | UPDATE | Emp1  | BEGIN
+		DECLARE err_msg_less_24k VARCHAR(100);
+		SET err_msg_less_24k = CONCAT('The new salary, ', NEW.salary, ' cannot be lower than 24000');
+		IF NEW.salary < 24000 THEN
+				SIGNAL SQLSTATE '45000'
+					SET MESSAGE_TEXT = err_msg_less_24k;
+		END IF;
+	END                                                                                                                                                                                                                                                                                                                                       | BEFORE | 2026-10-09 10:15:03.20 | ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION | dsuser@localhost | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| after_emp_update_total2 | UPDATE | Emp1  | BEGIN
+		IF OLD.salary IS NOT NULL
+			AND NEW.salary IS NOT NULL THEN
+				UPDATE Dept1
+				SET total_sal = total_sal + NEW.salary - OLD.salary
+				WHERE dept_no = NEW.dept_no;
+		END IF;
+	END                                                                                                                                                                                                                                                                                                                                                                                                          | AFTER  | 2026-10-09 10:07:08.23 | ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION | dsuser@localhost | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| after_emp_update_total3 | UPDATE | Emp1  | BEGIN
+		
+		IF OLD.salary IS NOT NULL
+			AND NEW.salary IS NOT NULL THEN
+				UPDATE Dept1
+				SET total_sal = total_sal + NEW.salary - OLD.salary
+				WHERE dept_no = NEW.dept_no;
+		
+		
+		
+		ELSEIF (NEW.salary IS NULL AND OLD.salary IS NOT NULL)
+			THEN
+				UPDATE Dept1
+				SET total_sal = total_sal - OLD.salary
+				WHERE dept_no = OLD.dept_no;
+		
+		
+		ELSEIF (NEW.salary IS NOT NULL AND OLD.salary IS NULL)
+			THEN
+				UPDATE Dept1
+				SET total_sal = total_sal + NEW.salary
+				WHERE dept_no = NEW.dept_no;
+		
+		
+		ELSE
+			UPDATE Dept1
+			SET total_sal = total_sal;
+		END IF;
+	END | AFTER  | 2026-10-09 10:07:14.23 | ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION | dsuser@localhost | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| after_emp_delete_total2 | DELETE | Emp1  | BEGIN
+		IF OLD.dept_no IS NOT NULL
+			AND OLD.salary IS NOT NULL THEN
+			UPDATE Dept1
+			SET total_sal = total_sal - OLD.salary
+			WHERE dept_no = OLD.dept_no;
+		END IF;
+	END                                                                                                                                                                                                                                                                                                                                                                                                                         | AFTER  | 2026-10-09 10:08:08.28 | ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION | dsuser@localhost | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
++-------------------------+--------+-------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------+------------------------+-----------------------------------------------------------------------------------------------------------------------+------------------+----------------------+----------------------+--------------------+
+6 rows in set (0.00 sec)
+
+mysql> SOURCE after_pworks_update_total.sql
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> SHOW TRIGGERS;
++---------------------------+--------+--------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------+------------------------+-----------------------------------------------------------------------------------------------------------------------+------------------+----------------------+----------------------+--------------------+
+| Trigger                   | Event  | Table  | Statement                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | Timing | Created                | sql_mode                                                                                                              | Definer          | character_set_client | collation_connection | Database Collation |
++---------------------------+--------+--------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------+------------------------+-----------------------------------------------------------------------------------------------------------------------+------------------+----------------------+----------------------+--------------------+
+| before_emp_insert_total   | INSERT | Emp1   | BEGIN
+		DECLARE err_msg_less_24k VARCHAR(100);
+		SET err_msg_less_24k = CONCAT('The new salary, ', NEW.salary, ' cannot be lower than 24000');
+		IF NEW.salary < 24000 THEN
+				SIGNAL SQLSTATE '45000'
+					SET MESSAGE_TEXT = err_msg_less_24k;
+		END IF;
+	END                                                                                                                                                                                                                                                                                                                                       | BEFORE | 2026-10-09 10:15:03.22 | ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION | dsuser@localhost | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| after_emp_insert_total2   | INSERT | Emp1   | BEGIN
+			IF NEW.salary IS NOT NULL THEN
+				UPDATE Dept1
+					SET total_sal = total_sal + NEW.salary
+					WHERE dept_no = NEW.dept_no;
+			END IF;
+		END                                                                                                                                                                                                                                                                                                                                                                                                                                                | AFTER  | 2026-10-09 10:07:00.99 | ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION | dsuser@localhost | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| before_emp_update_total   | UPDATE | Emp1   | BEGIN
+		DECLARE err_msg_less_24k VARCHAR(100);
+		SET err_msg_less_24k = CONCAT('The new salary, ', NEW.salary, ' cannot be lower than 24000');
+		IF NEW.salary < 24000 THEN
+				SIGNAL SQLSTATE '45000'
+					SET MESSAGE_TEXT = err_msg_less_24k;
+		END IF;
+	END                                                                                                                                                                                                                                                                                                                                       | BEFORE | 2026-10-09 10:15:03.20 | ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION | dsuser@localhost | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| after_emp_update_total2   | UPDATE | Emp1   | BEGIN
+		IF OLD.salary IS NOT NULL
+			AND NEW.salary IS NOT NULL THEN
+				UPDATE Dept1
+				SET total_sal = total_sal + NEW.salary - OLD.salary
+				WHERE dept_no = NEW.dept_no;
+		END IF;
+	END                                                                                                                                                                                                                                                                                                                                                                                                          | AFTER  | 2026-10-09 10:07:08.23 | ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION | dsuser@localhost | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| after_emp_update_total3   | UPDATE | Emp1   | BEGIN
+		
+		IF OLD.salary IS NOT NULL
+			AND NEW.salary IS NOT NULL THEN
+				UPDATE Dept1
+				SET total_sal = total_sal + NEW.salary - OLD.salary
+				WHERE dept_no = NEW.dept_no;
+		
+		
+		
+		ELSEIF (NEW.salary IS NULL AND OLD.salary IS NOT NULL)
+			THEN
+				UPDATE Dept1
+				SET total_sal = total_sal - OLD.salary
+				WHERE dept_no = OLD.dept_no;
+		
+		
+		ELSEIF (NEW.salary IS NOT NULL AND OLD.salary IS NULL)
+			THEN
+				UPDATE Dept1
+				SET total_sal = total_sal + NEW.salary
+				WHERE dept_no = NEW.dept_no;
+		
+		
+		ELSE
+			UPDATE Dept1
+			SET total_sal = total_sal;
+		END IF;
+	END | AFTER  | 2026-10-09 10:07:14.23 | ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION | dsuser@localhost | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| after_emp_delete_total2   | DELETE | Emp1   | BEGIN
+		IF OLD.dept_no IS NOT NULL
+			AND OLD.salary IS NOT NULL THEN
+			UPDATE Dept1
+			SET total_sal = total_sal - OLD.salary
+			WHERE dept_no = OLD.dept_no;
+		END IF;
+	END                                                                                                                                                                                                                                                                                                                                                                                                                         | AFTER  | 2026-10-09 10:08:08.28 | ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION | dsuser@localhost | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| after_pworks_insert_total | INSERT | Pworks | BEGIN
+			
+			IF NEW.hours IS NOT NULL AND NEW.empno NOT IN (SELECT DISTINCT empno FROM Pworks) THEN
+				UPDATE Proj
+					SET hrstotal = hrstotal + NEW.hours,
+					empcnt = empcnt + 1
+					WHERE projno = NEW.projno;
+			END IF;
+		END                                                                                                                                                                                                                                                                                                                                                                | AFTER  | 2026-10-09 11:21:43.68 | ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION | dsuser@localhost | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
++---------------------------+--------+--------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------+------------------------+-----------------------------------------------------------------------------------------------------------------------+------------------+----------------------+----------------------+--------------------+
+7 rows in set (0.00 sec)
+
+mysql> clear
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> SHOW TRIGGERS;
++---------------------------+--------+--------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------+------------------------+-----------------------------------------------------------------------------------------------------------------------+------------------+----------------------+----------------------+--------------------+
+| Trigger                   | Event  | Table  | Statement                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | Timing | Created                | sql_mode                                                                                                              | Definer          | character_set_client | collation_connection | Database Collation |
++---------------------------+--------+--------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------+------------------------+-----------------------------------------------------------------------------------------------------------------------+------------------+----------------------+----------------------+--------------------+
+| before_emp_insert_total   | INSERT | Emp1   | BEGIN
+		DECLARE err_msg_less_24k VARCHAR(100);
+		SET err_msg_less_24k = CONCAT('The new salary, ', NEW.salary, ' cannot be lower than 24000');
+		IF NEW.salary < 24000 THEN
+				SIGNAL SQLSTATE '45000'
+					SET MESSAGE_TEXT = err_msg_less_24k;
+		END IF;
+	END                                                                                                                                                                                                                                                                                                                                       | BEFORE | 2026-10-09 10:15:03.22 | ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION | dsuser@localhost | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| after_emp_insert_total2   | INSERT | Emp1   | BEGIN
+			IF NEW.salary IS NOT NULL THEN
+				UPDATE Dept1
+					SET total_sal = total_sal + NEW.salary
+					WHERE dept_no = NEW.dept_no;
+			END IF;
+		END                                                                                                                                                                                                                                                                                                                                                                                                                                                | AFTER  | 2026-10-09 10:07:00.99 | ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION | dsuser@localhost | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| before_emp_update_total   | UPDATE | Emp1   | BEGIN
+		DECLARE err_msg_less_24k VARCHAR(100);
+		SET err_msg_less_24k = CONCAT('The new salary, ', NEW.salary, ' cannot be lower than 24000');
+		IF NEW.salary < 24000 THEN
+				SIGNAL SQLSTATE '45000'
+					SET MESSAGE_TEXT = err_msg_less_24k;
+		END IF;
+	END                                                                                                                                                                                                                                                                                                                                       | BEFORE | 2026-10-09 10:15:03.20 | ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION | dsuser@localhost | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| after_emp_update_total2   | UPDATE | Emp1   | BEGIN
+		IF OLD.salary IS NOT NULL
+			AND NEW.salary IS NOT NULL THEN
+				UPDATE Dept1
+				SET total_sal = total_sal + NEW.salary - OLD.salary
+				WHERE dept_no = NEW.dept_no;
+		END IF;
+	END                                                                                                                                                                                                                                                                                                                                                                                                          | AFTER  | 2026-10-09 10:07:08.23 | ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION | dsuser@localhost | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| after_emp_update_total3   | UPDATE | Emp1   | BEGIN
+		
+		IF OLD.salary IS NOT NULL
+			AND NEW.salary IS NOT NULL THEN
+				UPDATE Dept1
+				SET total_sal = total_sal + NEW.salary - OLD.salary
+				WHERE dept_no = NEW.dept_no;
+		
+		
+		
+		ELSEIF (NEW.salary IS NULL AND OLD.salary IS NOT NULL)
+			THEN
+				UPDATE Dept1
+				SET total_sal = total_sal - OLD.salary
+				WHERE dept_no = OLD.dept_no;
+		
+		
+		ELSEIF (NEW.salary IS NOT NULL AND OLD.salary IS NULL)
+			THEN
+				UPDATE Dept1
+				SET total_sal = total_sal + NEW.salary
+				WHERE dept_no = NEW.dept_no;
+		
+		
+		ELSE
+			UPDATE Dept1
+			SET total_sal = total_sal;
+		END IF;
+	END | AFTER  | 2026-10-09 10:07:14.23 | ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION | dsuser@localhost | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| after_emp_delete_total2   | DELETE | Emp1   | BEGIN
+		IF OLD.dept_no IS NOT NULL
+			AND OLD.salary IS NOT NULL THEN
+			UPDATE Dept1
+			SET total_sal = total_sal - OLD.salary
+			WHERE dept_no = OLD.dept_no;
+		END IF;
+	END                                                                                                                                                                                                                                                                                                                                                                                                                         | AFTER  | 2026-10-09 10:08:08.28 | ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION | dsuser@localhost | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| after_pworks_insert_total | INSERT | Pworks | BEGIN
+			
+			IF NEW.hours IS NOT NULL AND NEW.empno NOT IN (SELECT DISTINCT empno FROM Pworks) THEN
+				UPDATE Proj
+					SET hrstotal = hrstotal + NEW.hours,
+					empcnt = empcnt + 1
+					WHERE projno = NEW.projno;
+			END IF;
+		END                                                                                                                                                                                                                                                                                                                                                                | AFTER  | 2026-10-09 11:21:43.68 | ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION | dsuser@localhost | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
++---------------------------+--------+--------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------+------------------------+-----------------------------------------------------------------------------------------------------------------------+------------------+----------------------+----------------------+--------------------+
+7 rows in set (0.01 sec)
+
+mysql> DELIMITER //
+mysql> 
+mysql> CREATE TRIGGER after_pworks_insert_total
+    -> AFTER INSERT ON Pworks
+    -> FOR EACH ROW
+    -> y
+    -> 
+    -> 
+    -> 
+    -> 
+    -> 
+    -> ^C
+mysql> INSERT INTO Emp('000342','E21');
+    -> ^C
+mysql> INSERT INTO Emp(empno, workdept) VALUES ('000342','E21');
+    -> 
+    -> ^C
+mysql> INSERT INTO Emp(empno, workdept) VALUES ('000342','E21');
+    -> ^C
+mysql> INSERT INTO Emp(empno, workdept) VALUES ('000342','E21')//
+Query OK, 1 row affected (0.01 sec)
+
+mysql> DELIMITER ;
+mysql> SELECT * FROM Pworks;
++--------+--------+-------+
+| empno  | projno | hours |
++--------+--------+-------+
+| 000020 | PL2100 |    31 |
+| 000030 | IF1000 |    11 |
+| 000030 | IF2000 |    10 |
+| 000050 | OP1000 |    16 |
+| 000050 | OP2000 |    15 |
+| 000060 | MA2110 |     8 |
+| 000060 | MA2111 |     7 |
+| 000060 | MA2112 |     7 |
+| 000060 | MA2113 |     7 |
+| 000070 | AD3110 |     8 |
+| 000070 | AD3111 |     7 |
+| 000070 | AD3112 |     7 |
+| 000070 | AD3113 |     7 |
+| 000090 | OP1010 |    31 |
+| 000100 | OP2010 |     8 |
+| 000100 | OP2011 |     7 |
+| 000100 | OP2012 |     7 |
+| 000100 | OP2013 |     7 |
+| 000130 | IF1000 |    10 |
+| 000130 | IF2000 |    10 |
+| 000130 | OP2013 |    20 |
+| 000140 | IF1000 |    10 |
+| 000140 | IF2000 |    10 |
+| 000150 | MA2110 |     7 |
+| 000150 | MA2111 |     7 |
+| 000150 | MA2112 |     7 |
+| 000150 | MA2113 |     7 |
+| 000160 | MA2110 |     7 |
+| 000160 | MA2111 |     7 |
+| 000160 | MA2112 |     7 |
+| 000160 | MA2113 |     7 |
+| 000170 | MA2110 |     7 |
+| 000170 | MA2111 |     7 |
+| 000170 | MA2112 |     7 |
+| 000170 | MA2113 |     7 |
+| 000180 | MA2110 |     7 |
+| 000180 | MA2111 |     7 |
+| 000180 | MA2112 |     7 |
+| 000180 | MA2113 |     7 |
+| 000190 | MA2110 |     7 |
+| 000190 | MA2111 |     7 |
+| 000190 | MA2112 |     7 |
+| 000190 | MA2113 |     7 |
+| 000200 | MA2110 |     7 |
+| 000200 | MA2111 |     7 |
+| 000200 | MA2112 |     7 |
+| 000200 | MA2113 |     7 |
+| 000210 | MA2110 |     7 |
+| 000210 | MA2111 |     7 |
+| 000210 | MA2112 |     7 |
+| 000210 | MA2113 |     7 |
+| 000220 | MA2110 |     7 |
+| 000220 | MA2111 |     7 |
+| 000220 | MA2112 |     7 |
+| 000220 | MA2113 |     7 |
+| 000230 | AD3110 |     8 |
+| 000230 | AD3111 |     7 |
+| 000230 | AD3112 |     7 |
+| 000230 | AD3113 |     7 |
+| 000240 | AD3110 |     7 |
+| 000240 | AD3111 |     7 |
+| 000240 | AD3112 |     7 |
+| 000240 | AD3113 |     7 |
+| 000250 | AD3110 |     7 |
+| 000250 | AD3111 |     7 |
+| 000250 | AD3112 |     7 |
+| 000250 | AD3113 |     7 |
+| 000260 | AD3110 |     7 |
+| 000260 | AD3111 |     7 |
+| 000260 | AD3112 |     7 |
+| 000260 | AD3113 |     7 |
+| 000270 | AD3110 |     7 |
+| 000270 | AD3111 |     7 |
+| 000270 | AD3112 |     7 |
+| 000270 | AD3113 |     7 |
+| 000280 | OP1010 |    31 |
+| 000290 | OP1010 |    30 |
+| 000300 | OP1010 |    30 |
+| 000310 | OP1010 |    30 |
+| 000320 | OP2010 |     8 |
+| 000320 | OP2011 |     7 |
+| 000320 | OP2012 |     7 |
+| 000320 | OP2013 |     7 |
+| 000330 | OP2010 |     7 |
+| 000330 | OP2011 |     7 |
+| 000330 | OP2012 |     7 |
+| 000330 | OP2013 |     7 |
+| 000340 | OP2010 |     7 |
+| 000340 | OP2011 |     7 |
+| 000340 | OP2012 |     7 |
+| 000340 | OP2013 |     7 |
+| 000341 | OP2013 |    20 |
++--------+--------+-------+
+92 rows in set (0.00 sec)
+
+mysql> SELECT * FROM Emp;
++--------+-----------+---------+-----------+----------+---------+------------+------------+---------+--------+------------+-----------+---------+---------+
+| empno  | firstname | midinit | lastname  | workdept | phoneno | hiredate   | job        | edlevel | gender | birthdate  | salary    | bonus   | comm    |
++--------+-----------+---------+-----------+----------+---------+------------+------------+---------+--------+------------+-----------+---------+---------+
+| 000010 | Christine | I       | Haas      | A00      | 3978    | 2000-01-01 | Pres       |      18 | F      | 1968-08-14 | 312750.00 | 1000.00 | 4220.00 |
+| 000020 | Michael   | L       | Thompson  | B01      | 3476    | 2008-10-10 | Manager    |      18 | M      | 1983-02-02 | 161250.00 |  800.00 | 3000.00 |
+| 000030 | Sally     | A       | Kwan      | C01      | 4738    | 2010-05-05 | Manager    |      20 | F      | 1980-05-11 | 158250.00 |  800.00 | 3060.00 |
+| 000050 | John      | B       | Geyer     | E01      | 6789    | 2003-08-17 | Manager    |      16 | M      | 1975-09-15 | 160175.00 |  800.00 | 3214.00 |
+| 000060 | Irving    | F       | Stern     | D11      | 6423    | 2003-09-14 | Manager    |      16 | M      | 1975-07-07 | 155555.00 |  600.00 | 2580.00 |
+| 000070 | Eva       | D       | Pulaski   | D21      | 7831    | 2000-09-30 | Manager    |      16 | F      | 1983-05-26 | 156170.00 |  700.00 | 2893.00 |
+| 000090 | Eileen    | W       | Henderson | E11      | 5498    | 2002-08-15 | Manager    |      16 | F      | 1976-05-15 | 149750.00 |  600.00 | 2380.00 |
+| 000100 | Theodore  | Q       | Spenser   | E21      | 0972    | 2006-06-19 | Manager    |      14 | M      | 1989-12-18 | 146150.00 |  500.00 | 2092.00 |
+| 000110 | Vincenzo  | G       | Lucchesi  | A00      | 3490    | 2003-05-16 | Salesrep   |      19 | M      | 1983-11-05 | 156500.00 |  900.00 | 3720.00 |
+| 000120 | Sean      |         | Oconnell  | A00      | 2167    | 2003-10-05 | Programmer |      14 | M      | 1982-10-18 |  99250.00 |  600.00 | 2340.00 |
+| 000130 | Dolores   | M       | Quintana  | C01      | 4578    | 2006-07-28 | Analyst    |      16 | F      | 1985-09-15 |  93800.00 |  500.00 | 1904.00 |
+| 000140 | Heather   | A       | Nicholls  | C01      | 1793    | 2006-12-15 | Analyst    |      18 | F      | 1986-10-19 |  88420.00 |  600.00 | 2274.00 |
+| 000150 | Bruce     |         | Adamson   | D11      | 4510    | 2007-02-12 | Designer   |      16 | M      | 1982-05-17 |  95280.00 |  500.00 | 2022.00 |
+| 000160 | Elizabeth | R       | Pianka    | D11      | 3782    | 2009-10-11 | Designer   |      17 | F      | 1987-04-12 |  92250.00 |  400.00 | 1780.00 |
+| 000170 | Masatoshi | J       | Yoshimura | D11      | 2890    | 2008-01-01 | Designer   |      16 | M      | 1986-01-05 |  84680.00 |  500.00 | 1974.00 |
+| 000180 | Marilyn   | S       | Scoutten  | D11      | 1682    | 2003-07-07 | Designer   |      17 | F      | 1982-02-21 |  81340.00 |  500.00 | 1707.00 |
+| 000190 | James     | H       | Walker    | D11      | 2986    | 2012-07-26 | Designer   |      16 | M      | 1992-06-25 |  70450.00 |  400.00 | 1636.00 |
+| 000200 | David     |         | Brown     | D11      | 4501    | 2008-03-03 | Designer   |      16 | M      | 1986-05-29 |  77740.00 |  600.00 | 2217.00 |
+| 000210 | William   | T       | Jones     | D11      | 0942    | 2009-04-11 | Designer   |      17 | M      | 1983-03-23 |  88270.00 |  400.00 | 1462.00 |
+| 000220 | Jennifer  | K       | Lutz      | D11      | 0672    | 2004-08-29 | Designer   |      18 | F      | 1979-03-19 |  89840.00 |  600.00 | 2387.00 |
+| 000230 | James     | J       | Jefferson | D21      | 2094    | 2011-11-21 | Programmer |      14 | M      | 1985-05-30 |  62180.00 |  400.00 | 1774.00 |
+| 000240 | Salvatore | M       | Marino    | D21      | 3780    | 2009-12-05 | Programmer |      17 | M      | 1984-03-31 |  68760.00 |  600.00 | 2301.00 |
+| 000250 | Daniel    | S       | Smith     | D21      | 0961    | 2009-10-30 | Programmer |      15 | M      | 1982-11-12 |  59180.00 |  400.00 | 1534.00 |
+| 000260 | Sybil     | V       | Johnson   | D21      | 8953    | 2005-09-11 | Programmer |      16 | F      | 1986-10-05 |  57250.00 |  300.00 | 1380.00 |
+| 000270 | 03ia      | L       | Perez     | D21      | 9001    | 2009-09-30 | Programmer |      15 | F      | 1983-05-26 |  57380.00 |  500.00 | 2190.00 |
+| 000280 | Ethel     | R       | Schneider | E11      | 8997    | 2009-03-24 | Operator   |      17 | F      | 1986-03-28 |  86250.00 |  500.00 | 2100.00 |
+| 000290 | John      | R       | Parker    | E11      | 4502    | 2006-05-30 | Operator   |      12 | M      | 1988-07-09 |  75340.00 |  300.00 | 1227.00 |
+| 000300 | Philip    | X       | Smith     | E11      | 2095    | 2007-06-19 | Operator   |      14 | M      | 1986-10-27 |  77750.00 |  400.00 | 1420.00 |
+| 000310 | Maude     | F       | Setright  | E11      | 3332    | 2001-09-12 | Operator   |      12 | F      | 1981-04-21 |  75900.00 |  300.00 | 1272.00 |
+| 000320 | Ramlal    | V       | Mehta     | E21      | 9990    | 2005-07-07 | Fieldrep   |      16 | M      | 1982-08-11 |  99950.00 |  400.00 | 1596.00 |
+| 000330 | Wing      |         | Lee       | E21      | 2103    | 1999-02-23 | Fieldrep   |      14 | M      | 1981-07-18 |  95370.00 |  500.00 | 2030.00 |
+| 000340 | Jason     | R       | Gounot    | E21      | 5698    | 1999-05-05 | Fieldrep   |      16 | M      | 1976-05-17 | 123840.00 |  500.00 | 1907.00 |
+| 000341 | NULL      | NULL    | NULL      | E21      | NULL    | NULL       | NULL       |    NULL | NULL   | NULL       |      NULL |    NULL |    NULL |
+| 000342 | NULL      | NULL    | NULL      | E21      | NULL    | NULL       | NULL       |    NULL | NULL   | NULL       |      NULL |    NULL |    NULL |
++--------+-----------+---------+-----------+----------+---------+------------+------------+---------+--------+------------+-----------+---------+---------+
+34 rows in set (0.00 sec)
+
+mysql> SELECT * FROM Proj;
++--------+----------------------+--------+---------+------------+------------+---------+--------+----------+
+| projno | projname             | deptno | respemp | prstdate   | prendate   | majproj | empcnt | hrstotal |
++--------+----------------------+--------+---------+------------+------------+---------+--------+----------+
+| AD3100 | Admin Services       | D01    | 000010  | 2014-01-01 | 2015-02-01 | NULL    |   NULL |     NULL |
+| AD3110 | General AD Systems   | D21    | 000070  | 2014-01-01 | 2015-02-01 | AD3100  |      6 |    44.00 |
+| AD3111 | Payroll Programming  | D21    | 000230  | 2014-01-01 | 2015-02-01 | AD3110  |      6 |    42.00 |
+| AD3112 | Personnel Programmg  | D21    | 000250  | 2014-01-01 | 2015-02-01 | AD3110  |      6 |    42.00 |
+| AD3113 | Account.Programming  | D21    | 000270  | 2014-01-01 | 2015-02-01 | AD3110  |      6 |    42.00 |
+| IF1000 | Query Services       | C01    | 000030  | 2014-01-01 | 2015-02-01 | NULL    |      3 |    31.00 |
+| IF2000 | User Education       | C01    | 000030  | 2014-01-01 | 2015-02-01 | NULL    |      3 |    30.00 |
+| MA2100 | Weld Line Automation | D01    | 000010  | 2014-01-01 | 2015-02-01 | NULL    |   NULL |     NULL |
+| MA2110 | W L Programming      | D11    | 000060  | 2014-01-01 | 2015-02-01 | MA2100  |      9 |    64.00 |
+| MA2111 | W L Program Design   | D11    | 000220  | 2014-01-01 | 2014-12-01 | MA2110  |      9 |    63.00 |
+| MA2112 | W L Robot Design     | D11    | 000150  | 2014-01-01 | 2014-12-01 | MA2110  |      9 |    63.00 |
+| MA2113 | W L Prod Cont Progs  | D11    | 000160  | 2014-02-15 | 2014-12-01 | MA2110  |      9 |    63.00 |
+| OP1000 | Operation Support    | E01    | 000050  | 2014-01-01 | 2015-02-01 | NULL    |      1 |    16.00 |
+| OP1010 | Operation            | E11    | 000090  | 2014-01-01 | 2015-02-01 | OP1000  |      5 |   152.00 |
+| OP2000 | GEN Systems Services | E01    | 000050  | 2014-01-01 | 2015-02-01 | OP1000  |      1 |    15.00 |
+| OP2010 | Systems Support      | E21    | 000100  | 2014-01-01 | 2015-02-01 | OP2000  |      4 |    30.00 |
+| OP2011 | SCP Systems Support  | E21    | 000320  | 2014-01-01 | 2015-02-01 | OP2010  |      4 |    28.00 |
+| OP2012 | Applications Support | E21    | 000330  | 2014-01-01 | 2015-02-01 | OP2010  |      4 |    28.00 |
+| OP2013 | DB/DC Support        | E21    | 000340  | 2014-01-01 | 2015-02-01 | OP2010  |      4 |    28.00 |
+| PL2100 | Weld Line Planning   | B01    | 000020  | 2014-01-01 | 2014-09-15 | MA2100  |      1 |    31.00 |
++--------+----------------------+--------+---------+------------+------------+---------+--------+----------+
+20 rows in set (0.00 sec)
+
+mysql> INSERT INTO Pworks(empno, projno, hours) VALUES ('000342', 'OP2013', 20);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM Proj;
++--------+----------------------+--------+---------+------------+------------+---------+--------+----------+
+| projno | projname             | deptno | respemp | prstdate   | prendate   | majproj | empcnt | hrstotal |
++--------+----------------------+--------+---------+------------+------------+---------+--------+----------+
+| AD3100 | Admin Services       | D01    | 000010  | 2014-01-01 | 2015-02-01 | NULL    |   NULL |     NULL |
+| AD3110 | General AD Systems   | D21    | 000070  | 2014-01-01 | 2015-02-01 | AD3100  |      6 |    44.00 |
+| AD3111 | Payroll Programming  | D21    | 000230  | 2014-01-01 | 2015-02-01 | AD3110  |      6 |    42.00 |
+| AD3112 | Personnel Programmg  | D21    | 000250  | 2014-01-01 | 2015-02-01 | AD3110  |      6 |    42.00 |
+| AD3113 | Account.Programming  | D21    | 000270  | 2014-01-01 | 2015-02-01 | AD3110  |      6 |    42.00 |
+| IF1000 | Query Services       | C01    | 000030  | 2014-01-01 | 2015-02-01 | NULL    |      3 |    31.00 |
+| IF2000 | User Education       | C01    | 000030  | 2014-01-01 | 2015-02-01 | NULL    |      3 |    30.00 |
+| MA2100 | Weld Line Automation | D01    | 000010  | 2014-01-01 | 2015-02-01 | NULL    |   NULL |     NULL |
+| MA2110 | W L Programming      | D11    | 000060  | 2014-01-01 | 2015-02-01 | MA2100  |      9 |    64.00 |
+| MA2111 | W L Program Design   | D11    | 000220  | 2014-01-01 | 2014-12-01 | MA2110  |      9 |    63.00 |
+| MA2112 | W L Robot Design     | D11    | 000150  | 2014-01-01 | 2014-12-01 | MA2110  |      9 |    63.00 |
+| MA2113 | W L Prod Cont Progs  | D11    | 000160  | 2014-02-15 | 2014-12-01 | MA2110  |      9 |    63.00 |
+| OP1000 | Operation Support    | E01    | 000050  | 2014-01-01 | 2015-02-01 | NULL    |      1 |    16.00 |
+| OP1010 | Operation            | E11    | 000090  | 2014-01-01 | 2015-02-01 | OP1000  |      5 |   152.00 |
+| OP2000 | GEN Systems Services | E01    | 000050  | 2014-01-01 | 2015-02-01 | OP1000  |      1 |    15.00 |
+| OP2010 | Systems Support      | E21    | 000100  | 2014-01-01 | 2015-02-01 | OP2000  |      4 |    30.00 |
+| OP2011 | SCP Systems Support  | E21    | 000320  | 2014-01-01 | 2015-02-01 | OP2010  |      4 |    28.00 |
+| OP2012 | Applications Support | E21    | 000330  | 2014-01-01 | 2015-02-01 | OP2010  |      4 |    28.00 |
+| OP2013 | DB/DC Support        | E21    | 000340  | 2014-01-01 | 2015-02-01 | OP2010  |      4 |    28.00 |
+| PL2100 | Weld Line Planning   | B01    | 000020  | 2014-01-01 | 2014-09-15 | MA2100  |      1 |    31.00 |
++--------+----------------------+--------+---------+------------+------------+---------+--------+----------+
+20 rows in set (0.00 sec)
+
+mysql> SHOW TRIGGERS;
++---------------------------+--------+--------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------+------------------------+-----------------------------------------------------------------------------------------------------------------------+------------------+----------------------+----------------------+--------------------+
+| Trigger                   | Event  | Table  | Statement                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | Timing | Created                | sql_mode                                                                                                              | Definer          | character_set_client | collation_connection | Database Collation |
++---------------------------+--------+--------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------+------------------------+-----------------------------------------------------------------------------------------------------------------------+------------------+----------------------+----------------------+--------------------+
+| before_emp_insert_total   | INSERT | Emp1   | BEGIN
+		DECLARE err_msg_less_24k VARCHAR(100);
+		SET err_msg_less_24k = CONCAT('The new salary, ', NEW.salary, ' cannot be lower than 24000');
+		IF NEW.salary < 24000 THEN
+				SIGNAL SQLSTATE '45000'
+					SET MESSAGE_TEXT = err_msg_less_24k;
+		END IF;
+	END                                                                                                                                                                                                                                                                                                                                       | BEFORE | 2026-10-09 10:15:03.22 | ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION | dsuser@localhost | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| after_emp_insert_total2   | INSERT | Emp1   | BEGIN
+			IF NEW.salary IS NOT NULL THEN
+				UPDATE Dept1
+					SET total_sal = total_sal + NEW.salary
+					WHERE dept_no = NEW.dept_no;
+			END IF;
+		END                                                                                                                                                                                                                                                                                                                                                                                                                                                | AFTER  | 2026-10-09 10:07:00.99 | ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION | dsuser@localhost | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| before_emp_update_total   | UPDATE | Emp1   | BEGIN
+		DECLARE err_msg_less_24k VARCHAR(100);
+		SET err_msg_less_24k = CONCAT('The new salary, ', NEW.salary, ' cannot be lower than 24000');
+		IF NEW.salary < 24000 THEN
+				SIGNAL SQLSTATE '45000'
+					SET MESSAGE_TEXT = err_msg_less_24k;
+		END IF;
+	END                                                                                                                                                                                                                                                                                                                                       | BEFORE | 2026-10-09 10:15:03.20 | ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION | dsuser@localhost | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| after_emp_update_total2   | UPDATE | Emp1   | BEGIN
+		IF OLD.salary IS NOT NULL
+			AND NEW.salary IS NOT NULL THEN
+				UPDATE Dept1
+				SET total_sal = total_sal + NEW.salary - OLD.salary
+				WHERE dept_no = NEW.dept_no;
+		END IF;
+	END                                                                                                                                                                                                                                                                                                                                                                                                          | AFTER  | 2026-10-09 10:07:08.23 | ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION | dsuser@localhost | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| after_emp_update_total3   | UPDATE | Emp1   | BEGIN
+		
+		IF OLD.salary IS NOT NULL
+			AND NEW.salary IS NOT NULL THEN
+				UPDATE Dept1
+				SET total_sal = total_sal + NEW.salary - OLD.salary
+				WHERE dept_no = NEW.dept_no;
+		
+		
+		
+		ELSEIF (NEW.salary IS NULL AND OLD.salary IS NOT NULL)
+			THEN
+				UPDATE Dept1
+				SET total_sal = total_sal - OLD.salary
+				WHERE dept_no = OLD.dept_no;
+		
+		
+		ELSEIF (NEW.salary IS NOT NULL AND OLD.salary IS NULL)
+			THEN
+				UPDATE Dept1
+				SET total_sal = total_sal + NEW.salary
+				WHERE dept_no = NEW.dept_no;
+		
+		
+		ELSE
+			UPDATE Dept1
+			SET total_sal = total_sal;
+		END IF;
+	END | AFTER  | 2026-10-09 10:07:14.23 | ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION | dsuser@localhost | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| after_emp_delete_total2   | DELETE | Emp1   | BEGIN
+		IF OLD.dept_no IS NOT NULL
+			AND OLD.salary IS NOT NULL THEN
+			UPDATE Dept1
+			SET total_sal = total_sal - OLD.salary
+			WHERE dept_no = OLD.dept_no;
+		END IF;
+	END                                                                                                                                                                                                                                                                                                                                                                                                                         | AFTER  | 2026-10-09 10:08:08.28 | ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION | dsuser@localhost | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| after_pworks_insert_total | INSERT | Pworks | BEGIN
+			
+			IF NEW.hours IS NOT NULL AND NEW.empno NOT IN (SELECT DISTINCT empno FROM Pworks) THEN
+				UPDATE Proj
+					SET hrstotal = hrstotal + NEW.hours,
+					empcnt = empcnt + 1
+					WHERE projno = NEW.projno;
+			END IF;
+		END                                                                                                                                                                                                                                                                                                                                                                | AFTER  | 2026-10-09 11:21:43.68 | ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION | dsuser@localhost | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
++---------------------------+--------+--------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------+------------------------+-----------------------------------------------------------------------------------------------------------------------+------------------+----------------------+----------------------+--------------------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT * FROM Pworks;
++--------+--------+-------+
+| empno  | projno | hours |
++--------+--------+-------+
+| 000020 | PL2100 |    31 |
+| 000030 | IF1000 |    11 |
+| 000030 | IF2000 |    10 |
+| 000050 | OP1000 |    16 |
+| 000050 | OP2000 |    15 |
+| 000060 | MA2110 |     8 |
+| 000060 | MA2111 |     7 |
+| 000060 | MA2112 |     7 |
+| 000060 | MA2113 |     7 |
+| 000070 | AD3110 |     8 |
+| 000070 | AD3111 |     7 |
+| 000070 | AD3112 |     7 |
+| 000070 | AD3113 |     7 |
+| 000090 | OP1010 |    31 |
+| 000100 | OP2010 |     8 |
+| 000100 | OP2011 |     7 |
+| 000100 | OP2012 |     7 |
+| 000100 | OP2013 |     7 |
+| 000130 | IF1000 |    10 |
+| 000130 | IF2000 |    10 |
+| 000130 | OP2013 |    20 |
+| 000140 | IF1000 |    10 |
+| 000140 | IF2000 |    10 |
+| 000150 | MA2110 |     7 |
+| 000150 | MA2111 |     7 |
+| 000150 | MA2112 |     7 |
+| 000150 | MA2113 |     7 |
+| 000160 | MA2110 |     7 |
+| 000160 | MA2111 |     7 |
+| 000160 | MA2112 |     7 |
+| 000160 | MA2113 |     7 |
+| 000170 | MA2110 |     7 |
+| 000170 | MA2111 |     7 |
+| 000170 | MA2112 |     7 |
+| 000170 | MA2113 |     7 |
+| 000180 | MA2110 |     7 |
+| 000180 | MA2111 |     7 |
+| 000180 | MA2112 |     7 |
+| 000180 | MA2113 |     7 |
+| 000190 | MA2110 |     7 |
+| 000190 | MA2111 |     7 |
+| 000190 | MA2112 |     7 |
+| 000190 | MA2113 |     7 |
+| 000200 | MA2110 |     7 |
+| 000200 | MA2111 |     7 |
+| 000200 | MA2112 |     7 |
+| 000200 | MA2113 |     7 |
+| 000210 | MA2110 |     7 |
+| 000210 | MA2111 |     7 |
+| 000210 | MA2112 |     7 |
+| 000210 | MA2113 |     7 |
+| 000220 | MA2110 |     7 |
+| 000220 | MA2111 |     7 |
+| 000220 | MA2112 |     7 |
+| 000220 | MA2113 |     7 |
+| 000230 | AD3110 |     8 |
+| 000230 | AD3111 |     7 |
+| 000230 | AD3112 |     7 |
+| 000230 | AD3113 |     7 |
+| 000240 | AD3110 |     7 |
+| 000240 | AD3111 |     7 |
+| 000240 | AD3112 |     7 |
+| 000240 | AD3113 |     7 |
+| 000250 | AD3110 |     7 |
+| 000250 | AD3111 |     7 |
+| 000250 | AD3112 |     7 |
+| 000250 | AD3113 |     7 |
+| 000260 | AD3110 |     7 |
+| 000260 | AD3111 |     7 |
+| 000260 | AD3112 |     7 |
+| 000260 | AD3113 |     7 |
+| 000270 | AD3110 |     7 |
+| 000270 | AD3111 |     7 |
+| 000270 | AD3112 |     7 |
+| 000270 | AD3113 |     7 |
+| 000280 | OP1010 |    31 |
+| 000290 | OP1010 |    30 |
+| 000300 | OP1010 |    30 |
+| 000310 | OP1010 |    30 |
+| 000320 | OP2010 |     8 |
+| 000320 | OP2011 |     7 |
+| 000320 | OP2012 |     7 |
+| 000320 | OP2013 |     7 |
+| 000330 | OP2010 |     7 |
+| 000330 | OP2011 |     7 |
+| 000330 | OP2012 |     7 |
+| 000330 | OP2013 |     7 |
+| 000340 | OP2010 |     7 |
+| 000340 | OP2011 |     7 |
+| 000340 | OP2012 |     7 |
+| 000340 | OP2013 |     7 |
+| 000341 | OP2013 |    20 |
+| 000342 | OP2013 |    20 |
++--------+--------+-------+
+93 rows in set (0.00 sec)
+
+mysql> SELECT * FROM Proj;
++--------+----------------------+--------+---------+------------+------------+---------+--------+----------+
+| projno | projname             | deptno | respemp | prstdate   | prendate   | majproj | empcnt | hrstotal |
++--------+----------------------+--------+---------+------------+------------+---------+--------+----------+
+| AD3100 | Admin Services       | D01    | 000010  | 2014-01-01 | 2015-02-01 | NULL    |   NULL |     NULL |
+| AD3110 | General AD Systems   | D21    | 000070  | 2014-01-01 | 2015-02-01 | AD3100  |      6 |    44.00 |
+| AD3111 | Payroll Programming  | D21    | 000230  | 2014-01-01 | 2015-02-01 | AD3110  |      6 |    42.00 |
+| AD3112 | Personnel Programmg  | D21    | 000250  | 2014-01-01 | 2015-02-01 | AD3110  |      6 |    42.00 |
+| AD3113 | Account.Programming  | D21    | 000270  | 2014-01-01 | 2015-02-01 | AD3110  |      6 |    42.00 |
+| IF1000 | Query Services       | C01    | 000030  | 2014-01-01 | 2015-02-01 | NULL    |      3 |    31.00 |
+| IF2000 | User Education       | C01    | 000030  | 2014-01-01 | 2015-02-01 | NULL    |      3 |    30.00 |
+| MA2100 | Weld Line Automation | D01    | 000010  | 2014-01-01 | 2015-02-01 | NULL    |   NULL |     NULL |
+| MA2110 | W L Programming      | D11    | 000060  | 2014-01-01 | 2015-02-01 | MA2100  |      9 |    64.00 |
+| MA2111 | W L Program Design   | D11    | 000220  | 2014-01-01 | 2014-12-01 | MA2110  |      9 |    63.00 |
+| MA2112 | W L Robot Design     | D11    | 000150  | 2014-01-01 | 2014-12-01 | MA2110  |      9 |    63.00 |
+| MA2113 | W L Prod Cont Progs  | D11    | 000160  | 2014-02-15 | 2014-12-01 | MA2110  |      9 |    63.00 |
+| OP1000 | Operation Support    | E01    | 000050  | 2014-01-01 | 2015-02-01 | NULL    |      1 |    16.00 |
+| OP1010 | Operation            | E11    | 000090  | 2014-01-01 | 2015-02-01 | OP1000  |      5 |   152.00 |
+| OP2000 | GEN Systems Services | E01    | 000050  | 2014-01-01 | 2015-02-01 | OP1000  |      1 |    15.00 |
+| OP2010 | Systems Support      | E21    | 000100  | 2014-01-01 | 2015-02-01 | OP2000  |      4 |    30.00 |
+| OP2011 | SCP Systems Support  | E21    | 000320  | 2014-01-01 | 2015-02-01 | OP2010  |      4 |    28.00 |
+| OP2012 | Applications Support | E21    | 000330  | 2014-01-01 | 2015-02-01 | OP2010  |      4 |    28.00 |
+| OP2013 | DB/DC Support        | E21    | 000340  | 2014-01-01 | 2015-02-01 | OP2010  |      4 |    28.00 |
+| PL2100 | Weld Line Planning   | B01    | 000020  | 2014-01-01 | 2014-09-15 | MA2100  |      1 |    31.00 |
++--------+----------------------+--------+---------+------------+------------+---------+--------+----------+
+20 rows in set (0.00 sec)
+
+mysql> 

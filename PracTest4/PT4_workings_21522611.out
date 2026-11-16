@@ -1,0 +1,1839 @@
+mysql> SOURCE pracTest4Tables_b.sql;
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+mysql> SOURCE pracTest4Values_b.sql;
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+mysql> -- Q3: Display the structure
+mysql> SHOW TABLES;
+ERROR 1046 (3D000): No database selected
+mysql> SHOW COLUMNS FROM Faculty;
+ERROR 1046 (3D000): No database selected
+mysql> SHOW COLUMNS FROM Student;
+ERROR 1046 (3D000): No database selected
+mysql> SHOW COLUMNS FROM Activity;
+ERROR 1046 (3D000): No database selected
+mysql> SHOW COLUMNS FROM VolWork;
+ERROR 1046 (3D000): No database selected
+mysql> USE dswork;
+Database changed
+mysql> SOURCE pracTest4Tables_b.sql;
+Query OK, 0 rows affected, 1 warning (0.06 sec)
+
+Query OK, 0 rows affected (0.20 sec)
+
+Query OK, 0 rows affected, 1 warning (0.01 sec)
+
+Query OK, 0 rows affected (0.13 sec)
+
+Query OK, 0 rows affected, 1 warning (0.01 sec)
+
+Query OK, 0 rows affected, 1 warning (0.23 sec)
+
+Query OK, 0 rows affected, 1 warning (0.01 sec)
+
+Query OK, 0 rows affected (0.16 sec)
+
+mysql> SOURCE pracTest4Values_b.sql;
+Query OK, 1 row affected (0.05 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.03 sec)
+
+Query OK, 1 row affected (0.06 sec)
+
+Query OK, 1 row affected (0.04 sec)
+
+Query OK, 1 row affected (0.04 sec)
+
+Query OK, 1 row affected (0.03 sec)
+
+Query OK, 1 row affected (0.03 sec)
+
+Query OK, 1 row affected (0.06 sec)
+
+Query OK, 1 row affected (0.06 sec)
+
+Query OK, 1 row affected (0.08 sec)
+
+Query OK, 1 row affected (0.04 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.05 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.04 sec)
+
+Query OK, 1 row affected (0.03 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.04 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.03 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+mysql> -- Q3: Display the structure
+mysql> SHOW TABLES;
++------------------+
+| Tables_in_dswork |
++------------------+
+| Activity         |
+| Faculty          |
+| Student          |
+| VolWork          |
++------------------+
+4 rows in set (0.00 sec)
+
+mysql> SHOW COLUMNS FROM Faculty;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| faculty_code | char(3)     | NO   | PRI | NULL    |       |
+| faculty_name | varchar(36) | NO   |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+2 rows in set (0.06 sec)
+
+mysql> SHOW COLUMNS FROM Student;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| stu_no       | char(6)     | NO   | PRI | NULL    |       |
+| first_name   | varchar(12) | YES  |     | NULL    |       |
+| last_name    | varchar(15) | YES  |     | NULL    |       |
+| faculty_code | char(3)     | YES  | MUL | NULL    |       |
+| reg_date     | date        | YES  |     | NULL    |       |
+| comm_rate    | char(4)     | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> SHOW COLUMNS FROM Activity;
++----------------------+--------------+------+-----+---------+-------+
+| Field                | Type         | Null | Key | Default | Extra |
++----------------------+--------------+------+-----+---------+-------+
+| activity_no          | char(6)      | NO   | PRI | NULL    |       |
+| activity_name        | varchar(24)  | NO   |     | NULL    |       |
+| faculty_code         | char(3)      | NO   | MUL | NULL    |       |
+| leader               | char(6)      | NO   | MUL | NULL    |       |
+| est_cost             | decimal(8,2) | YES  |     | NULL    |       |
+| faculty_contribution | decimal(8,2) | YES  |     | NULL    |       |
+| priority             | smallint     | YES  |     | NULL    |       |
++----------------------+--------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+mysql> SHOW COLUMNS FROM VolWork;
++-------------+----------+------+-----+---------+-------+
+| Field       | Type     | Null | Key | Default | Extra |
++-------------+----------+------+-----+---------+-------+
+| stu_no      | char(6)  | NO   | PRI | NULL    |       |
+| activity_no | char(6)  | NO   | PRI | NULL    |       |
+| hours       | smallint | YES  |     | NULL    |       |
++-------------+----------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql>     SELECT 
+    ->         f.faculty_name, 
+    ->         f.faculty_code,
+    ->         IFNULL(SUM(a.est_cost),NULL) AS 'Total Estimated Cost of Voluntary Activities of the Faculty',
+    ->         IFNULL(SUM(a.faculty_contribution),NULL) AS 'Total faculty contribution of voluntary activities of the faculty',
+    ->         COUNT(*) AS 'The number of voluntary activities each faculty offered'
+    ->     FROM Activity a
+    ->     INNER JOIN Faculty f ON a.faculty_code = f.faculty_code;
+ERROR 1140 (42000): In aggregated query without GROUP BY, expression #1 of SELECT list contains nonaggregated column 'dswork.f.faculty_name'; this is incompatible with sql_mode=only_full_group_by
+mysql>     GROUP BY f.faculty_name, f.faculty_code
+    ->     ORDER BY a.est_cost ASC
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'GROUP BY f.faculty_name, f.faculty_code
+    ORDER BY a.est_cost ASC' at line 1
+mysql> SELECT 
+    ->         f.faculty_name, 
+    ->         f.faculty_code,
+    ->         IFNULL(SUM(a.est_cost),NULL) AS 'Total Estimated Cost of Voluntary Activities of the Faculty',
+    ->         IFNULL(SUM(a.faculty_contribution),NULL) AS 'Total faculty contribution of voluntary activities of the faculty',
+    ->         COUNT(*) AS 'The number of voluntary activities each faculty offered'
+    -> FROM Activity a
+    -> INNER JOIN Faculty f ON a.faculty_code = f.faculty_code;
+ERROR 1140 (42000): In aggregated query without GROUP BY, expression #1 of SELECT list contains nonaggregated column 'dswork.f.faculty_name'; this is incompatible with sql_mode=only_full_group_by
+mysql> GROUP BY f.faculty_name, f.faculty_code
+    -> ORDER BY a.est_cost ASC;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'GROUP BY f.faculty_name, f.faculty_code
+ORDER BY a.est_cost ASC' at line 1
+mysql> SELECT 
+    -> f.faculty_name, 
+    -> f.faculty_code,
+    -> IFNULL(SUM(a.est_cost),NULL) AS 'Total Estimated Cost of Voluntary Activities of the Faculty',
+    -> IFNULL(SUM(a.faculty_contribution),NULL) AS 'Total faculty contribution of voluntary activities of the faculty',
+    -> COUNT(*) AS 'The number of voluntary activities each faculty offered'
+    -> FROM Activity a
+    -> INNER JOIN Faculty f ON a.faculty_code = f.faculty_code;
+ERROR 1140 (42000): In aggregated query without GROUP BY, expression #1 of SELECT list contains nonaggregated column 'dswork.f.faculty_name'; this is incompatible with sql_mode=only_full_group_by
+mysql> GROUP BY f.faculty_name, f.faculty_code
+    -> ORDER BY a.est_cost ASC;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'GROUP BY f.faculty_name, f.faculty_code
+ORDER BY a.est_cost ASC' at line 1
+mysql> SELECT 
+    -> f.faculty_name, 
+    -> f.faculty_code,
+    -> IFNULL(SUM(a.est_cost),NULL) AS 'Total Estimated Cost of Voluntary Activities of the Faculty',
+    -> IFNULL(SUM(a.faculty_contribution),NULL) AS 'Total faculty contribution of voluntary activities of the faculty',
+    -> COUNT(*) AS 'The number of voluntary activities each faculty offered'
+    -> FROM Activity a
+    -> INNER JOIN Faculty f ON a.faculty_code = f.faculty_code
+    -> GROUP BY f.faculty_name, f.faculty_code
+    -> ORDER BY a.est_cost ASC;
+ERROR 1055 (42000): Expression #1 of ORDER BY clause is not in GROUP BY clause and contains nonaggregated column 'dswork.a.est_cost' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> SELECT 
+    -> f.faculty_name, 
+    -> f.faculty_code,
+    -> IFNULL(SUM(a.est_cost),NULL) AS 'Total Estimated Cost of Voluntary Activities of the Faculty',
+    -> IFNULL(SUM(a.faculty_contribution),NULL) AS 'Total faculty contribution of voluntary activities of the faculty',
+    -> COUNT(*) AS 'The number of voluntary activities each faculty offered'
+    -> FROM Activity a
+    -> INNER JOIN Faculty f ON a.faculty_code = f.faculty_code
+    -> GROUP BY f.faculty_name, f.faculty_code;
++------------------------------------+--------------+-------------------------------------------------------------+-------------------------------------------------------------------+---------------------------------------------------------+
+| faculty_name                       | faculty_code | Total Estimated Cost of Voluntary Activities of the Faculty | Total faculty contribution of voluntary activities of the faculty | The number of voluntary activities each faculty offered |
++------------------------------------+--------------+-------------------------------------------------------------+-------------------------------------------------------------------+---------------------------------------------------------+
+| Faculty of Science and Engineering | A01          |                                                    15500.00 |                                                           1000.00 |                                                       3 |
+| Faculty of Humanities              | A02          |                                                     1100.00 |                                                            100.00 |                                                       2 |
+| Faculty of Health Sceiences        | A03          |                                                     8000.00 |                                                           3000.00 |                                                       1 |
+| Faculty of Law                     | A05          |                                                     1200.00 |                                                            600.00 |                                                       1 |
++------------------------------------+--------------+-------------------------------------------------------------+-------------------------------------------------------------------+---------------------------------------------------------+
+4 rows in set (0.01 sec)
+
+mysql> SELECT 
+    -> f.faculty_name, 
+    -> f.faculty_code,
+    -> IFNULL(SUM(a.est_cost),NULL) AS 'Total Estimated Cost of Voluntary Activities of the Faculty',
+    -> IFNULL(SUM(a.faculty_contribution),NULL) AS 'Total faculty contribution of voluntary activities of the faculty',
+    -> COUNT(*) AS 'The number of voluntary activities each faculty offered'
+    -> FROM Activity a
+    -> INNER JOIN Faculty f ON a.faculty_code = f.faculty_code
+    -> GROUP BY f.faculty_name, f.faculty_code
+    -> ORDER BY IFNULL(SUM(a.est_cost),NULL) ASC;
++------------------------------------+--------------+-------------------------------------------------------------+-------------------------------------------------------------------+---------------------------------------------------------+
+| faculty_name                       | faculty_code | Total Estimated Cost of Voluntary Activities of the Faculty | Total faculty contribution of voluntary activities of the faculty | The number of voluntary activities each faculty offered |
++------------------------------------+--------------+-------------------------------------------------------------+-------------------------------------------------------------------+---------------------------------------------------------+
+| Faculty of Humanities              | A02          |                                                     1100.00 |                                                            100.00 |                                                       2 |
+| Faculty of Law                     | A05          |                                                     1200.00 |                                                            600.00 |                                                       1 |
+| Faculty of Health Sceiences        | A03          |                                                     8000.00 |                                                           3000.00 |                                                       1 |
+| Faculty of Science and Engineering | A01          |                                                    15500.00 |                                                           1000.00 |                                                       3 |
++------------------------------------+--------------+-------------------------------------------------------------+-------------------------------------------------------------------+---------------------------------------------------------+
+4 rows in set (0.00 sec)
+
+mysql> CREATE VIEW FacultyActivities AS(
+    -> SELECT 
+    -> f.faculty_name, 
+    -> f.faculty_code,
+    -> IFNULL(SUM(a.est_cost),NULL) AS 'Total Estimated Cost of Voluntary Activities of the Faculty',
+    -> IFNULL(SUM(a.faculty_contribution),NULL) AS 'Total faculty contribution of voluntary activities of the faculty',
+    -> COUNT(*) AS 'The number of voluntary activities each faculty offered'
+    -> FROM Activity a
+    -> INNER JOIN Faculty f ON a.faculty_code = f.faculty_code
+    -> GROUP BY f.faculty_name, f.faculty_code
+    -> ORDER BY IFNULL(SUM(a.est_cost),NULL) ASC;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 11
+mysql> )
+    -> SELECT * FROM FacultyActivities;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')
+SELECT * FROM FacultyActivities' at line 1
+mysql> CREATE VIEW FacultyActivities AS(
+    -> SELECT 
+    -> f.faculty_name, 
+    -> f.faculty_code,
+    -> IFNULL(SUM(a.est_cost),NULL) AS 'Total Estimated Cost of Voluntary Activities of the Faculty',
+    -> IFNULL(SUM(a.faculty_contribution),NULL) AS 'Total faculty contribution of voluntary activities of the faculty',
+    -> COUNT(*) AS 'The number of voluntary activities each faculty offered'
+    -> FROM Activity a
+    -> INNER JOIN Faculty f ON a.faculty_code = f.faculty_code
+    -> GROUP BY f.faculty_name, f.faculty_code
+    -> ORDER BY IFNULL(SUM(a.est_cost),NULL) ASC
+    -> )
+    -> SELECT * FROM FacultyActivities;
+ERROR 1166 (42000): Incorrect column name 'Total faculty contribution of voluntary activities of the faculty'
+mysql> SELECT 
+    -> f.faculty_name, 
+    -> f.faculty_code,
+    -> IFNULL(SUM(a.est_cost),NULL) AS 'Total Estimated Cost of Voluntary Activities of the Faculty',
+    -> IFNULL(SUM(a.faculty_contribution),NULL) AS 'Total faculty contribution of voluntary activities of the faculty',
+    -> COUNT(*) AS 'The number of voluntary activities each faculty offered'
+    -> FROM Activity a
+    -> INNER JOIN Faculty f ON a.faculty_code = f.faculty_code
+    -> GROUP BY f.faculty_name, f.faculty_code
+    -> ORDER BY IFNULL(SUM(a.est_cost),NULL) ASC;
++------------------------------------+--------------+-------------------------------------------------------------+-------------------------------------------------------------------+---------------------------------------------------------+
+| faculty_name                       | faculty_code | Total Estimated Cost of Voluntary Activities of the Faculty | Total faculty contribution of voluntary activities of the faculty | The number of voluntary activities each faculty offered |
++------------------------------------+--------------+-------------------------------------------------------------+-------------------------------------------------------------------+---------------------------------------------------------+
+| Faculty of Humanities              | A02          |                                                     1100.00 |                                                            100.00 |                                                       2 |
+| Faculty of Law                     | A05          |                                                     1200.00 |                                                            600.00 |                                                       1 |
+| Faculty of Health Sceiences        | A03          |                                                     8000.00 |                                                           3000.00 |                                                       1 |
+| Faculty of Science and Engineering | A01          |                                                    15500.00 |                                                           1000.00 |                                                       3 |
++------------------------------------+--------------+-------------------------------------------------------------+-------------------------------------------------------------------+---------------------------------------------------------+
+4 rows in set (0.00 sec)
+
+mysql> SHOW VIEWS;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'VIEWS' at line 1
+mysql> CREATE VIEW FacultyActivities AS
+    -> SELECT 
+    -> f.faculty_name, 
+    -> f.faculty_code,
+    -> IFNULL(SUM(a.est_cost),NULL) AS 'Total Estimated Cost of Voluntary Activities of the Faculty',
+    -> IFNULL(SUM(a.faculty_contribution),NULL) AS 'Total faculty contribution of voluntary activities of the faculty',
+    -> COUNT(*) AS 'The number of voluntary activities each faculty offered'
+    -> FROM Activity a
+    -> INNER JOIN Faculty f ON a.faculty_code = f.faculty_code
+    -> GROUP BY f.faculty_name, f.faculty_code
+    -> ORDER BY IFNULL(SUM(a.est_cost),NULL) ASC;
+ERROR 1166 (42000): Incorrect column name 'Total faculty contribution of voluntary activities of the faculty'
+mysql> CREATE VIEW FacultyActivities AS
+    -> SELECT 
+    -> f.faculty_name AS faculty_name, 
+    -> f.faculty_code AS faculty_code,
+    -> IFNULL(SUM(a.est_cost),NULL) AS total_est_cost,
+    -> IFNULL(SUM(a.faculty_contribution),NULL) AS total_fac_contribution,
+    -> COUNT(a.activity_no) AS num_activities
+    -> FROM Activity a
+    -> INNER JOIN Faculty f ON a.faculty_code = f.faculty_code
+    -> GROUP BY f.faculty_name, f.faculty_code
+    -> ORDER BY IFNULL(SUM(a.est_cost),NULL) ASC;
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> 
+mysql> SELECT * FROM FacultyActivities;
++------------------------------------+--------------+----------------+------------------------+----------------+
+| faculty_name                       | faculty_code | total_est_cost | total_fac_contribution | num_activities |
++------------------------------------+--------------+----------------+------------------------+----------------+
+| Faculty of Humanities              | A02          |        1100.00 |                 100.00 |              2 |
+| Faculty of Law                     | A05          |        1200.00 |                 600.00 |              1 |
+| Faculty of Health Sceiences        | A03          |        8000.00 |                3000.00 |              1 |
+| Faculty of Science and Engineering | A01          |       15500.00 |                1000.00 |              3 |
++------------------------------------+--------------+----------------+------------------------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> DROP VIEW FacultyActivities;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> CREATE VIEW FacultyActivities AS
+    -> SELECT 
+    -> f.faculty_name AS faculty_name, 
+    -> f.faculty_code AS faculty_code,
+    -> SUM(a.est_cost) AS total_est_cost,
+    -> SUM(a.faculty_contribution) AS total_fac_contribution,
+    -> COUNT(a.activity_no) AS num_activities
+    -> FROM Activity a
+    -> INNER JOIN Faculty f ON a.faculty_code = f.faculty_code
+    -> GROUP BY f.faculty_name, f.faculty_code
+    -> ORDER BY IFNULL(SUM(a.est_cost),NULL) ASC;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> 
+mysql> SELECT * FROM FacultyActivities;
++------------------------------------+--------------+----------------+------------------------+----------------+
+| faculty_name                       | faculty_code | total_est_cost | total_fac_contribution | num_activities |
++------------------------------------+--------------+----------------+------------------------+----------------+
+| Faculty of Humanities              | A02          |        1100.00 |                 100.00 |              2 |
+| Faculty of Law                     | A05          |        1200.00 |                 600.00 |              1 |
+| Faculty of Health Sceiences        | A03          |        8000.00 |                3000.00 |              1 |
+| Faculty of Science and Engineering | A01          |       15500.00 |                1000.00 |              3 |
++------------------------------------+--------------+----------------+------------------------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> DROP VIEW IF EXISTS FacultyActivities;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> CREATE VIEW FacultyActivities AS
+    -> SELECT 
+    -> f.faculty_name AS faculty_name, 
+    -> f.faculty_code AS faculty_code,
+    -> SUM(a.est_cost) AS total_est_cost,
+    -> SUM(a.faculty_contribution) AS total_fac_contribution,
+    -> COUNT(a.activity_no) AS num_activities
+    -> FROM Activity a
+    -> LEFT JOIN Faculty f ON a.faculty_code = f.faculty_code
+    -> GROUP BY f.faculty_name, f.faculty_code
+    -> ORDER BY IFNULL(SUM(a.est_cost),NULL) ASC;
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> 
+mysql> SELECT * FROM FacultyActivities;
++------------------------------------+--------------+----------------+------------------------+----------------+
+| faculty_name                       | faculty_code | total_est_cost | total_fac_contribution | num_activities |
++------------------------------------+--------------+----------------+------------------------+----------------+
+| Faculty of Humanities              | A02          |        1100.00 |                 100.00 |              2 |
+| Faculty of Law                     | A05          |        1200.00 |                 600.00 |              1 |
+| Faculty of Health Sceiences        | A03          |        8000.00 |                3000.00 |              1 |
+| Faculty of Science and Engineering | A01          |       15500.00 |                1000.00 |              3 |
++------------------------------------+--------------+----------------+------------------------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> DROP VIEW IF EXISTS FacultyActivities;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> CREATE VIEW FacultyActivities AS
+    -> SELECT 
+    -> f.faculty_name AS faculty_name, 
+    -> f.faculty_code AS faculty_code,
+    -> SUM(a.est_cost) AS total_est_cost,
+    -> SUM(a.faculty_contribution) AS total_fac_contribution,
+    -> COUNT(a.activity_no) AS num_activities
+    -> FROM Activity a
+    -> RIGHT JOIN Faculty f ON a.faculty_code = f.faculty_code
+    -> GROUP BY f.faculty_name, f.faculty_code
+    -> ORDER BY IFNULL(SUM(a.est_cost),NULL) ASC;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> 
+mysql> SELECT * FROM FacultyActivities;
++------------------------------------+--------------+----------------+------------------------+----------------+
+| faculty_name                       | faculty_code | total_est_cost | total_fac_contribution | num_activities |
++------------------------------------+--------------+----------------+------------------------+----------------+
+| Faculty of Management              | A04          |           NULL |                   NULL |              0 |
+| Faculty of Humanities              | A02          |        1100.00 |                 100.00 |              2 |
+| Faculty of Law                     | A05          |        1200.00 |                 600.00 |              1 |
+| Faculty of Health Sceiences        | A03          |        8000.00 |                3000.00 |              1 |
+| Faculty of Science and Engineering | A01          |       15500.00 |                1000.00 |              3 |
++------------------------------------+--------------+----------------+------------------------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM FacultyActivities WHERE num_activities = NULL;
+Empty set (0.00 sec)
+
+mysql> SELECT * FROM FacultyActivities WHERE num_activities = 0;
++-----------------------+--------------+----------------+------------------------+----------------+
+| faculty_name          | faculty_code | total_est_cost | total_fac_contribution | num_activities |
++-----------------------+--------------+----------------+------------------------+----------------+
+| Faculty of Management | A04          |           NULL |                   NULL |              0 |
++-----------------------+--------------+----------------+------------------------+----------------+
+1 row in set (0.00 sec)
+
+mysql> SHOW COLUMNS FROM Activity;
++----------------------+--------------+------+-----+---------+-------+
+| Field                | Type         | Null | Key | Default | Extra |
++----------------------+--------------+------+-----+---------+-------+
+| activity_no          | char(6)      | NO   | PRI | NULL    |       |
+| activity_name        | varchar(24)  | NO   |     | NULL    |       |
+| faculty_code         | char(3)      | NO   | MUL | NULL    |       |
+| leader               | char(6)      | NO   | MUL | NULL    |       |
+| est_cost             | decimal(8,2) | YES  |     | NULL    |       |
+| faculty_contribution | decimal(8,2) | YES  |     | NULL    |       |
+| priority             | smallint     | YES  |     | NULL    |       |
++----------------------+--------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+mysql> DROP PROCEDURE IF EXISTS addActivity;
+Query OK, 0 rows affected, 1 warning (0.07 sec)
+
+mysql> DELIMITER //
+mysql>     CREATE PROCEDURE addActivity(
+    ->         IN actno CHAR(6),
+    ->         IN actname VARCHAR(24),
+    ->         IN facode CHAR(3),
+    ->         IN lead CHAR(6),
+    ->         IN prio SMALLINT,
+    ->         IN est_cost DECIMAL(8,2)
+    ->     )
+    ->         BEGIN
+    ->             IF prio < 1 OR prio > 5 THEN
+    ->                 SET prio = NULL;
+    ->             END IF;
+    ->             SET est_cost = 0;
+    ->             INSERT INTO Activity VALUES(actno, actname, facode, lead, 0, prio);
+    ->         END//
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'lead CHAR(6),
+        IN prio SMALLINT,
+        IN est_cost DECIMAL(8,2)
+    )
+ ' at line 5
+mysql> DELIMITER ;
+mysql> DROP PROCEDURE IF EXISTS addActivity;
+Query OK, 0 rows affected, 1 warning (0.01 sec)
+
+mysql> DELIMITER //
+mysql>     CREATE PROCEDURE addActivity(
+    ->         IN actno CHAR(6),
+    ->         IN actname VARCHAR(24),
+    ->         IN facode CHAR(3),
+    ->         IN lead CHAR(6),
+    ->         IN prio SMALLINT,
+    ->         IN est_cost DECIMAL(8,2)
+    ->     )
+    ->         BEGIN
+    ->             IF prio < 1 OR prio > 5 THEN
+    ->                 SET prio = NULL;
+    ->             END IF;
+    ->             SET est_cost = 0;
+    ->             INSERT INTO Activity VALUES(actno, actname, facode, lead, 0, prio);
+    ->         END//
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'lead CHAR(6),
+        IN prio SMALLINT,
+        IN est_cost DECIMAL(8,2)
+    )
+ ' at line 5
+mysql> DELIMITER ;
+mysql> DROP PROCEDURE IF EXISTS addActivity;
+Query OK, 0 rows affected, 1 warning (0.00 sec)
+
+mysql> DELIMITER //
+mysql>     CREATE PROCEDURE addActivity(
+    ->         IN actno CHAR(6),
+    ->         IN actname VARCHAR(24),
+    ->         IN facode CHAR(3),
+    ->         IN lead CHAR(6),
+    ->         IN prio SMALLINT,
+    ->         IN ecost DECIMAL(8,2)
+    ->     )
+    ->         BEGIN
+    ->             IF prio < 1 OR prio > 5 THEN
+    ->                 SET prio = NULL;
+    ->             END IF;
+    ->             SET ecost = 0;
+    ->             INSERT INTO Activity VALUES(actno, actname, facode, lead, 0, prio);
+    ->         END//
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'lead CHAR(6),
+        IN prio SMALLINT,
+        IN ecost DECIMAL(8,2)
+    )
+    ' at line 5
+mysql> DELIMITER ;
+mysql> DROP PROCEDURE IF EXISTS addActivity;
+Query OK, 0 rows affected, 1 warning (0.01 sec)
+
+mysql> DELIMITER //
+mysql> CREATE PROCEDURE addActivity(
+    ->     IN ano CHAR(6), 
+    ->     IN aname VARCHAR(24), 
+    ->     IN fcode CHAR(3),
+    ->     IN lno CHAR(6), 
+    ->     IN prio SMALLINT, 
+    ->     IN cost DECIMAL(8,2)
+    ->     )
+    -> BEGIN
+    -> -- (1) priority outside 1..5 -> store NULL
+    -> IF prio < 1 OR prio > 5 THEN
+    -> n
+    -> ^C
+mysql> DROP PROCEDURE IF EXISTS addActivity;
+    -> DELIMITER //
+Query OK, 0 rows affected, 1 warning (0.00 sec)
+
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DELIMITER' at line 1
+mysql> CREATE PROCEDURE addActivity(
+    -> IN ano CHAR(6), 
+    -> IN aname VARCHAR(24), 
+    -> IN fcode CHAR(3),
+    -> IN lno CHAR(6), 
+    -> IN prio SMALLINT, 
+    -> IN cost DECIMAL(8,2)
+    -> )
+    -> BEGIN
+    -> -- (1) priority outside 1..5 -> store NULL
+    -> IF prio < 1 OR prio > 5 THEN
+    -> SET prio = NULL;
+    -> END IF;
+    -> 
+    -> -- (2) faculty_contribution is always 0 for a new activity
+    -> INSERT INTO Activity VALUES (ano, aname, fcode, lno, cost, 0, prio);
+    -> END //
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> DELIMITER ;
+mysql> CALL addActivity('C03107', 'Clean Up Day', 'A04', '000029', 2, 1500);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> SELECT * FROM Activity WHERE activity_no = 'C03107';
++-------------+---------------+--------------+--------+----------+----------------------+----------+
+| activity_no | activity_name | faculty_code | leader | est_cost | faculty_contribution | priority |
++-------------+---------------+--------------+--------+----------+----------------------+----------+
+| C03107      | Clean Up Day  | A04          | 000029 |  1500.00 |                 0.00 |        2 |
++-------------+---------------+--------------+--------+----------+----------------------+----------+
+1 row in set (0.00 sec)
+
+mysql> CALL addActivity('C03108', 'Book Drive', 'A02', '000011', 7, 800);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> SELECT * FROM Activity WHERE activity_no = 'C03108';
++-------------+---------------+--------------+--------+----------+----------------------+----------+
+| activity_no | activity_name | faculty_code | leader | est_cost | faculty_contribution | priority |
++-------------+---------------+--------------+--------+----------+----------------------+----------+
+| C03108      | Book Drive    | A02          | 000011 |   800.00 |                 0.00 |     NULL |
++-------------+---------------+--------------+--------+----------+----------------------+----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM Activity;
++-------------+----------------------+--------------+--------+----------+----------------------+----------+
+| activity_no | activity_name        | faculty_code | leader | est_cost | faculty_contribution | priority |
++-------------+----------------------+--------------+--------+----------+----------------------+----------+
+| C03100      | Science for kids     | A01          | 000012 | 10000.00 |                 NULL |     NULL |
+| C03101      | Daffodil day 2020    | A02          | 000021 |   500.00 |               100.00 |        1 |
+| C03102      | Sci Fic with Schools | A01          | 000014 |  5000.00 |              1000.00 |        5 |
+| C03103      | Games Night -Sem1    | A01          | 000015 |   500.00 |                 NULL |        3 |
+| C03104      | Daffodil day 2021    | A02          | 000016 |   600.00 |                 NULL |        1 |
+| C03105      | Tax Clinic           | A05          | 000019 |  1200.00 |               600.00 |        3 |
+| C03106      | Eating Healthy       | A03          | 000018 |  8000.00 |              3000.00 |        3 |
+| C03107      | Clean Up Day         | A04          | 000029 |  1500.00 |                 0.00 |        2 |
+| C03108      | Book Drive           | A02          | 000011 |   800.00 |                 0.00 |     NULL |
++-------------+----------------------+--------------+--------+----------+----------------------+----------+
+9 rows in set (0.00 sec)
+
+mysql> SELECT IFNULL(SUM(est_cost),0) FROM Activity;
++-------------------------+
+| IFNULL(SUM(est_cost),0) |
++-------------------------+
+|                28100.00 |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> DROP PROCEDURE IF EXISTS addActivity;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> DELIMITER //
+mysql> CREATE PROCEDURE addActivity(
+    -> IN ano CHAR(6), 
+    -> IN aname VARCHAR(24), 
+    -> IN fcode CHAR(3),
+    -> IN lno CHAR(6), 
+    -> IN prio SMALLINT, 
+    -> IN cost DECIMAL(8,2),
+    -> OUT totcost DECIMAL(8,2)
+    -> )
+    -> BEGIN
+    -> -- (1) priority outside 1..5 -> store NULL
+    -> IF prio < 1 OR prio > 5 THEN
+    -> SET prio = NULL;
+    -> END IF;
+    -> 
+    -> -- (2) faculty_contribution is always 0 for a new activity
+    -> INSERT INTO Activity VALUES (ano, aname, fcode, lno, cost, 0, prio);
+    -> SELECT IFNULL(SUM(est_cost),0) INTO totcost FROM Activity;
+    -> END //
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> DELIMITER ;
+mysql> SELECT IFNULL(SUM(est_cost),0) FROM Activity;
++-------------------------+
+| IFNULL(SUM(est_cost),0) |
++-------------------------+
+|                28100.00 |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> CALL addActivity('C03109', 'Charity Run', 'A03', '000020', 4, 2000, @totCost);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> SELECT @totCost AS total_est_cost;
++----------------+
+| total_est_cost |
++----------------+
+|       30100.00 |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM Activity WHERE activity_no = 'C03109';
++-------------+---------------+--------------+--------+----------+----------------------+----------+
+| activity_no | activity_name | faculty_code | leader | est_cost | faculty_contribution | priority |
++-------------+---------------+--------------+--------+----------+----------------------+----------+
+| C03109      | Charity Run   | A03          | 000020 |  2000.00 |                 0.00 |        4 |
++-------------+---------------+--------------+--------+----------+----------------------+----------+
+1 row in set (0.00 sec)
+
+mysql> ALTER TABLE Faculty ADD COLUMN total_cost DECIMAL(10,2) NULL;
+Query OK, 0 rows affected (0.10 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> SHOW COLUMNS FROM Faculty;
++--------------+---------------+------+-----+---------+-------+
+| Field        | Type          | Null | Key | Default | Extra |
++--------------+---------------+------+-----+---------+-------+
+| faculty_code | char(3)       | NO   | PRI | NULL    |       |
+| faculty_name | varchar(36)   | NO   |     | NULL    |       |
+| total_cost   | decimal(10,2) | YES  |     | NULL    |       |
++--------------+---------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM Faculty;
++--------------+------------------------------------+------------+
+| faculty_code | faculty_name                       | total_cost |
++--------------+------------------------------------+------------+
+| A01          | Faculty of Science and Engineering |       NULL |
+| A02          | Faculty of Humanities              |       NULL |
+| A03          | Faculty of Health Sceiences        |       NULL |
+| A04          | Faculty of Management              |       NULL |
+| A05          | Faculty of Law                     |       NULL |
++--------------+------------------------------------+------------+
+5 rows in set (0.00 sec)
+
+mysql> UPDATE Faculty SET total_cost = 0 WHERE faculty_code IS NOT NULL;
+Query OK, 5 rows affected (0.02 sec)
+Rows matched: 5  Changed: 5  Warnings: 0
+
+mysql> SELECT * FROM Faculty;
++--------------+------------------------------------+------------+
+| faculty_code | faculty_name                       | total_cost |
++--------------+------------------------------------+------------+
+| A01          | Faculty of Science and Engineering |       0.00 |
+| A02          | Faculty of Humanities              |       0.00 |
+| A03          | Faculty of Health Sceiences        |       0.00 |
+| A04          | Faculty of Management              |       0.00 |
+| A05          | Faculty of Law                     |       0.00 |
++--------------+------------------------------------+------------+
+5 rows in set (0.00 sec)
+
+mysql> DROP TRIGGER IF EXISTS after_activity_update
+    -> DELIMITER //
+    -> CREATE TRIGGER after_activity_update
+    -> AFTER UPDATE ON Activity
+    -> FOR EACH ROW
+    -> BEGIN
+    -> UPDATE Faculty f
+    -> SET f.total_cost = (SELECT IFNULL(SUM(a.est_cost),0) FROM Activity a WHERE f.faculty_code = a.faculty_code)
+    -> WHERE f.faculty_code = NEW.faculty_code OR f.faculty_code = OLD.faculty_code;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DELIMITER //CREATE TRIGGER after_activity_update
+AFTER UPDATE ON Activity
+FOR EA' at line 2
+mysql> END//
+    -> DELIMTER ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'END//
+DELIMTER' at line 1
+mysql> DROP TRIGGER IF EXISTS after_activity_update;
+Query OK, 0 rows affected, 1 warning (0.02 sec)
+
+mysql> DELIMITER //
+mysql> CREATE TRIGGER after_activity_update
+    -> AFTER UPDATE ON Activity
+    -> FOR EACH ROW
+    -> BEGIN
+    -> UPDATE Faculty f
+    -> SET f.total_cost = (SELECT IFNULL(SUM(a.est_cost), 0) FROM Activity a WHERE a.faculty_code = f.faculty_code)
+    -> WHERE f.faculty_code = OLD.faculty_code OR f.faculty_code = NEW.faculty_code;
+    -> END //
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> DELIMITER ;
+mysql> SELECT * FROM Faculty;
++--------------+------------------------------------+------------+
+| faculty_code | faculty_name                       | total_cost |
++--------------+------------------------------------+------------+
+| A01          | Faculty of Science and Engineering |       0.00 |
+| A02          | Faculty of Humanities              |       0.00 |
+| A03          | Faculty of Health Sceiences        |       0.00 |
+| A04          | Faculty of Management              |       0.00 |
+| A05          | Faculty of Law                     |       0.00 |
++--------------+------------------------------------+------------+
+5 rows in set (0.00 sec)
+
+mysql> UPDATE Activity SET est_cost = 12000 WHERE activity_no = 'C03100';
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM Activity;
++-------------+----------------------+--------------+--------+----------+----------------------+----------+
+| activity_no | activity_name        | faculty_code | leader | est_cost | faculty_contribution | priority |
++-------------+----------------------+--------------+--------+----------+----------------------+----------+
+| C03100      | Science for kids     | A01          | 000012 | 12000.00 |                 NULL |     NULL |
+| C03101      | Daffodil day 2020    | A02          | 000021 |   500.00 |               100.00 |        1 |
+| C03102      | Sci Fic with Schools | A01          | 000014 |  5000.00 |              1000.00 |        5 |
+| C03103      | Games Night -Sem1    | A01          | 000015 |   500.00 |                 NULL |        3 |
+| C03104      | Daffodil day 2021    | A02          | 000016 |   600.00 |                 NULL |        1 |
+| C03105      | Tax Clinic           | A05          | 000019 |  1200.00 |               600.00 |        3 |
+| C03106      | Eating Healthy       | A03          | 000018 |  8000.00 |              3000.00 |        3 |
+| C03107      | Clean Up Day         | A04          | 000029 |  1500.00 |                 0.00 |        2 |
+| C03108      | Book Drive           | A02          | 000011 |   800.00 |                 0.00 |     NULL |
+| C03109      | Charity Run          | A03          | 000020 |  2000.00 |                 0.00 |        4 |
++-------------+----------------------+--------------+--------+----------+----------------------+----------+
+10 rows in set (0.01 sec)
+
+mysql> SELECT * FROM Activity WHERE faculty_code = 'A01';
++-------------+----------------------+--------------+--------+----------+----------------------+----------+
+| activity_no | activity_name        | faculty_code | leader | est_cost | faculty_contribution | priority |
++-------------+----------------------+--------------+--------+----------+----------------------+----------+
+| C03100      | Science for kids     | A01          | 000012 | 12000.00 |                 NULL |     NULL |
+| C03102      | Sci Fic with Schools | A01          | 000014 |  5000.00 |              1000.00 |        5 |
+| C03103      | Games Night -Sem1    | A01          | 000015 |   500.00 |                 NULL |        3 |
++-------------+----------------------+--------------+--------+----------+----------------------+----------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM Faculty;
++--------------+------------------------------------+------------+
+| faculty_code | faculty_name                       | total_cost |
++--------------+------------------------------------+------------+
+| A01          | Faculty of Science and Engineering |   17500.00 |
+| A02          | Faculty of Humanities              |       0.00 |
+| A03          | Faculty of Health Sceiences        |       0.00 |
+| A04          | Faculty of Management              |       0.00 |
+| A05          | Faculty of Law                     |       0.00 |
++--------------+------------------------------------+------------+
+5 rows in set (0.01 sec)
+
+mysql> SELECT * FROM Activity;
++-------------+----------------------+--------------+--------+----------+----------------------+----------+
+| activity_no | activity_name        | faculty_code | leader | est_cost | faculty_contribution | priority |
++-------------+----------------------+--------------+--------+----------+----------------------+----------+
+| C03100      | Science for kids     | A01          | 000012 | 12000.00 |                 NULL |     NULL |
+| C03101      | Daffodil day 2020    | A02          | 000021 |   500.00 |               100.00 |        1 |
+| C03102      | Sci Fic with Schools | A01          | 000014 |  5000.00 |              1000.00 |        5 |
+| C03103      | Games Night -Sem1    | A01          | 000015 |   500.00 |                 NULL |        3 |
+| C03104      | Daffodil day 2021    | A02          | 000016 |   600.00 |                 NULL |        1 |
+| C03105      | Tax Clinic           | A05          | 000019 |  1200.00 |               600.00 |        3 |
+| C03106      | Eating Healthy       | A03          | 000018 |  8000.00 |              3000.00 |        3 |
+| C03107      | Clean Up Day         | A04          | 000029 |  1500.00 |                 0.00 |        2 |
+| C03108      | Book Drive           | A02          | 000011 |   800.00 |                 0.00 |     NULL |
+| C03109      | Charity Run          | A03          | 000020 |  2000.00 |                 0.00 |        4 |
++-------------+----------------------+--------------+--------+----------+----------------------+----------+
+10 rows in set (0.00 sec)
+
+mysql> UPDATE Activity SET est_cost = 1000 WHERE activity_no = 'C03107';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM Activity;
++-------------+----------------------+--------------+--------+----------+----------------------+----------+
+| activity_no | activity_name        | faculty_code | leader | est_cost | faculty_contribution | priority |
++-------------+----------------------+--------------+--------+----------+----------------------+----------+
+| C03100      | Science for kids     | A01          | 000012 | 12000.00 |                 NULL |     NULL |
+| C03101      | Daffodil day 2020    | A02          | 000021 |   500.00 |               100.00 |        1 |
+| C03102      | Sci Fic with Schools | A01          | 000014 |  5000.00 |              1000.00 |        5 |
+| C03103      | Games Night -Sem1    | A01          | 000015 |   500.00 |                 NULL |        3 |
+| C03104      | Daffodil day 2021    | A02          | 000016 |   600.00 |                 NULL |        1 |
+| C03105      | Tax Clinic           | A05          | 000019 |  1200.00 |               600.00 |        3 |
+| C03106      | Eating Healthy       | A03          | 000018 |  8000.00 |              3000.00 |        3 |
+| C03107      | Clean Up Day         | A04          | 000029 |  1000.00 |                 0.00 |        2 |
+| C03108      | Book Drive           | A02          | 000011 |   800.00 |                 0.00 |     NULL |
+| C03109      | Charity Run          | A03          | 000020 |  2000.00 |                 0.00 |        4 |
++-------------+----------------------+--------------+--------+----------+----------------------+----------+
+10 rows in set (0.01 sec)
+
+mysql> SELECT * FROM Faculty;
++--------------+------------------------------------+------------+
+| faculty_code | faculty_name                       | total_cost |
++--------------+------------------------------------+------------+
+| A01          | Faculty of Science and Engineering |   17500.00 |
+| A02          | Faculty of Humanities              |       0.00 |
+| A03          | Faculty of Health Sceiences        |       0.00 |
+| A04          | Faculty of Management              |    1000.00 |
+| A05          | Faculty of Law                     |       0.00 |
++--------------+------------------------------------+------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM Activity;
++-------------+----------------------+--------------+--------+----------+----------------------+----------+
+| activity_no | activity_name        | faculty_code | leader | est_cost | faculty_contribution | priority |
++-------------+----------------------+--------------+--------+----------+----------------------+----------+
+| C03100      | Science for kids     | A01          | 000012 | 12000.00 |                 NULL |     NULL |
+| C03101      | Daffodil day 2020    | A02          | 000021 |   500.00 |               100.00 |        1 |
+| C03102      | Sci Fic with Schools | A01          | 000014 |  5000.00 |              1000.00 |        5 |
+| C03103      | Games Night -Sem1    | A01          | 000015 |   500.00 |                 NULL |        3 |
+| C03104      | Daffodil day 2021    | A02          | 000016 |   600.00 |                 NULL |        1 |
+| C03105      | Tax Clinic           | A05          | 000019 |  1200.00 |               600.00 |        3 |
+| C03106      | Eating Healthy       | A03          | 000018 |  8000.00 |              3000.00 |        3 |
+| C03107      | Clean Up Day         | A04          | 000029 |  1000.00 |                 0.00 |        2 |
+| C03108      | Book Drive           | A02          | 000011 |   800.00 |                 0.00 |     NULL |
+| C03109      | Charity Run          | A03          | 000020 |  2000.00 |                 0.00 |        4 |
++-------------+----------------------+--------------+--------+----------+----------------------+----------+
+10 rows in set (0.00 sec)
+
+mysql> UPDATE Activity SET est_cost = 700 WHERE activity_no = 'C03101';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM Faculty;
++--------------+------------------------------------+------------+
+| faculty_code | faculty_name                       | total_cost |
++--------------+------------------------------------+------------+
+| A01          | Faculty of Science and Engineering |   17500.00 |
+| A02          | Faculty of Humanities              |    2100.00 |
+| A03          | Faculty of Health Sceiences        |       0.00 |
+| A04          | Faculty of Management              |    1000.00 |
+| A05          | Faculty of Law                     |       0.00 |
++--------------+------------------------------------+------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM Activity WHERE faculty_code = 'A02';
++-------------+-------------------+--------------+--------+----------+----------------------+----------+
+| activity_no | activity_name     | faculty_code | leader | est_cost | faculty_contribution | priority |
++-------------+-------------------+--------------+--------+----------+----------------------+----------+
+| C03101      | Daffodil day 2020 | A02          | 000021 |   700.00 |               100.00 |        1 |
+| C03104      | Daffodil day 2021 | A02          | 000016 |   600.00 |                 NULL |        1 |
+| C03108      | Book Drive        | A02          | 000011 |   800.00 |                 0.00 |     NULL |
++-------------+-------------------+--------------+--------+----------+----------------------+----------+
+3 rows in set (0.00 sec)
+
+mysql> DROP DATABASE dswork;
+Query OK, 5 rows affected (0.42 sec)
+
+mysql> CREATE DATABASE dswork;
+Query OK, 1 row affected (0.02 sec)
+
+mysql> USE dswork;
+Database changed
+mysql> SOURCE PT4_cmds_21522611.sql;
++--------------------+
+| Database           |
++--------------------+
+| dswork             |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.00 sec)
+
+Database changed
+Query OK, 0 rows affected, 1 warning (0.01 sec)
+
+Query OK, 0 rows affected (0.14 sec)
+
+Query OK, 0 rows affected, 1 warning (0.01 sec)
+
+Query OK, 0 rows affected (0.16 sec)
+
+Query OK, 0 rows affected, 1 warning (0.02 sec)
+
+Query OK, 0 rows affected, 1 warning (0.17 sec)
+
+Query OK, 0 rows affected, 1 warning (0.00 sec)
+
+Query OK, 0 rows affected (0.19 sec)
+
+Query OK, 1 row affected (0.03 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.06 sec)
+
+Query OK, 1 row affected (0.05 sec)
+
+Query OK, 1 row affected (0.08 sec)
+
+Query OK, 1 row affected (0.03 sec)
+
+Query OK, 1 row affected (0.03 sec)
+
+Query OK, 1 row affected (0.06 sec)
+
+Query OK, 1 row affected (0.05 sec)
+
+Query OK, 1 row affected (0.03 sec)
+
+Query OK, 1 row affected (0.03 sec)
+
+Query OK, 1 row affected (0.03 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.04 sec)
+
+Query OK, 1 row affected (0.06 sec)
+
+Query OK, 1 row affected (0.05 sec)
+
+Query OK, 1 row affected (0.03 sec)
+
+Query OK, 1 row affected (0.03 sec)
+
+Query OK, 1 row affected (0.04 sec)
+
+Query OK, 1 row affected (0.03 sec)
+
+Query OK, 1 row affected (0.04 sec)
+
+Query OK, 1 row affected (0.04 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.03 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.05 sec)
+
+Query OK, 1 row affected (0.03 sec)
+
+Query OK, 1 row affected (0.03 sec)
+
+Query OK, 1 row affected (0.03 sec)
+
+Query OK, 1 row affected (0.03 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.04 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
++------------------+
+| Tables_in_dswork |
++------------------+
+| Activity         |
+| Faculty          |
+| Student          |
+| VolWork          |
++------------------+
+4 rows in set (0.00 sec)
+
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| faculty_code | char(3)     | NO   | PRI | NULL    |       |
+| faculty_name | varchar(36) | NO   |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| stu_no       | char(6)     | NO   | PRI | NULL    |       |
+| first_name   | varchar(12) | YES  |     | NULL    |       |
+| last_name    | varchar(15) | YES  |     | NULL    |       |
+| faculty_code | char(3)     | YES  | MUL | NULL    |       |
+| reg_date     | date        | YES  |     | NULL    |       |
+| comm_rate    | char(4)     | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
++----------------------+--------------+------+-----+---------+-------+
+| Field                | Type         | Null | Key | Default | Extra |
++----------------------+--------------+------+-----+---------+-------+
+| activity_no          | char(6)      | NO   | PRI | NULL    |       |
+| activity_name        | varchar(24)  | NO   |     | NULL    |       |
+| faculty_code         | char(3)      | NO   | MUL | NULL    |       |
+| leader               | char(6)      | NO   | MUL | NULL    |       |
+| est_cost             | decimal(8,2) | YES  |     | NULL    |       |
+| faculty_contribution | decimal(8,2) | YES  |     | NULL    |       |
+| priority             | smallint     | YES  |     | NULL    |       |
++----------------------+--------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
++-------------+----------+------+-----+---------+-------+
+| Field       | Type     | Null | Key | Default | Extra |
++-------------+----------+------+-----+---------+-------+
+| stu_no      | char(6)  | NO   | PRI | NULL    |       |
+| activity_no | char(6)  | NO   | PRI | NULL    |       |
+| hours       | smallint | YES  |     | NULL    |       |
++-------------+----------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+Query OK, 0 rows affected, 1 warning (0.01 sec)
+
+Query OK, 0 rows affected (0.04 sec)
+
++------------------------------------+--------------+----------------+------------------------+----------------+
+| faculty_name                       | faculty_code | total_est_cost | total_fac_contribution | num_activities |
++------------------------------------+--------------+----------------+------------------------+----------------+
+| Faculty of Management              | A04          |           NULL |                   NULL |              0 |
+| Faculty of Humanities              | A02          |        1100.00 |                 100.00 |              2 |
+| Faculty of Law                     | A05          |        1200.00 |                 600.00 |              1 |
+| Faculty of Health Sceiences        | A03          |        8000.00 |                3000.00 |              1 |
+| Faculty of Science and Engineering | A01          |       15500.00 |                1000.00 |              3 |
++------------------------------------+--------------+----------------+------------------------+----------------+
+5 rows in set (0.00 sec)
+
++-----------------------+--------------+----------------+------------------------+----------------+
+| faculty_name          | faculty_code | total_est_cost | total_fac_contribution | num_activities |
++-----------------------+--------------+----------------+------------------------+----------------+
+| Faculty of Management | A04          |           NULL |                   NULL |              0 |
++-----------------------+--------------+----------------+------------------------+----------------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected, 1 warning (0.01 sec)
+
+Query OK, 0 rows affected (0.04 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
++-------------+---------------+--------------+--------+----------+----------------------+----------+
+| activity_no | activity_name | faculty_code | leader | est_cost | faculty_contribution | priority |
++-------------+---------------+--------------+--------+----------+----------------------+----------+
+| C03107      | Clean Up Day  | A04          | 000029 |  1500.00 |                 0.00 |        2 |
++-------------+---------------+--------------+--------+----------+----------------------+----------+
+1 row in set (0.00 sec)
+
+Query OK, 1 row affected (0.04 sec)
+
++-------------+---------------+--------------+--------+----------+----------------------+----------+
+| activity_no | activity_name | faculty_code | leader | est_cost | faculty_contribution | priority |
++-------------+---------------+--------------+--------+----------+----------------------+----------+
+| C03108      | Book Drive    | A02          | 000011 |   800.00 |                 0.00 |     NULL |
++-------------+---------------+--------------+--------+----------+----------------------+----------+
+1 row in set (0.00 sec)
+
++-------------+----------------------+--------------+--------+----------+----------------------+----------+
+| activity_no | activity_name        | faculty_code | leader | est_cost | faculty_contribution | priority |
++-------------+----------------------+--------------+--------+----------+----------------------+----------+
+| C03100      | Science for kids     | A01          | 000012 | 10000.00 |                 NULL |     NULL |
+| C03101      | Daffodil day 2020    | A02          | 000021 |   500.00 |               100.00 |        1 |
+| C03102      | Sci Fic with Schools | A01          | 000014 |  5000.00 |              1000.00 |        5 |
+| C03103      | Games Night -Sem1    | A01          | 000015 |   500.00 |                 NULL |        3 |
+| C03104      | Daffodil day 2021    | A02          | 000016 |   600.00 |                 NULL |        1 |
+| C03105      | Tax Clinic           | A05          | 000019 |  1200.00 |               600.00 |        3 |
+| C03106      | Eating Healthy       | A03          | 000018 |  8000.00 |              3000.00 |        3 |
+| C03107      | Clean Up Day         | A04          | 000029 |  1500.00 |                 0.00 |        2 |
+| C03108      | Book Drive           | A02          | 000011 |   800.00 |                 0.00 |     NULL |
++-------------+----------------------+--------------+--------+----------+----------------------+----------+
+9 rows in set (0.00 sec)
+
+Query OK, 0 rows affected (0.02 sec)
+
+Query OK, 0 rows affected (0.03 sec)
+
++-------------------------+
+| IFNULL(SUM(est_cost),0) |
++-------------------------+
+|                28100.00 |
++-------------------------+
+1 row in set (0.00 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
++----------------+
+| total_est_cost |
++----------------+
+|       30100.00 |
++----------------+
+1 row in set (0.00 sec)
+
++-------------+---------------+--------------+--------+----------+----------------------+----------+
+| activity_no | activity_name | faculty_code | leader | est_cost | faculty_contribution | priority |
++-------------+---------------+--------------+--------+----------+----------------------+----------+
+| C03109      | Charity Run   | A03          | 000020 |  2000.00 |                 0.00 |        4 |
++-------------+---------------+--------------+--------+----------+----------------------+----------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
++--------------+------------------------------------+------------+
+| faculty_code | faculty_name                       | total_cost |
++--------------+------------------------------------+------------+
+| A01          | Faculty of Science and Engineering |       NULL |
+| A02          | Faculty of Humanities              |       NULL |
+| A03          | Faculty of Health Sceiences        |       NULL |
+| A04          | Faculty of Management              |       NULL |
+| A05          | Faculty of Law                     |       NULL |
++--------------+------------------------------------+------------+
+5 rows in set (0.00 sec)
+
+Query OK, 5 rows affected (0.03 sec)
+Rows matched: 5  Changed: 5  Warnings: 0
+
++--------------+------------------------------------+------------+
+| faculty_code | faculty_name                       | total_cost |
++--------------+------------------------------------+------------+
+| A01          | Faculty of Science and Engineering |       0.00 |
+| A02          | Faculty of Humanities              |       0.00 |
+| A03          | Faculty of Health Sceiences        |       0.00 |
+| A04          | Faculty of Management              |       0.00 |
+| A05          | Faculty of Law                     |       0.00 |
++--------------+------------------------------------+------------+
+5 rows in set (0.00 sec)
+
+Query OK, 0 rows affected, 1 warning (0.03 sec)
+
+Query OK, 0 rows affected (0.04 sec)
+
++-------------+----------------------+--------------+--------+----------+----------------------+----------+
+| activity_no | activity_name        | faculty_code | leader | est_cost | faculty_contribution | priority |
++-------------+----------------------+--------------+--------+----------+----------------------+----------+
+| C03100      | Science for kids     | A01          | 000012 | 10000.00 |                 NULL |     NULL |
+| C03101      | Daffodil day 2020    | A02          | 000021 |   500.00 |               100.00 |        1 |
+| C03102      | Sci Fic with Schools | A01          | 000014 |  5000.00 |              1000.00 |        5 |
+| C03103      | Games Night -Sem1    | A01          | 000015 |   500.00 |                 NULL |        3 |
+| C03104      | Daffodil day 2021    | A02          | 000016 |   600.00 |                 NULL |        1 |
+| C03105      | Tax Clinic           | A05          | 000019 |  1200.00 |               600.00 |        3 |
+| C03106      | Eating Healthy       | A03          | 000018 |  8000.00 |              3000.00 |        3 |
+| C03107      | Clean Up Day         | A04          | 000029 |  1500.00 |                 0.00 |        2 |
+| C03108      | Book Drive           | A02          | 000011 |   800.00 |                 0.00 |     NULL |
+| C03109      | Charity Run          | A03          | 000020 |  2000.00 |                 0.00 |        4 |
++-------------+----------------------+--------------+--------+----------+----------------------+----------+
+10 rows in set (0.01 sec)
+
++--------------+------------------------------------+------------+
+| faculty_code | faculty_name                       | total_cost |
++--------------+------------------------------------+------------+
+| A01          | Faculty of Science and Engineering |       0.00 |
+| A02          | Faculty of Humanities              |       0.00 |
+| A03          | Faculty of Health Sceiences        |       0.00 |
+| A04          | Faculty of Management              |       0.00 |
+| A05          | Faculty of Law                     |       0.00 |
++--------------+------------------------------------+------------+
+5 rows in set (0.00 sec)
+
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
++-------------+----------------------+--------------+--------+----------+----------------------+----------+
+| activity_no | activity_name        | faculty_code | leader | est_cost | faculty_contribution | priority |
++-------------+----------------------+--------------+--------+----------+----------------------+----------+
+| C03100      | Science for kids     | A01          | 000012 | 12000.00 |                 NULL |     NULL |
+| C03102      | Sci Fic with Schools | A01          | 000014 |  5000.00 |              1000.00 |        5 |
+| C03103      | Games Night -Sem1    | A01          | 000015 |   500.00 |                 NULL |        3 |
++-------------+----------------------+--------------+--------+----------+----------------------+----------+
+3 rows in set (0.00 sec)
+
++--------------+------------------------------------+------------+
+| faculty_code | faculty_name                       | total_cost |
++--------------+------------------------------------+------------+
+| A01          | Faculty of Science and Engineering |   17500.00 |
+| A02          | Faculty of Humanities              |       0.00 |
+| A03          | Faculty of Health Sceiences        |       0.00 |
+| A04          | Faculty of Management              |       0.00 |
+| A05          | Faculty of Law                     |       0.00 |
++--------------+------------------------------------+------------+
+5 rows in set (0.00 sec)
+
++-------------+----------------------+--------------+--------+----------+----------------------+----------+
+| activity_no | activity_name        | faculty_code | leader | est_cost | faculty_contribution | priority |
++-------------+----------------------+--------------+--------+----------+----------------------+----------+
+| C03100      | Science for kids     | A01          | 000012 | 12000.00 |                 NULL |     NULL |
+| C03101      | Daffodil day 2020    | A02          | 000021 |   500.00 |               100.00 |        1 |
+| C03102      | Sci Fic with Schools | A01          | 000014 |  5000.00 |              1000.00 |        5 |
+| C03103      | Games Night -Sem1    | A01          | 000015 |   500.00 |                 NULL |        3 |
+| C03104      | Daffodil day 2021    | A02          | 000016 |   600.00 |                 NULL |        1 |
+| C03105      | Tax Clinic           | A05          | 000019 |  1200.00 |               600.00 |        3 |
+| C03106      | Eating Healthy       | A03          | 000018 |  8000.00 |              3000.00 |        3 |
+| C03107      | Clean Up Day         | A04          | 000029 |  1500.00 |                 0.00 |        2 |
+| C03108      | Book Drive           | A02          | 000011 |   800.00 |                 0.00 |     NULL |
+| C03109      | Charity Run          | A03          | 000020 |  2000.00 |                 0.00 |        4 |
++-------------+----------------------+--------------+--------+----------+----------------------+----------+
+10 rows in set (0.00 sec)
+
++--------------+------------------------------------+------------+
+| faculty_code | faculty_name                       | total_cost |
++--------------+------------------------------------+------------+
+| A01          | Faculty of Science and Engineering |   17500.00 |
+| A02          | Faculty of Humanities              |       0.00 |
+| A03          | Faculty of Health Sceiences        |       0.00 |
+| A04          | Faculty of Management              |       0.00 |
+| A05          | Faculty of Law                     |       0.00 |
++--------------+------------------------------------+------------+
+5 rows in set (0.00 sec)
+
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
++-------------+---------------+--------------+--------+----------+----------------------+----------+
+| activity_no | activity_name | faculty_code | leader | est_cost | faculty_contribution | priority |
++-------------+---------------+--------------+--------+----------+----------------------+----------+
+| C03107      | Clean Up Day  | A04          | 000029 |  1000.00 |                 0.00 |        2 |
++-------------+---------------+--------------+--------+----------+----------------------+----------+
+1 row in set (0.00 sec)
+
++--------------+------------------------------------+------------+
+| faculty_code | faculty_name                       | total_cost |
++--------------+------------------------------------+------------+
+| A01          | Faculty of Science and Engineering |   17500.00 |
+| A02          | Faculty of Humanities              |       0.00 |
+| A03          | Faculty of Health Sceiences        |       0.00 |
+| A04          | Faculty of Management              |    1000.00 |
+| A05          | Faculty of Law                     |       0.00 |
++--------------+------------------------------------+------------+
+5 rows in set (0.00 sec)
+
++-------------+----------------------+--------------+--------+----------+----------------------+----------+
+| activity_no | activity_name        | faculty_code | leader | est_cost | faculty_contribution | priority |
++-------------+----------------------+--------------+--------+----------+----------------------+----------+
+| C03100      | Science for kids     | A01          | 000012 | 12000.00 |                 NULL |     NULL |
+| C03101      | Daffodil day 2020    | A02          | 000021 |   500.00 |               100.00 |        1 |
+| C03102      | Sci Fic with Schools | A01          | 000014 |  5000.00 |              1000.00 |        5 |
+| C03103      | Games Night -Sem1    | A01          | 000015 |   500.00 |                 NULL |        3 |
+| C03104      | Daffodil day 2021    | A02          | 000016 |   600.00 |                 NULL |        1 |
+| C03105      | Tax Clinic           | A05          | 000019 |  1200.00 |               600.00 |        3 |
+| C03106      | Eating Healthy       | A03          | 000018 |  8000.00 |              3000.00 |        3 |
+| C03107      | Clean Up Day         | A04          | 000029 |  1000.00 |                 0.00 |        2 |
+| C03108      | Book Drive           | A02          | 000011 |   800.00 |                 0.00 |     NULL |
+| C03109      | Charity Run          | A03          | 000020 |  2000.00 |                 0.00 |        4 |
++-------------+----------------------+--------------+--------+----------+----------------------+----------+
+10 rows in set (0.00 sec)
+
++--------------+------------------------------------+------------+
+| faculty_code | faculty_name                       | total_cost |
++--------------+------------------------------------+------------+
+| A01          | Faculty of Science and Engineering |   17500.00 |
+| A02          | Faculty of Humanities              |       0.00 |
+| A03          | Faculty of Health Sceiences        |       0.00 |
+| A04          | Faculty of Management              |    1000.00 |
+| A05          | Faculty of Law                     |       0.00 |
++--------------+------------------------------------+------------+
+5 rows in set (0.00 sec)
+
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
++-------------+-------------------+--------------+--------+----------+----------------------+----------+
+| activity_no | activity_name     | faculty_code | leader | est_cost | faculty_contribution | priority |
++-------------+-------------------+--------------+--------+----------+----------------------+----------+
+| C03101      | Daffodil day 2020 | A02          | 000021 |   700.00 |               100.00 |        1 |
+| C03104      | Daffodil day 2021 | A02          | 000016 |   600.00 |                 NULL |        1 |
+| C03108      | Book Drive        | A02          | 000011 |   800.00 |                 0.00 |     NULL |
++-------------+-------------------+--------------+--------+----------+----------------------+----------+
+3 rows in set (0.00 sec)
+
++--------------+------------------------------------+------------+
+| faculty_code | faculty_name                       | total_cost |
++--------------+------------------------------------+------------+
+| A01          | Faculty of Science and Engineering |   17500.00 |
+| A02          | Faculty of Humanities              |    2100.00 |
+| A03          | Faculty of Health Sceiences        |       0.00 |
+| A04          | Faculty of Management              |    1000.00 |
+| A05          | Faculty of Law                     |       0.00 |
++--------------+------------------------------------+------------+
+5 rows in set (0.00 sec)
+
+mysql> Terminal close -- exit!
+Aborted
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| dswork             |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.00 sec)
+
+mysql> USE dswork;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> SOURCE PT4_cmds_21522611.sql;
++--------------------+
+| Database           |
++--------------------+
+| dswork             |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.01 sec)
+
+Database changed
+ERROR 3730 (HY000): Cannot drop table 'Faculty' referenced by a foreign key constraint 'Student_ibfk_1' on table 'Student'.
+ERROR 1050 (42S01): Table 'Faculty' already exists
+ERROR 3730 (HY000): Cannot drop table 'Student' referenced by a foreign key constraint 'Activity_ibfk_2' on table 'Activity'.
+ERROR 1050 (42S01): Table 'Student' already exists
+ERROR 3730 (HY000): Cannot drop table 'Activity' referenced by a foreign key constraint 'VolWork_ibfk_2' on table 'VolWork'.
+ERROR 1050 (42S01): Table 'Activity' already exists
+Query OK, 0 rows affected (0.09 sec)
+
+Query OK, 0 rows affected (0.17 sec)
+
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+ERROR 1062 (23000): Duplicate entry '000010' for key 'Student.PRIMARY'
+ERROR 1062 (23000): Duplicate entry '000011' for key 'Student.PRIMARY'
+ERROR 1062 (23000): Duplicate entry '000012' for key 'Student.PRIMARY'
+ERROR 1062 (23000): Duplicate entry '000013' for key 'Student.PRIMARY'
+ERROR 1062 (23000): Duplicate entry '000014' for key 'Student.PRIMARY'
+ERROR 1062 (23000): Duplicate entry '000015' for key 'Student.PRIMARY'
+ERROR 1062 (23000): Duplicate entry '000016' for key 'Student.PRIMARY'
+ERROR 1062 (23000): Duplicate entry '000017' for key 'Student.PRIMARY'
+ERROR 1062 (23000): Duplicate entry '000018' for key 'Student.PRIMARY'
+ERROR 1062 (23000): Duplicate entry '000019' for key 'Student.PRIMARY'
+ERROR 1062 (23000): Duplicate entry '000020' for key 'Student.PRIMARY'
+ERROR 1062 (23000): Duplicate entry '000021' for key 'Student.PRIMARY'
+ERROR 1062 (23000): Duplicate entry '000022' for key 'Student.PRIMARY'
+ERROR 1062 (23000): Duplicate entry '000023' for key 'Student.PRIMARY'
+ERROR 1062 (23000): Duplicate entry '000024' for key 'Student.PRIMARY'
+ERROR 1062 (23000): Duplicate entry '000025' for key 'Student.PRIMARY'
+ERROR 1062 (23000): Duplicate entry '000026' for key 'Student.PRIMARY'
+ERROR 1062 (23000): Duplicate entry '000027' for key 'Student.PRIMARY'
+ERROR 1062 (23000): Duplicate entry '000028' for key 'Student.PRIMARY'
+ERROR 1062 (23000): Duplicate entry '000029' for key 'Student.PRIMARY'
+ERROR 1062 (23000): Duplicate entry 'C03100' for key 'Activity.PRIMARY'
+ERROR 1062 (23000): Duplicate entry 'C03101' for key 'Activity.PRIMARY'
+ERROR 1062 (23000): Duplicate entry 'C03102' for key 'Activity.PRIMARY'
+ERROR 1062 (23000): Duplicate entry 'C03103' for key 'Activity.PRIMARY'
+ERROR 1062 (23000): Duplicate entry 'C03104' for key 'Activity.PRIMARY'
+ERROR 1062 (23000): Duplicate entry 'C03105' for key 'Activity.PRIMARY'
+ERROR 1062 (23000): Duplicate entry 'C03106' for key 'Activity.PRIMARY'
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.03 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.03 sec)
+
++-------------------+
+| Tables_in_dswork  |
++-------------------+
+| Activity          |
+| Faculty           |
+| FacultyActivities |
+| Student           |
+| VolWork           |
++-------------------+
+5 rows in set (0.00 sec)
+
++--------------+---------------+------+-----+---------+-------+
+| Field        | Type          | Null | Key | Default | Extra |
++--------------+---------------+------+-----+---------+-------+
+| faculty_code | char(3)       | NO   | PRI | NULL    |       |
+| faculty_name | varchar(36)   | NO   |     | NULL    |       |
+| total_cost   | decimal(10,2) | YES  |     | NULL    |       |
++--------------+---------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| stu_no       | char(6)     | NO   | PRI | NULL    |       |
+| first_name   | varchar(12) | YES  |     | NULL    |       |
+| last_name    | varchar(15) | YES  |     | NULL    |       |
+| faculty_code | char(3)     | YES  | MUL | NULL    |       |
+| reg_date     | date        | YES  |     | NULL    |       |
+| comm_rate    | char(4)     | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
++----------------------+--------------+------+-----+---------+-------+
+| Field                | Type         | Null | Key | Default | Extra |
++----------------------+--------------+------+-----+---------+-------+
+| activity_no          | char(6)      | NO   | PRI | NULL    |       |
+| activity_name        | varchar(24)  | NO   |     | NULL    |       |
+| faculty_code         | char(3)      | NO   | MUL | NULL    |       |
+| leader               | char(6)      | NO   | MUL | NULL    |       |
+| est_cost             | decimal(8,2) | YES  |     | NULL    |       |
+| faculty_contribution | decimal(8,2) | YES  |     | NULL    |       |
+| priority             | smallint     | YES  |     | NULL    |       |
++----------------------+--------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
++-------------+----------+------+-----+---------+-------+
+| Field       | Type     | Null | Key | Default | Extra |
++-------------+----------+------+-----+---------+-------+
+| stu_no      | char(6)  | NO   | PRI | NULL    |       |
+| activity_no | char(6)  | NO   | PRI | NULL    |       |
+| hours       | smallint | YES  |     | NULL    |       |
++-------------+----------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+Query OK, 0 rows affected (0.07 sec)
+
+Query OK, 0 rows affected (0.10 sec)
+
++------------------------------------+--------------+----------------+------------------------+----------------+
+| faculty_name                       | faculty_code | total_est_cost | total_fac_contribution | num_activities |
++------------------------------------+--------------+----------------+------------------------+----------------+
+| Faculty of Management              | A04          |        1000.00 |                   0.00 |              1 |
+| Faculty of Law                     | A05          |        1200.00 |                 600.00 |              1 |
+| Faculty of Humanities              | A02          |        2100.00 |                 100.00 |              3 |
+| Faculty of Health Sceiences        | A03          |       10000.00 |                3000.00 |              2 |
+| Faculty of Science and Engineering | A01          |       17500.00 |                1000.00 |              3 |
++------------------------------------+--------------+----------------+------------------------+----------------+
+5 rows in set (0.00 sec)
+
+Empty set (0.00 sec)
+
+Query OK, 0 rows affected (0.04 sec)
+
+Query OK, 0 rows affected (0.03 sec)
+
+ERROR 1062 (23000): Duplicate entry 'C03107' for key 'Activity.PRIMARY'
++-------------+---------------+--------------+--------+----------+----------------------+----------+
+| activity_no | activity_name | faculty_code | leader | est_cost | faculty_contribution | priority |
++-------------+---------------+--------------+--------+----------+----------------------+----------+
+| C03107      | Clean Up Day  | A04          | 000029 |  1000.00 |                 0.00 |        2 |
++-------------+---------------+--------------+--------+----------+----------------------+----------+
+1 row in set (0.00 sec)
+
+ERROR 1062 (23000): Duplicate entry 'C03108' for key 'Activity.PRIMARY'
++-------------+---------------+--------------+--------+----------+----------------------+----------+
+| activity_no | activity_name | faculty_code | leader | est_cost | faculty_contribution | priority |
++-------------+---------------+--------------+--------+----------+----------------------+----------+
+| C03108      | Book Drive    | A02          | 000011 |   800.00 |                 0.00 |     NULL |
++-------------+---------------+--------------+--------+----------+----------------------+----------+
+1 row in set (0.00 sec)
+
++-------------+----------------------+--------------+--------+----------+----------------------+----------+
+| activity_no | activity_name        | faculty_code | leader | est_cost | faculty_contribution | priority |
++-------------+----------------------+--------------+--------+----------+----------------------+----------+
+| C03100      | Science for kids     | A01          | 000012 | 12000.00 |                 NULL |     NULL |
+| C03101      | Daffodil day 2020    | A02          | 000021 |   700.00 |               100.00 |        1 |
+| C03102      | Sci Fic with Schools | A01          | 000014 |  5000.00 |              1000.00 |        5 |
+| C03103      | Games Night -Sem1    | A01          | 000015 |   500.00 |                 NULL |        3 |
+| C03104      | Daffodil day 2021    | A02          | 000016 |   600.00 |                 NULL |        1 |
+| C03105      | Tax Clinic           | A05          | 000019 |  1200.00 |               600.00 |        3 |
+| C03106      | Eating Healthy       | A03          | 000018 |  8000.00 |              3000.00 |        3 |
+| C03107      | Clean Up Day         | A04          | 000029 |  1000.00 |                 0.00 |        2 |
+| C03108      | Book Drive           | A02          | 000011 |   800.00 |                 0.00 |     NULL |
+| C03109      | Charity Run          | A03          | 000020 |  2000.00 |                 0.00 |        4 |
++-------------+----------------------+--------------+--------+----------+----------------------+----------+
+10 rows in set (0.00 sec)
+
+Query OK, 0 rows affected (0.07 sec)
+
+Query OK, 0 rows affected (0.06 sec)
+
++-------------------------+
+| IFNULL(SUM(est_cost),0) |
++-------------------------+
+|                31800.00 |
++-------------------------+
+1 row in set (0.00 sec)
+
+ERROR 1062 (23000): Duplicate entry 'C03109' for key 'Activity.PRIMARY'
++--------------------------------+
+| total_est_cost                 |
++--------------------------------+
+|                            |
++--------------------------------+
+1 row in set (0.00 sec)
+
++-------------+---------------+--------------+--------+----------+----------------------+----------+
+| activity_no | activity_name | faculty_code | leader | est_cost | faculty_contribution | priority |
++-------------+---------------+--------------+--------+----------+----------------------+----------+
+| C03109      | Charity Run   | A03          | 000020 |  2000.00 |                 0.00 |        4 |
++-------------+---------------+--------------+--------+----------+----------------------+----------+
+1 row in set (0.00 sec)
+
+ERROR 1060 (42S21): Duplicate column name 'total_cost'
++--------------+------------------------------------+------------+
+| faculty_code | faculty_name                       | total_cost |
++--------------+------------------------------------+------------+
+| A01          | Faculty of Science and Engineering |   17500.00 |
+| A02          | Faculty of Humanities              |    2100.00 |
+| A03          | Faculty of Health Sceiences        |       0.00 |
+| A04          | Faculty of Management              |    1000.00 |
+| A05          | Faculty of Law                     |       0.00 |
++--------------+------------------------------------+------------+
+5 rows in set (0.00 sec)
+
+Query OK, 3 rows affected (0.03 sec)
+Rows matched: 5  Changed: 3  Warnings: 0
+
++--------------+------------------------------------+------------+
+| faculty_code | faculty_name                       | total_cost |
++--------------+------------------------------------+------------+
+| A01          | Faculty of Science and Engineering |       0.00 |
+| A02          | Faculty of Humanities              |       0.00 |
+| A03          | Faculty of Health Sceiences        |       0.00 |
+| A04          | Faculty of Management              |       0.00 |
+| A05          | Faculty of Law                     |       0.00 |
++--------------+------------------------------------+------------+
+5 rows in set (0.00 sec)
+
+Query OK, 0 rows affected (0.07 sec)
+
+Query OK, 0 rows affected (0.05 sec)
+
++-------------+----------------------+--------------+--------+----------+----------------------+----------+
+| activity_no | activity_name        | faculty_code | leader | est_cost | faculty_contribution | priority |
++-------------+----------------------+--------------+--------+----------+----------------------+----------+
+| C03100      | Science for kids     | A01          | 000012 | 12000.00 |                 NULL |     NULL |
+| C03101      | Daffodil day 2020    | A02          | 000021 |   700.00 |               100.00 |        1 |
+| C03102      | Sci Fic with Schools | A01          | 000014 |  5000.00 |              1000.00 |        5 |
+| C03103      | Games Night -Sem1    | A01          | 000015 |   500.00 |                 NULL |        3 |
+| C03104      | Daffodil day 2021    | A02          | 000016 |   600.00 |                 NULL |        1 |
+| C03105      | Tax Clinic           | A05          | 000019 |  1200.00 |               600.00 |        3 |
+| C03106      | Eating Healthy       | A03          | 000018 |  8000.00 |              3000.00 |        3 |
+| C03107      | Clean Up Day         | A04          | 000029 |  1000.00 |                 0.00 |        2 |
+| C03108      | Book Drive           | A02          | 000011 |   800.00 |                 0.00 |     NULL |
+| C03109      | Charity Run          | A03          | 000020 |  2000.00 |                 0.00 |        4 |
++-------------+----------------------+--------------+--------+----------+----------------------+----------+
+10 rows in set (0.00 sec)
+
++--------------+------------------------------------+------------+
+| faculty_code | faculty_name                       | total_cost |
++--------------+------------------------------------+------------+
+| A01          | Faculty of Science and Engineering |       0.00 |
+| A02          | Faculty of Humanities              |       0.00 |
+| A03          | Faculty of Health Sceiences        |       0.00 |
+| A04          | Faculty of Management              |       0.00 |
+| A05          | Faculty of Law                     |       0.00 |
++--------------+------------------------------------+------------+
+5 rows in set (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+Rows matched: 1  Changed: 0  Warnings: 0
+
++-------------+----------------------+--------------+--------+----------+----------------------+----------+
+| activity_no | activity_name        | faculty_code | leader | est_cost | faculty_contribution | priority |
++-------------+----------------------+--------------+--------+----------+----------------------+----------+
+| C03100      | Science for kids     | A01          | 000012 | 12000.00 |                 NULL |     NULL |
+| C03102      | Sci Fic with Schools | A01          | 000014 |  5000.00 |              1000.00 |        5 |
+| C03103      | Games Night -Sem1    | A01          | 000015 |   500.00 |                 NULL |        3 |
++-------------+----------------------+--------------+--------+----------+----------------------+----------+
+3 rows in set (0.00 sec)
+
++--------------+------------------------------------+------------+
+| faculty_code | faculty_name                       | total_cost |
++--------------+------------------------------------+------------+
+| A01          | Faculty of Science and Engineering |   17500.00 |
+| A02          | Faculty of Humanities              |       0.00 |
+| A03          | Faculty of Health Sceiences        |       0.00 |
+| A04          | Faculty of Management              |       0.00 |
+| A05          | Faculty of Law                     |       0.00 |
++--------------+------------------------------------+------------+
+5 rows in set (0.00 sec)
+
++-------------+----------------------+--------------+--------+----------+----------------------+----------+
+| activity_no | activity_name        | faculty_code | leader | est_cost | faculty_contribution | priority |
++-------------+----------------------+--------------+--------+----------+----------------------+----------+
+| C03100      | Science for kids     | A01          | 000012 | 12000.00 |                 NULL |     NULL |
+| C03101      | Daffodil day 2020    | A02          | 000021 |   700.00 |               100.00 |        1 |
+| C03102      | Sci Fic with Schools | A01          | 000014 |  5000.00 |              1000.00 |        5 |
+| C03103      | Games Night -Sem1    | A01          | 000015 |   500.00 |                 NULL |        3 |
+| C03104      | Daffodil day 2021    | A02          | 000016 |   600.00 |                 NULL |        1 |
+| C03105      | Tax Clinic           | A05          | 000019 |  1200.00 |               600.00 |        3 |
+| C03106      | Eating Healthy       | A03          | 000018 |  8000.00 |              3000.00 |        3 |
+| C03107      | Clean Up Day         | A04          | 000029 |  1000.00 |                 0.00 |        2 |
+| C03108      | Book Drive           | A02          | 000011 |   800.00 |                 0.00 |     NULL |
+| C03109      | Charity Run          | A03          | 000020 |  2000.00 |                 0.00 |        4 |
++-------------+----------------------+--------------+--------+----------+----------------------+----------+
+10 rows in set (0.00 sec)
+
++--------------+------------------------------------+------------+
+| faculty_code | faculty_name                       | total_cost |
++--------------+------------------------------------+------------+
+| A01          | Faculty of Science and Engineering |   17500.00 |
+| A02          | Faculty of Humanities              |       0.00 |
+| A03          | Faculty of Health Sceiences        |       0.00 |
+| A04          | Faculty of Management              |       0.00 |
+| A05          | Faculty of Law                     |       0.00 |
++--------------+------------------------------------+------------+
+5 rows in set (0.00 sec)
+
+Query OK, 0 rows affected (0.02 sec)
+Rows matched: 1  Changed: 0  Warnings: 0
+
++-------------+---------------+--------------+--------+----------+----------------------+----------+
+| activity_no | activity_name | faculty_code | leader | est_cost | faculty_contribution | priority |
++-------------+---------------+--------------+--------+----------+----------------------+----------+
+| C03107      | Clean Up Day  | A04          | 000029 |  1000.00 |                 0.00 |        2 |
++-------------+---------------+--------------+--------+----------+----------------------+----------+
+1 row in set (0.00 sec)
+
++--------------+------------------------------------+------------+
+| faculty_code | faculty_name                       | total_cost |
++--------------+------------------------------------+------------+
+| A01          | Faculty of Science and Engineering |   17500.00 |
+| A02          | Faculty of Humanities              |       0.00 |
+| A03          | Faculty of Health Sceiences        |       0.00 |
+| A04          | Faculty of Management              |    1000.00 |
+| A05          | Faculty of Law                     |       0.00 |
++--------------+------------------------------------+------------+
+5 rows in set (0.00 sec)
+
++-------------+----------------------+--------------+--------+----------+----------------------+----------+
+| activity_no | activity_name        | faculty_code | leader | est_cost | faculty_contribution | priority |
++-------------+----------------------+--------------+--------+----------+----------------------+----------+
+| C03100      | Science for kids     | A01          | 000012 | 12000.00 |                 NULL |     NULL |
+| C03101      | Daffodil day 2020    | A02          | 000021 |   700.00 |               100.00 |        1 |
+| C03102      | Sci Fic with Schools | A01          | 000014 |  5000.00 |              1000.00 |        5 |
+| C03103      | Games Night -Sem1    | A01          | 000015 |   500.00 |                 NULL |        3 |
+| C03104      | Daffodil day 2021    | A02          | 000016 |   600.00 |                 NULL |        1 |
+| C03105      | Tax Clinic           | A05          | 000019 |  1200.00 |               600.00 |        3 |
+| C03106      | Eating Healthy       | A03          | 000018 |  8000.00 |              3000.00 |        3 |
+| C03107      | Clean Up Day         | A04          | 000029 |  1000.00 |                 0.00 |        2 |
+| C03108      | Book Drive           | A02          | 000011 |   800.00 |                 0.00 |     NULL |
+| C03109      | Charity Run          | A03          | 000020 |  2000.00 |                 0.00 |        4 |
++-------------+----------------------+--------------+--------+----------+----------------------+----------+
+10 rows in set (0.00 sec)
+
++--------------+------------------------------------+------------+
+| faculty_code | faculty_name                       | total_cost |
++--------------+------------------------------------+------------+
+| A01          | Faculty of Science and Engineering |   17500.00 |
+| A02          | Faculty of Humanities              |       0.00 |
+| A03          | Faculty of Health Sceiences        |       0.00 |
+| A04          | Faculty of Management              |    1000.00 |
+| A05          | Faculty of Law                     |       0.00 |
++--------------+------------------------------------+------------+
+5 rows in set (0.00 sec)
+
+Query OK, 0 rows affected (0.02 sec)
+Rows matched: 1  Changed: 0  Warnings: 0
+
++-------------+-------------------+--------------+--------+----------+----------------------+----------+
+| activity_no | activity_name     | faculty_code | leader | est_cost | faculty_contribution | priority |
++-------------+-------------------+--------------+--------+----------+----------------------+----------+
+| C03101      | Daffodil day 2020 | A02          | 000021 |   700.00 |               100.00 |        1 |
+| C03104      | Daffodil day 2021 | A02          | 000016 |   600.00 |                 NULL |        1 |
+| C03108      | Book Drive        | A02          | 000011 |   800.00 |                 0.00 |     NULL |
++-------------+-------------------+--------------+--------+----------+----------------------+----------+
+3 rows in set (0.00 sec)
+
++--------------+------------------------------------+------------+
+| faculty_code | faculty_name                       | total_cost |
++--------------+------------------------------------+------------+
+| A01          | Faculty of Science and Engineering |   17500.00 |
+| A02          | Faculty of Humanities              |    2100.00 |
+| A03          | Faculty of Health Sceiences        |       0.00 |
+| A04          | Faculty of Management              |    1000.00 |
+| A05          | Faculty of Law                     |       0.00 |
++--------------+------------------------------------+------------+
+5 rows in set (0.00 sec)
+
+mysql> Terminal close -- exit!
+Aborted

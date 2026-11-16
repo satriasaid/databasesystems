@@ -1,0 +1,996 @@
+mysql> SOURCE pracTest3Tables_1.sql
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+mysql> USE DATABASES dswork;
+ERROR 1044 (42000): Access denied for user 'me'@'localhost' to database 'DATABASES'
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| dswork             |
+| information_schema |
+| performance_schema |
++--------------------+
+3 rows in set (0.01 sec)
+
+mysql> USE dswork;
+Database changed
+mysql> SOURCE pracTest3Tables_1.sql;
+Query OK, 0 rows affected, 1 warning (0.01 sec)
+
+Query OK, 0 rows affected (0.18 sec)
+
+Query OK, 0 rows affected, 1 warning (0.00 sec)
+
+Query OK, 0 rows affected (0.11 sec)
+
+Query OK, 0 rows affected, 1 warning (0.00 sec)
+
+Query OK, 0 rows affected (0.10 sec)
+
+Query OK, 0 rows affected, 1 warning (0.01 sec)
+
+Query OK, 0 rows affected (0.08 sec)
+
+Query OK, 0 rows affected, 1 warning (0.01 sec)
+
+Query OK, 0 rows affected (0.11 sec)
+
+mysql> SHOW TABLES;
++------------------+
+| Tables_in_dswork |
++------------------+
+| Building         |
+| Class            |
+| Faculty          |
+| Room             |
+| Unit             |
++------------------+
+5 rows in set (0.00 sec)
+
+mysql> SOURCE pracTest3Values_1.sql;
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 2
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.03 sec)
+
+Query OK, 1 row affected (0.06 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.04 sec)
+
+Query OK, 1 row affected (0.03 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''CLAB', 7)' at line 2
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SHOW TABLES;
++------------------+
+| Tables_in_dswork |
++------------------+
+| Building         |
+| Class            |
+| Faculty          |
+| Room             |
+| Unit             |
++------------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM Building;
++--------------+--------------------------+------------------+--------------+-----------------+
+| building_num | building_name            | building_type    | faculty_code | building_rating |
++--------------+--------------------------+------------------+--------------+-----------------+
+| 200          | Business School-Main     | Common           | A04          | 7               |
+| 210          | Engineering Technologies | Lecture Theatres | A01          | 7               |
+| 211          | Crop Labs                | Common           | A03          | 6               |
+| 306          | Temple Gardner Hall      | Lecture Theatres | A02          | 7               |
+| 310          | Science Labs             | labs             | A03          | 4               |
+| 314          | New Technologies         | Common           | A01          | 2               |
+| 501          | The Forum                | Classrooms       | A02          | 4               |
+| 505          | Design Studio            | Classrooms       | A01          | 4               |
++--------------+--------------------------+------------------+--------------+-----------------+
+8 rows in set (0.00 sec)
+
+mysql> SELECT * FROM Class;
++----------+----------+----------+--------------+--------------+------------+
+| class_id | unit_num | room_num | building_num | class_length | class_type |
++----------+----------+----------+--------------+--------------+------------+
+| 1201     | CMPE3003 | 202      | 306          |           60 | LECT       |
+| 1202     | CMPE3003 | 312      | 211          |          120 | SEMI       |
+| 1203     | BIOL1001 | 303      | 211          |           60 | WLAB       |
++----------+----------+----------+--------------+--------------+------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM Faculty;
++--------------+------------------------------------+
+| faculty_code | faculty_name                       |
++--------------+------------------------------------+
+| A01          | Faculty of Science and Engineering |
+| A02          | Faculty of Humanities              |
+| A03          | Faculty of Health Sceiences        |
+| A04          | Faculty of Management              |
+| A05          | Faculty of Law                     |
++--------------+------------------------------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM Room;
++----------+--------------+----------+-----------+-------------+
+| room_num | building_num | capacity | room_type | room_rating |
++----------+--------------+----------+-----------+-------------+
+| 101      | 314          |       25 | CLAB      | 6           |
+| 102      | 310          |       50 | WLAB      | 8           |
+| 102      | 314          |       25 | CLAB      | 6           |
+| 105      | 310          |       24 | WLAB      | 6           |
+| 106      | 310          |       24 | WLAB      | 7           |
+| 107      | 310          |       24 | WLAB      | 6           |
+| 201      | 210          |      300 | LECT      | 7           |
+| 201      | 306          |      110 | LECT      | 6           |
+| 201      | 314          |       10 | SEMI      | 7           |
+| 202      | 210          |      500 | LECT      | 8           |
+| 202      | 306          |      250 | LECT      | 8           |
+| 202      | 501          |       40 | SEMI      | 8           |
+| 203      | 314          |       16 | CLAB      | 6           |
+| 301      | 314          |       12 | SEMI      | 6           |
+| 302      | 211          |       24 | WLAB      | 6           |
+| 302      | 501          |      100 | LECT      | 6           |
+| 303      | 211          |       24 | WLAB      | 7           |
+| 303      | 501          |       40 | SEMI      | 7           |
+| 312      | 211          |       40 | SEMI      | 5           |
+| 312      | 501          |      100 | LECT      | 5           |
+| 313      | 211          |       30 | SEMI      | 7           |
+| 315      | 501          |      100 | LECT      | 5           |
+| 441      | 314          |        3 | SEMI      | 8           |
++----------+--------------+----------+-----------+-------------+
+23 rows in set (0.00 sec)
+
+mysql> SELECT * FROM Unit;
++----------+--------------------------+--------------+-----------------+------------+---------+-----------+
+| unit_num | unit_name                | faculty_code | unit_leader     | unit_level | credits | base_cost |
++----------+--------------------------+--------------+-----------------+------------+---------+-----------+
+| BIOL1001 | Microbiology - 1         | A01          | Jennifer Wilson | 1          |      25 |   1500.00 |
+| BUSI2015 | Computing topics         | A04          | Sally Pham      | 1          |      25 |   1500.00 |
+| CMPE3003 | Computational Physics    | A01          | Victor Ray      | 3          |      25 |   2500.00 |
+| COMM2022 | Computing topics         | A02          | Sally Pham      | 3          |      25 |   1500.00 |
+| COMP1001 | Computing topics         | A01          | Sally Pham      | 1          |      25 |   1500.00 |
+| COMP1002 | Programming Fundamentals | A01          | Sally Pham      | 1          |      25 |   1500.00 |
+| COMP1005 | Requirement engineering  | A01          | ARaj Gopalan    | 1          |      25 |   1500.00 |
+| EDUC1001 | Computing topics         | A02          | Sally Pham      | 1          |      25 |   1500.00 |
+| EDUC2001 | Computing topics         | A02          | Sally Pham      | 2          |      25 |   1500.00 |
+| ISYS1001 | Computing topics         | A05          | Sally Pham      | 1          |      25 |   1500.00 |
+| MCAN4004 | Engineering Drawing      | A01          | Mason Marriot   | 4          |      25 |   2500.00 |
+| PHAR1001 | Computing topics         | A03          | Sally Pham      | 1          |      25 |   1500.00 |
+| PHAR2011 | Computing topics         | A03          | Sally Pham      | 1          |      25 |   1500.00 |
+| PHSI1001 | Computing topics         | A03          | Sally Pham      | 1          |      25 |   1500.00 |
+| PHSI2100 | Computing topics         | A03          | Sally Pham      | 1          |      25 |   1500.00 |
++----------+--------------------------+--------------+-----------------+------------+---------+-----------+
+15 rows in set (0.00 sec)
+
+mysql> SHOW COLUMNS FROM Building;
++-----------------+-------------+------+-----+---------+-------+
+| Field           | Type        | Null | Key | Default | Extra |
++-----------------+-------------+------+-----+---------+-------+
+| building_num    | char(3)     | NO   | PRI | NULL    |       |
+| building_name   | varchar(36) | YES  |     | NULL    |       |
+| building_type   | varchar(30) | YES  |     | NULL    |       |
+| faculty_code    | char(3)     | YES  | MUL | NULL    |       |
+| building_rating | char(2)     | YES  |     | NULL    |       |
++-----------------+-------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+mysql> SHOW COLUMNS FROM Building;
++-----------------+-------------+------+-----+---------+-------+
+| Field           | Type        | Null | Key | Default | Extra |
++-----------------+-------------+------+-----+---------+-------+
+| building_num    | char(3)     | NO   | PRI | NULL    |       |
+| building_name   | varchar(36) | YES  |     | NULL    |       |
+| building_type   | varchar(30) | YES  |     | NULL    |       |
+| faculty_code    | char(3)     | YES  | MUL | NULL    |       |
+| building_rating | char(2)     | YES  |     | NULL    |       |
++-----------------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> SHOW COLUMNS FROM Class;
++--------------+----------+------+-----+---------+-------+
+| Field        | Type     | Null | Key | Default | Extra |
++--------------+----------+------+-----+---------+-------+
+| class_id     | char(4)  | NO   | PRI | NULL    |       |
+| unit_num     | char(8)  | YES  | MUL | NULL    |       |
+| room_num     | char(6)  | YES  | MUL | NULL    |       |
+| building_num | char(3)  | YES  | MUL | NULL    |       |
+| class_length | smallint | YES  |     | NULL    |       |
+| class_type   | char(4)  | YES  |     | NULL    |       |
++--------------+----------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> SHOW COLUMNS FROM Faculty;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| faculty_code | char(3)     | NO   | PRI | NULL    |       |
+| faculty_name | varchar(36) | NO   |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> SHOW COLUMNS FROM Room;
++--------------+----------+------+-----+---------+-------+
+| Field        | Type     | Null | Key | Default | Extra |
++--------------+----------+------+-----+---------+-------+
+| room_num     | char(6)  | NO   | PRI | NULL    |       |
+| building_num | char(3)  | NO   | PRI | NULL    |       |
+| capacity     | smallint | YES  |     | NULL    |       |
+| room_type    | char(4)  | YES  |     | NULL    |       |
+| room_rating  | char(4)  | YES  |     | NULL    |       |
++--------------+----------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> SHOW COLUMNS FROM Unit;
++--------------+--------------+------+-----+---------+-------+
+| Field        | Type         | Null | Key | Default | Extra |
++--------------+--------------+------+-----+---------+-------+
+| unit_num     | char(8)      | NO   | PRI | NULL    |       |
+| unit_name    | varchar(24)  | NO   |     | NULL    |       |
+| faculty_code | char(3)      | YES  | MUL | NULL    |       |
+| unit_leader  | varchar(30)  | NO   |     | NULL    |       |
+| unit_level   | char(1)      | YES  |     | NULL    |       |
+| credits      | smallint     | YES  |     | NULL    |       |
+| base_cost    | decimal(8,2) | YES  |     | NULL    |       |
++--------------+--------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT u.unit_num, u.unit_name, faculty_code, class_id, room_num, building_num
+    -> FROM Unit u
+    -> INNER JOIN Class c ON u.unit_num = c.unit_num 
+    -> WHERE faculty_code = 'A01' AND class_type = 'LECT';
++----------+-----------------------+--------------+----------+----------+--------------+
+| unit_num | unit_name             | faculty_code | class_id | room_num | building_num |
++----------+-----------------------+--------------+----------+----------+--------------+
+| CMPE3003 | Computational Physics | A01          | 1201     | 202      | 306          |
++----------+-----------------------+--------------+----------+----------+--------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT u.unit_num, u.unit_name, c.faculty_code, faculty_name, class_id, room_num, building_num
+    -> FROM Unit u
+    -> INNER JOIN Class c ON u.unit_num = c.unit_num 
+    -> INNER JOIN Faculty f ON c.faculty_code = f.faculty_code
+    -> WHERE faculty_code = 'A01' AND class_type = 'LECT';
+ERROR 1054 (42S22): Unknown column 'c.faculty_code' in 'field list'
+mysql> SELECT u.unit_num, u.unit_name, c.faculty_code, faculty_name, class_id, room_num, building_num
+    -> FROM Unit u
+    -> INNER JOIN Class c ON u.unit_num = c.unit_num 
+    -> INNER JOIN Faculty f ON u.faculty_code = f.faculty_code
+    -> WHERE faculty_code = 'A01' AND class_type = 'LECT';
+ERROR 1054 (42S22): Unknown column 'c.faculty_code' in 'field list'
+mysql> SELECT u.unit_num, u.unit_name, u.faculty_code, faculty_name, class_id, room_num, building_num
+    -> FROM Unit u
+    -> INNER JOIN Class c ON u.unit_num = c.unit_num 
+    -> INNER JOIN Faculty f ON u.faculty_code = f.faculty_code
+    -> WHERE faculty_code = 'A01' AND class_type = 'LECT';
+ERROR 1052 (23000): Column 'faculty_code' in where clause is ambiguous
+mysql> SELECT u.unit_num, u.unit_name, u.faculty_code, faculty_name, class_id, room_num, building_num
+    -> FROM Unit u
+    -> INNER JOIN Class c ON u.unit_num = c.unit_num 
+    -> INNER JOIN Faculty f ON u.faculty_code = f.faculty_code
+    -> WHERE u.faculty_code = 'A01' AND class_type = 'LECT';
++----------+-----------------------+--------------+------------------------------------+----------+----------+--------------+
+| unit_num | unit_name             | faculty_code | faculty_name                       | class_id | room_num | building_num |
++----------+-----------------------+--------------+------------------------------------+----------+----------+--------------+
+| CMPE3003 | Computational Physics | A01          | Faculty of Science and Engineering | 1201     | 202      | 306          |
++----------+-----------------------+--------------+------------------------------------+----------+----------+--------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT capacity
+    -> FROM Room
+    -> WHERE room_num='301' AND building_num='314';
++----------+
+| capacity |
++----------+
+|       12 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT building_num, room_num, capacity
+    -> FROM Room
+    -> WHERE capacity > (
+    -> SELECT capacity
+    -> FROM Room
+    -> WHERE room_num='301' AND building_num='314'
+    -> ) AND building_num != '314'
+    -> ORDER BY capacity ASC;
++--------------+----------+----------+
+| building_num | room_num | capacity |
++--------------+----------+----------+
+| 310          | 105      |       24 |
+| 310          | 106      |       24 |
+| 310          | 107      |       24 |
+| 211          | 303      |       24 |
+| 211          | 302      |       24 |
+| 211          | 313      |       30 |
+| 501          | 202      |       40 |
+| 211          | 312      |       40 |
+| 501          | 303      |       40 |
+| 310          | 102      |       50 |
+| 501          | 302      |      100 |
+| 501          | 312      |      100 |
+| 501          | 315      |      100 |
+| 306          | 201      |      110 |
+| 306          | 202      |      250 |
+| 210          | 201      |      300 |
+| 210          | 202      |      500 |
++--------------+----------+----------+
+17 rows in set (0.00 sec)
+
+mysql> SELECT building_num AS 'Building No.', room_num AS 'Room No.', capacity AS 'Room Capacity'
+    -> FROM Room
+    -> WHERE capacity > (
+    -> SELECT capacity
+    -> FROM Room
+    -> WHERE room_num='301' AND building_num='314'
+    -> ) AND building_num != '314'
+    -> ORDER BY capacity ASC;
++--------------+----------+---------------+
+| Building No. | Room No. | Room Capacity |
++--------------+----------+---------------+
+| 310          | 105      |            24 |
+| 310          | 106      |            24 |
+| 310          | 107      |            24 |
+| 211          | 303      |            24 |
+| 211          | 302      |            24 |
+| 211          | 313      |            30 |
+| 501          | 202      |            40 |
+| 211          | 312      |            40 |
+| 501          | 303      |            40 |
+| 310          | 102      |            50 |
+| 501          | 302      |           100 |
+| 501          | 312      |           100 |
+| 501          | 315      |           100 |
+| 306          | 201      |           110 |
+| 306          | 202      |           250 |
+| 210          | 201      |           300 |
+| 210          | 202      |           500 |
++--------------+----------+---------------+
+17 rows in set (0.00 sec)
+
+mysql> SELECT *
+    -> FROM Class;
++----------+----------+----------+--------------+--------------+------------+
+| class_id | unit_num | room_num | building_num | class_length | class_type |
++----------+----------+----------+--------------+--------------+------------+
+| 1201     | CMPE3003 | 202      | 306          |           60 | LECT       |
+| 1202     | CMPE3003 | 312      | 211          |          120 | SEMI       |
+| 1203     | BIOL1001 | 303      | 211          |           60 | WLAB       |
++----------+----------+----------+--------------+--------------+------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT *
+    -> FROM Room r
+    -> LEFT JOIN Class ON CONCAT(c.room_num, c.building_num) = CONCAT(r.room_num,r.building_num);
+ERROR 1054 (42S22): Unknown column 'c.room_num' in 'on clause'
+mysql> SELECT *
+    -> FROM Room r
+    -> LEFT JOIN Class c ON CONCAT(c.room_num,c.building_num) = CONCAT(r.room_num,r.building_num);
++----------+--------------+----------+-----------+-------------+----------+----------+----------+--------------+--------------+------------+
+| room_num | building_num | capacity | room_type | room_rating | class_id | unit_num | room_num | building_num | class_length | class_type |
++----------+--------------+----------+-----------+-------------+----------+----------+----------+--------------+--------------+------------+
+| 101      | 314          |       25 | CLAB      | 6           | NULL     | NULL     | NULL     | NULL         |         NULL | NULL       |
+| 102      | 310          |       50 | WLAB      | 8           | NULL     | NULL     | NULL     | NULL         |         NULL | NULL       |
+| 102      | 314          |       25 | CLAB      | 6           | NULL     | NULL     | NULL     | NULL         |         NULL | NULL       |
+| 105      | 310          |       24 | WLAB      | 6           | NULL     | NULL     | NULL     | NULL         |         NULL | NULL       |
+| 106      | 310          |       24 | WLAB      | 7           | NULL     | NULL     | NULL     | NULL         |         NULL | NULL       |
+| 107      | 310          |       24 | WLAB      | 6           | NULL     | NULL     | NULL     | NULL         |         NULL | NULL       |
+| 201      | 210          |      300 | LECT      | 7           | NULL     | NULL     | NULL     | NULL         |         NULL | NULL       |
+| 201      | 306          |      110 | LECT      | 6           | NULL     | NULL     | NULL     | NULL         |         NULL | NULL       |
+| 201      | 314          |       10 | SEMI      | 7           | NULL     | NULL     | NULL     | NULL         |         NULL | NULL       |
+| 202      | 210          |      500 | LECT      | 8           | NULL     | NULL     | NULL     | NULL         |         NULL | NULL       |
+| 202      | 306          |      250 | LECT      | 8           | 1201     | CMPE3003 | 202      | 306          |           60 | LECT       |
+| 202      | 501          |       40 | SEMI      | 8           | NULL     | NULL     | NULL     | NULL         |         NULL | NULL       |
+| 203      | 314          |       16 | CLAB      | 6           | NULL     | NULL     | NULL     | NULL         |         NULL | NULL       |
+| 301      | 314          |       12 | SEMI      | 6           | NULL     | NULL     | NULL     | NULL         |         NULL | NULL       |
+| 302      | 211          |       24 | WLAB      | 6           | NULL     | NULL     | NULL     | NULL         |         NULL | NULL       |
+| 302      | 501          |      100 | LECT      | 6           | NULL     | NULL     | NULL     | NULL         |         NULL | NULL       |
+| 303      | 211          |       24 | WLAB      | 7           | 1203     | BIOL1001 | 303      | 211          |           60 | WLAB       |
+| 303      | 501          |       40 | SEMI      | 7           | NULL     | NULL     | NULL     | NULL         |         NULL | NULL       |
+| 312      | 211          |       40 | SEMI      | 5           | 1202     | CMPE3003 | 312      | 211          |          120 | SEMI       |
+| 312      | 501          |      100 | LECT      | 5           | NULL     | NULL     | NULL     | NULL         |         NULL | NULL       |
+| 313      | 211          |       30 | SEMI      | 7           | NULL     | NULL     | NULL     | NULL         |         NULL | NULL       |
+| 315      | 501          |      100 | LECT      | 5           | NULL     | NULL     | NULL     | NULL         |         NULL | NULL       |
+| 441      | 314          |        3 | SEMI      | 8           | NULL     | NULL     | NULL     | NULL         |         NULL | NULL       |
++----------+--------------+----------+-----------+-------------+----------+----------+----------+--------------+--------------+------------+
+23 rows in set (0.00 sec)
+
+mysql> SELECT *
+    -> FROM Room r
+    -> LEFT JOIN Class c ON CONCAT(c.room_num,c.building_num) = CONCAT(r.room_num,r.building_num)
+    -> WHERE c.class_id IS NULL;
++----------+--------------+----------+-----------+-------------+----------+----------+----------+--------------+--------------+------------+
+| room_num | building_num | capacity | room_type | room_rating | class_id | unit_num | room_num | building_num | class_length | class_type |
++----------+--------------+----------+-----------+-------------+----------+----------+----------+--------------+--------------+------------+
+| 101      | 314          |       25 | CLAB      | 6           | NULL     | NULL     | NULL     | NULL         |         NULL | NULL       |
+| 102      | 310          |       50 | WLAB      | 8           | NULL     | NULL     | NULL     | NULL         |         NULL | NULL       |
+| 102      | 314          |       25 | CLAB      | 6           | NULL     | NULL     | NULL     | NULL         |         NULL | NULL       |
+| 105      | 310          |       24 | WLAB      | 6           | NULL     | NULL     | NULL     | NULL         |         NULL | NULL       |
+| 106      | 310          |       24 | WLAB      | 7           | NULL     | NULL     | NULL     | NULL         |         NULL | NULL       |
+| 107      | 310          |       24 | WLAB      | 6           | NULL     | NULL     | NULL     | NULL         |         NULL | NULL       |
+| 201      | 210          |      300 | LECT      | 7           | NULL     | NULL     | NULL     | NULL         |         NULL | NULL       |
+| 201      | 306          |      110 | LECT      | 6           | NULL     | NULL     | NULL     | NULL         |         NULL | NULL       |
+| 201      | 314          |       10 | SEMI      | 7           | NULL     | NULL     | NULL     | NULL         |         NULL | NULL       |
+| 202      | 210          |      500 | LECT      | 8           | NULL     | NULL     | NULL     | NULL         |         NULL | NULL       |
+| 202      | 501          |       40 | SEMI      | 8           | NULL     | NULL     | NULL     | NULL         |         NULL | NULL       |
+| 203      | 314          |       16 | CLAB      | 6           | NULL     | NULL     | NULL     | NULL         |         NULL | NULL       |
+| 301      | 314          |       12 | SEMI      | 6           | NULL     | NULL     | NULL     | NULL         |         NULL | NULL       |
+| 302      | 211          |       24 | WLAB      | 6           | NULL     | NULL     | NULL     | NULL         |         NULL | NULL       |
+| 302      | 501          |      100 | LECT      | 6           | NULL     | NULL     | NULL     | NULL         |         NULL | NULL       |
+| 303      | 501          |       40 | SEMI      | 7           | NULL     | NULL     | NULL     | NULL         |         NULL | NULL       |
+| 312      | 501          |      100 | LECT      | 5           | NULL     | NULL     | NULL     | NULL         |         NULL | NULL       |
+| 313      | 211          |       30 | SEMI      | 7           | NULL     | NULL     | NULL     | NULL         |         NULL | NULL       |
+| 315      | 501          |      100 | LECT      | 5           | NULL     | NULL     | NULL     | NULL         |         NULL | NULL       |
+| 441      | 314          |        3 | SEMI      | 8           | NULL     | NULL     | NULL     | NULL         |         NULL | NULL       |
++----------+--------------+----------+-----------+-------------+----------+----------+----------+--------------+--------------+------------+
+20 rows in set (0.00 sec)
+
+mysql> SELECT DISTINCT(building_num)
+    -> FROM (
+    -> SELECT *
+    -> FROM Room r
+    -> LEFT JOIN Class c ON CONCAT(c.room_num,c.building_num) = CONCAT(r.room_num,r.building_num)
+    -> WHERE c.class_id IS NULL
+    -> );
+ERROR 1248 (42000): Every derived table must have its own alias
+mysql> SELECT DISTINCT(building_num)
+    -> FROM (
+    -> SELECT *
+    -> FROM Room r
+    -> LEFT JOIN Class c ON CONCAT(c.room_num,c.building_num) = CONCAT(r.room_num,r.building_num)
+    -> WHERE c.class_id IS NULL
+    -> ) AS no_class_building;
+ERROR 1060 (42S21): Duplicate column name 'room_num'
+mysql> SELECT DISTINCT(building_num)
+    -> FROM (
+    -> SELECT r.room_num, r.building_num, capacity, class_id, unit_num, class_length, class_type
+    -> FROM Room r
+    -> LEFT JOIN Class c ON CONCAT(c.room_num,c.building_num) = CONCAT(r.room_num,r.building_num)
+    -> WHERE c.class_id IS NULL
+    -> ) AS no_class_building;
++--------------+
+| building_num |
++--------------+
+| 210          |
+| 211          |
+| 306          |
+| 310          |
+| 314          |
+| 501          |
++--------------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT building_num, building_name, building_rate
+    -> FROM (
+    -> SELECT r.room_num, r.building_num, capacity, room_type, room_rating, class_id, unit_num, class_length, class_type
+    -> FROM Room r
+    -> LEFT JOIN Class c ON CONCAT(c.room_num,c.building_num) = CONCAT(r.room_num,r.building_num)
+    -> INNER JOIN Building b ON r.building_num = b.building_num
+    -> WHERE c.class_id IS NULL
+    -> ) AS no_class_building;
+ERROR 1054 (42S22): Unknown column 'building_name' in 'field list'
+mysql> SELECT building_num, building_name, building_rating
+    -> FROM (
+    -> SELECT r.room_num, r.building_num, capacity, room_type, room_rating, class_id, unit_num, class_length, class_type, building_name, building_rating
+    -> FROM Room r
+    -> LEFT JOIN Class c ON CONCAT(c.room_num,c.building_num) = CONCAT(r.room_num,r.building_num)
+    -> INNER JOIN Building b ON r.building_num = b.building_num
+    -> WHERE c.class_id IS NULL
+    -> ) AS no_class_building;
++--------------+--------------------------+-----------------+
+| building_num | building_name            | building_rating |
++--------------+--------------------------+-----------------+
+| 210          | Engineering Technologies | 7               |
+| 210          | Engineering Technologies | 7               |
+| 211          | Crop Labs                | 6               |
+| 211          | Crop Labs                | 6               |
+| 306          | Temple Gardner Hall      | 7               |
+| 310          | Science Labs             | 4               |
+| 310          | Science Labs             | 4               |
+| 310          | Science Labs             | 4               |
+| 310          | Science Labs             | 4               |
+| 314          | New Technologies         | 2               |
+| 314          | New Technologies         | 2               |
+| 314          | New Technologies         | 2               |
+| 314          | New Technologies         | 2               |
+| 314          | New Technologies         | 2               |
+| 314          | New Technologies         | 2               |
+| 501          | The Forum                | 4               |
+| 501          | The Forum                | 4               |
+| 501          | The Forum                | 4               |
+| 501          | The Forum                | 4               |
+| 501          | The Forum                | 4               |
++--------------+--------------------------+-----------------+
+20 rows in set (0.00 sec)
+
+mysql> SHOW TABLES;
++------------------+
+| Tables_in_dswork |
++------------------+
+| Building         |
+| Class            |
+| Faculty          |
+| Room             |
+| Unit             |
++------------------+
+5 rows in set (0.01 sec)
+
+mysql> DROP TABLE Building;
+ERROR 3730 (HY000): Cannot drop table 'Building' referenced by a foreign key constraint 'Room_ibfk_1' on table 'Room'.
+mysql> DROP TABLE Rooom;
+ERROR 1051 (42S02): Unknown table 'dswork.Rooom'
+mysql> DROP TABLE Room;
+ERROR 3730 (HY000): Cannot drop table 'Room' referenced by a foreign key constraint 'Class_ibfk_1' on table 'Class'.
+mysql> DROP TABLE Class;
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> DROP TABLE Room;
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> DROP TABLE Building;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> DROP TABLE Faculty;
+ERROR 3730 (HY000): Cannot drop table 'Faculty' referenced by a foreign key constraint 'Unit_ibfk_1' on table 'Unit'.
+mysql> DROP TABLE Unit;
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> DROP TABLE Faculty;
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> SHOW TABLES;
+Empty set (0.00 sec)
+
+mysql> SOURCE PT3_cmds_21522611.sql;
+Database changed
+Query OK, 0 rows affected, 1 warning (0.00 sec)
+
+Query OK, 0 rows affected (0.10 sec)
+
+Query OK, 0 rows affected, 1 warning (0.01 sec)
+
+Query OK, 0 rows affected (0.10 sec)
+
+Query OK, 0 rows affected, 1 warning (0.01 sec)
+
+Query OK, 0 rows affected (0.10 sec)
+
+Query OK, 0 rows affected, 1 warning (0.01 sec)
+
+Query OK, 0 rows affected (0.10 sec)
+
+Query OK, 0 rows affected, 1 warning (0.01 sec)
+
+Query OK, 0 rows affected (0.21 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.03 sec)
+
+Query OK, 1 row affected (0.08 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 2
+Query OK, 1 row affected (0.00 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''CLAB', 7)' at line 2
+Query OK, 1 row affected (0.03 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '--Q3: Display the structure of the newly added table and display all rows from e' at line 1
++-----------------+-------------+------+-----+---------+-------+
+| Field           | Type        | Null | Key | Default | Extra |
++-----------------+-------------+------+-----+---------+-------+
+| building_num    | char(3)     | NO   | PRI | NULL    |       |
+| building_name   | varchar(36) | YES  |     | NULL    |       |
+| building_type   | varchar(30) | YES  |     | NULL    |       |
+| faculty_code    | char(3)     | YES  | MUL | NULL    |       |
+| building_rating | char(2)     | YES  |     | NULL    |       |
++-----------------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
++--------------+----------+------+-----+---------+-------+
+| Field        | Type     | Null | Key | Default | Extra |
++--------------+----------+------+-----+---------+-------+
+| class_id     | char(4)  | NO   | PRI | NULL    |       |
+| unit_num     | char(8)  | YES  | MUL | NULL    |       |
+| room_num     | char(6)  | YES  | MUL | NULL    |       |
+| building_num | char(3)  | YES  | MUL | NULL    |       |
+| class_length | smallint | YES  |     | NULL    |       |
+| class_type   | char(4)  | YES  |     | NULL    |       |
++--------------+----------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| faculty_code | char(3)     | NO   | PRI | NULL    |       |
+| faculty_name | varchar(36) | NO   |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
++--------------+----------+------+-----+---------+-------+
+| Field        | Type     | Null | Key | Default | Extra |
++--------------+----------+------+-----+---------+-------+
+| room_num     | char(6)  | NO   | PRI | NULL    |       |
+| building_num | char(3)  | NO   | PRI | NULL    |       |
+| capacity     | smallint | YES  |     | NULL    |       |
+| room_type    | char(4)  | YES  |     | NULL    |       |
+| room_rating  | char(4)  | YES  |     | NULL    |       |
++--------------+----------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
++--------------+--------------+------+-----+---------+-------+
+| Field        | Type         | Null | Key | Default | Extra |
++--------------+--------------+------+-----+---------+-------+
+| unit_num     | char(8)      | NO   | PRI | NULL    |       |
+| unit_name    | varchar(24)  | NO   |     | NULL    |       |
+| faculty_code | char(3)      | YES  | MUL | NULL    |       |
+| unit_leader  | varchar(30)  | NO   |     | NULL    |       |
+| unit_level   | char(1)      | YES  |     | NULL    |       |
+| credits      | smallint     | YES  |     | NULL    |       |
+| base_cost    | decimal(8,2) | YES  |     | NULL    |       |
++--------------+--------------+------+-----+---------+-------+
+7 rows in set (0.01 sec)
+
++--------------+--------------------------+------------------+--------------+-----------------+
+| building_num | building_name            | building_type    | faculty_code | building_rating |
++--------------+--------------------------+------------------+--------------+-----------------+
+| 200          | Business School-Main     | Common           | A04          | 7               |
+| 210          | Engineering Technologies | Lecture Theatres | A01          | 7               |
+| 211          | Crop Labs                | Common           | A03          | 6               |
+| 306          | Temple Gardner Hall      | Lecture Theatres | A02          | 7               |
+| 310          | Science Labs             | labs             | A03          | 4               |
+| 314          | New Technologies         | Common           | A01          | 2               |
+| 501          | The Forum                | Classrooms       | A02          | 4               |
+| 505          | Design Studio            | Classrooms       | A01          | 4               |
++--------------+--------------------------+------------------+--------------+-----------------+
+8 rows in set (0.00 sec)
+
++----------+----------+----------+--------------+--------------+------------+
+| class_id | unit_num | room_num | building_num | class_length | class_type |
++----------+----------+----------+--------------+--------------+------------+
+| 1201     | CMPE3003 | 202      | 306          |           60 | LECT       |
+| 1202     | CMPE3003 | 312      | 211          |          120 | SEMI       |
+| 1203     | BIOL1001 | 303      | 211          |           60 | WLAB       |
++----------+----------+----------+--------------+--------------+------------+
+3 rows in set (0.00 sec)
+
++--------------+------------------------------------+
+| faculty_code | faculty_name                       |
++--------------+------------------------------------+
+| A01          | Faculty of Science and Engineering |
+| A02          | Faculty of Humanities              |
+| A03          | Faculty of Health Sceiences        |
+| A04          | Faculty of Management              |
+| A05          | Faculty of Law                     |
++--------------+------------------------------------+
+5 rows in set (0.00 sec)
+
++----------+--------------+----------+-----------+-------------+
+| room_num | building_num | capacity | room_type | room_rating |
++----------+--------------+----------+-----------+-------------+
+| 101      | 314          |       25 | CLAB      | 6           |
+| 102      | 310          |       50 | WLAB      | 8           |
+| 102      | 314          |       25 | CLAB      | 6           |
+| 105      | 310          |       24 | WLAB      | 6           |
+| 106      | 310          |       24 | WLAB      | 7           |
+| 107      | 310          |       24 | WLAB      | 6           |
+| 201      | 210          |      300 | LECT      | 7           |
+| 201      | 306          |      110 | LECT      | 6           |
+| 201      | 314          |       10 | SEMI      | 7           |
+| 202      | 210          |      500 | LECT      | 8           |
+| 202      | 306          |      250 | LECT      | 8           |
+| 202      | 501          |       40 | SEMI      | 8           |
+| 203      | 314          |       16 | CLAB      | 6           |
+| 301      | 314          |       12 | SEMI      | 6           |
+| 302      | 211          |       24 | WLAB      | 6           |
+| 302      | 501          |      100 | LECT      | 6           |
+| 303      | 211          |       24 | WLAB      | 7           |
+| 303      | 501          |       40 | SEMI      | 7           |
+| 312      | 211          |       40 | SEMI      | 5           |
+| 312      | 501          |      100 | LECT      | 5           |
+| 313      | 211          |       30 | SEMI      | 7           |
+| 315      | 501          |      100 | LECT      | 5           |
+| 441      | 314          |        3 | SEMI      | 8           |
++----------+--------------+----------+-----------+-------------+
+23 rows in set (0.00 sec)
+
++----------+--------------------------+--------------+-----------------+------------+---------+-----------+
+| unit_num | unit_name                | faculty_code | unit_leader     | unit_level | credits | base_cost |
++----------+--------------------------+--------------+-----------------+------------+---------+-----------+
+| BIOL1001 | Microbiology - 1         | A01          | Jennifer Wilson | 1          |      25 |   1500.00 |
+| BUSI2015 | Computing topics         | A04          | Sally Pham      | 1          |      25 |   1500.00 |
+| CMPE3003 | Computational Physics    | A01          | Victor Ray      | 3          |      25 |   2500.00 |
+| COMM2022 | Computing topics         | A02          | Sally Pham      | 3          |      25 |   1500.00 |
+| COMP1001 | Computing topics         | A01          | Sally Pham      | 1          |      25 |   1500.00 |
+| COMP1002 | Programming Fundamentals | A01          | Sally Pham      | 1          |      25 |   1500.00 |
+| COMP1005 | Requirement engineering  | A01          | ARaj Gopalan    | 1          |      25 |   1500.00 |
+| EDUC1001 | Computing topics         | A02          | Sally Pham      | 1          |      25 |   1500.00 |
+| EDUC2001 | Computing topics         | A02          | Sally Pham      | 2          |      25 |   1500.00 |
+| ISYS1001 | Computing topics         | A05          | Sally Pham      | 1          |      25 |   1500.00 |
+| MCAN4004 | Engineering Drawing      | A01          | Mason Marriot   | 4          |      25 |   2500.00 |
+| PHAR1001 | Computing topics         | A03          | Sally Pham      | 1          |      25 |   1500.00 |
+| PHAR2011 | Computing topics         | A03          | Sally Pham      | 1          |      25 |   1500.00 |
+| PHSI1001 | Computing topics         | A03          | Sally Pham      | 1          |      25 |   1500.00 |
+| PHSI2100 | Computing topics         | A03          | Sally Pham      | 1          |      25 |   1500.00 |
++----------+--------------------------+--------------+-----------------+------------+---------+-----------+
+15 rows in set (0.00 sec)
+
++----------+-----------------------+--------------+----------+----------+--------------+
+| unit_num | unit_name             | faculty_code | class_id | room_num | building_num |
++----------+-----------------------+--------------+----------+----------+--------------+
+| CMPE3003 | Computational Physics | A01          | 1201     | 202      | 306          |
++----------+-----------------------+--------------+----------+----------+--------------+
+1 row in set (0.00 sec)
+
++----------+-----------------------+--------------+------------------------------------+----------+----------+--------------+
+| unit_num | unit_name             | faculty_code | faculty_name                       | class_id | room_num | building_num |
++----------+-----------------------+--------------+------------------------------------+----------+----------+--------------+
+| CMPE3003 | Computational Physics | A01          | Faculty of Science and Engineering | 1201     | 202      | 306          |
++----------+-----------------------+--------------+------------------------------------+----------+----------+--------------+
+1 row in set (0.00 sec)
+
++--------------+----------+---------------+
+| Building No. | Room No. | Room Capacity |
++--------------+----------+---------------+
+| 310          | 105      |            24 |
+| 310          | 106      |            24 |
+| 310          | 107      |            24 |
+| 211          | 303      |            24 |
+| 211          | 302      |            24 |
+| 211          | 313      |            30 |
+| 501          | 202      |            40 |
+| 211          | 312      |            40 |
+| 501          | 303      |            40 |
+| 310          | 102      |            50 |
+| 501          | 302      |           100 |
+| 501          | 312      |           100 |
+| 501          | 315      |           100 |
+| 306          | 201      |           110 |
+| 306          | 202      |           250 |
+| 210          | 201      |           300 |
+| 210          | 202      |           500 |
++--------------+----------+---------------+
+17 rows in set (0.00 sec)
+
++--------------+
+| building_num |
++--------------+
+| 210          |
+| 211          |
+| 306          |
+| 310          |
+| 314          |
+| 501          |
++--------------+
+6 rows in set (0.00 sec)
+
++--------------+--------------------------+-----------------+
+| building_num | building_name            | building_rating |
++--------------+--------------------------+-----------------+
+| 210          | Engineering Technologies | 7               |
+| 210          | Engineering Technologies | 7               |
+| 211          | Crop Labs                | 6               |
+| 211          | Crop Labs                | 6               |
+| 306          | Temple Gardner Hall      | 7               |
+| 310          | Science Labs             | 4               |
+| 310          | Science Labs             | 4               |
+| 310          | Science Labs             | 4               |
+| 310          | Science Labs             | 4               |
+| 314          | New Technologies         | 2               |
+| 314          | New Technologies         | 2               |
+| 314          | New Technologies         | 2               |
+| 314          | New Technologies         | 2               |
+| 314          | New Technologies         | 2               |
+| 314          | New Technologies         | 2               |
+| 501          | The Forum                | 4               |
+| 501          | The Forum                | 4               |
+| 501          | The Forum                | 4               |
+| 501          | The Forum                | 4               |
+| 501          | The Forum                | 4               |
++--------------+--------------------------+-----------------+
+20 rows in set (0.00 sec)
+
+mysql> EXIT

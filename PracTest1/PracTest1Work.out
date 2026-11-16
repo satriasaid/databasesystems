@@ -1,0 +1,344 @@
+mysql> SHOW DATABASES
+    -> ;
++--------------------+
+| Database           |
++--------------------+
+| dswork             |
+| information_schema |
+| performance_schema |
++--------------------+
+3 rows in set (0.01 sec)
+
+mysql> -- TASK 1.1
+mysql> SHOW DATABASES
+    -> ;
++--------------------+
+| Database           |
++--------------------+
+| dswork             |
+| information_schema |
+| performance_schema |
++--------------------+
+3 rows in set (0.00 sec)
+
+mysql> --TASK 1.2
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '--TASK 1.2' at line 1
+mysql> -- TASK 1.2
+mysql> USE dswork
+Database changed
+mysql> CREATE TABLE Conference(
+    -> confID CHAR(4)
+    -> ,
+    -> name VARCHAR(40),
+    -> city VARCHAR(15),
+    -> date DATE,
+    -> count INT
+    -> );
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> SHOW COLUMNS Conference;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Conference' at line 1
+mysql> SHOW TABLES;
++------------------+
+| Tables_in_dswork |
++------------------+
+| Conference       |
++------------------+
+1 row in set (0.01 sec)
+
+mysql> SHOW COLUMNS;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> SHOW COLUMNS Conference;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Conference' at line 1
+mysql> SHOW COLUMNS FROM Conference;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| confID | char(4)     | YES  |     | NULL    |       |
+| name   | varchar(40) | YES  |     | NULL    |       |
+| city   | varchar(15) | YES  |     | NULL    |       |
+| date   | date        | YES  |     | NULL    |       |
+| count  | int         | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> -- TASK 1.3
+mysql> INSERT INTO Conference (confID, name, city, date, count)
+    -> VALUES ('5002', 'ACM Computational Thinking Conference 2027', NULL, NULL, NULL);
+ERROR 1406 (22001): Data too long for column 'name' at row 1
+mysql> INSERT INTO Conference (confID, name, city, date, count) VALUES ('5002', 'ACM Computational Thinking Conference', NULL, NULL, NULL);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM Conference;
++--------+---------------------------------------+------+------+-------+
+| confID | name                                  | city | date | count |
++--------+---------------------------------------+------+------+-------+
+| 5002   | ACM Computational Thinking Conference | NULL | NULL |  NULL |
++--------+---------------------------------------+------+------+-------+
+1 row in set (0.00 sec)
+
+mysql> INSERT INTO Conference (confID, name, city, date, count) VALUES ('5003', 'ACM AI Conference', 'Perth','2027-05-01' , 350);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> SELECT * FROM Conference;
++--------+---------------------------------------+-------+------------+-------+
+| confID | name                                  | city  | date       | count |
++--------+---------------------------------------+-------+------------+-------+
+| 5002   | ACM Computational Thinking Conference | NULL  | NULL       |  NULL |
+| 5003   | ACM AI Conference                     | Perth | 2027-05-01 |   350 |
++--------+---------------------------------------+-------+------------+-------+
+2 rows in set (0.00 sec)
+
+mysql> -- Task 1.5
+mysql> UPDATE Conference
+    -> SET count = 250
+    -> WHERE confID = '5003';
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM Conference;
++--------+---------------------------------------+-------+------------+-------+
+| confID | name                                  | city  | date       | count |
++--------+---------------------------------------+-------+------------+-------+
+| 5002   | ACM Computational Thinking Conference | NULL  | NULL       |  NULL |
+| 5003   | ACM AI Conference                     | Perth | 2027-05-01 |   250 |
++--------+---------------------------------------+-------+------------+-------+
+2 rows in set (0.00 sec)
+
+mysql> -- Task 2.1
+mysql> CREATE TABLE CasualStaff(staffID CHAR(4) , name VARCHAR(40), city VARCHAR(15), date DATE, count INT );
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> DROP TABLE CasualStaff;
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> CREATE TABLE CasualStaff
+    -> (
+    -> staffID INT(6) NOT NULL PRIMARY KEY,
+    -> firstname VARCHAR(12),
+    -> lastname VARCHAR(15),
+    -> ^C
+mysql> CREATE TABLE CasualStaff(
+    -> staffID INT(6) NOT NULL PRIMARY KEY,
+    -> firstname VARCHAR(12) NOT NULL,
+    -> lastname VARCHAR(15),
+    -> telephone CHAR(10),
+    -> rate INT(3)
+    -> );
+Query OK, 0 rows affected, 2 warnings (0.16 sec)
+
+mysql> SHOW COLUMNS FROM CasualStaff
+    -> ;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| staffID   | int         | NO   | PRI | NULL    |       |
+| firstname | varchar(12) | NO   |     | NULL    |       |
+| lastname  | varchar(15) | YES  |     | NULL    |       |
+| telephone | char(10)    | YES  |     | NULL    |       |
+| rate      | int         | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> INSERT INTO CasualStaff(staffID, firstname, lastname, telephone, rate
+    -> )
+    -> ^C
+mysql> REATE TABLE CasualStaff(
+    ->     -> staffID INT(6) NOT NULL PRIMARY KEY,
+    ->     -> firstname VARCHAR(12) NOT NULL,
+    ->     -> lastname VARCHAR(15),
+    ->     -> telephone CHAR(10),
+    ->     -> rate INT(3)
+    -> ^C
+mysql> DROP TABLE CasualStaff;
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> CREATE TABLE CasualStaff(staffID INT(6) NOT NULL PRIMARY KEY,firstname VARCHAR(12) NOT NULL,lastname VARCHAR(15),telephone CHAR(10),rate DECIMAL(3,2) );
+Query OK, 0 rows affected, 1 warning (0.14 sec)
+
+mysql> SHOW COLUMNS FROM CasualStaff
+    -> ;
++-----------+--------------+------+-----+---------+-------+
+| Field     | Type         | Null | Key | Default | Extra |
++-----------+--------------+------+-----+---------+-------+
+| staffID   | int          | NO   | PRI | NULL    |       |
+| firstname | varchar(12)  | NO   |     | NULL    |       |
+| lastname  | varchar(15)  | YES  |     | NULL    |       |
+| telephone | char(10)     | YES  |     | NULL    |       |
+| rate      | decimal(3,2) | YES  |     | NULL    |       |
++-----------+--------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+mysql> INSERT INTO CasualStaff(staffID,firstname,lastname,telephone,rate)
+    -> VALUES (000001, 'Andrea', 'Louis D''Livera', '0478245869',37.85);
+ERROR 1264 (22003): Out of range value for column 'rate' at row 1
+mysql> INSERT INTO CasualStaff(staffID,firstname,lastname,telephone,rate) VALUES (000001, 'Andrea', 'Louis D''Livera', '0478245869',40.0);
+ERROR 1264 (22003): Out of range value for column 'rate' at row 1
+mysql> INSERT INTO CasualStaff(staffID,firstname,lastname,telephone,rate) VALUES (000001, 'Andrea', 'Louis D''Livera', '0478245869',40);
+ERROR 1264 (22003): Out of range value for column 'rate' at row 1
+mysql> INSERT INTO CasualStaff(staffID,firstname,lastname,telephone,rate) VALUES (000001, 'Andrea', 'Louis D''Livera', '0478245869',1);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> SELECT * FROM CasualStaff;
++---------+-----------+----------------+------------+------+
+| staffID | firstname | lastname       | telephone  | rate |
++---------+-----------+----------------+------------+------+
+|       1 | Andrea    | Louis D'Livera | 0478245869 | 1.00 |
++---------+-----------+----------------+------------+------+
+1 row in set (0.00 sec)
+
+mysql> DROP TABLE CasualStaff;
+Query OK, 0 rows affected (0.21 sec)
+
+mysql> CREATE TABLE CasualStaff(staffID INT(6) NOT NULL PRIMARY KEY,firstname VARCHAR(12) NOT NULL,lastname VARCHAR(15),telephone CHAR(10),rate DECIMAL(4,2) );
+Query OK, 0 rows affected, 1 warning (0.09 sec)
+
+mysql> INSERT INTO CasualStaff(staffID,firstname,lastname,telephone,rate) VALUES (000001, 'Andrea', 'Louis D''Livera', '0478245869',37.85);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> SELECT * FROM CasualStaff;
++---------+-----------+----------------+------------+-------+
+| staffID | firstname | lastname       | telephone  | rate  |
++---------+-----------+----------------+------------+-------+
+|       1 | Andrea    | Louis D'Livera | 0478245869 | 37.85 |
++---------+-----------+----------------+------------+-------+
+1 row in set (0.00 sec)
+
+mysql> -- TASK 3.1
+mysql> \. Stadium.txt
+Query OK, 0 rows affected (0.10 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.02 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SHOW TABLES;
++------------------+
+| Tables_in_dswork |
++------------------+
+| CasualStaff      |
+| Conference       |
+| Stadium          |
++------------------+
+3 rows in set (0.00 sec)
+
+mysql> SHOW COLUMNS FROM Stadium;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| stadiumid | int         | YES  |     | NULL    |       |
+| name      | varchar(30) | YES  |     | NULL    |       |
+| city      | varchar(20) | YES  |     | NULL    |       |
+| capacity  | int         | YES  |     | NULL    |       |
+| telephone | char(10)    | YES  |     | NULL    |       |
+| has_roof  | tinyint(1)  | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT * FROM Stadium;
++-----------+--------------------------+------------+----------+------------+----------+
+| stadiumid | name                     | city       | capacity | telephone  | has_roof |
++-----------+--------------------------+------------+----------+------------+----------+
+|       300 | Sydney Football Stadium  | Sydney     |    85000 | 0133934500 |        1 |
+|       301 | Optus Stadium            | Perth      |    80000 | 0133934501 |        1 |
+|       302 | Brisbane Stadium         | Brisbane   |    59000 | 0133934502 |        0 |
+|       303 | Docklands Stadium        | Melbourne  |    68000 | 0133934503 |        1 |
+|       304 | Adelaide Oval            | Adelaide   |    79000 | 0133934504 |        0 |
+|       305 | North Queensland Stadium | Townsville |    85000 | 0133934505 |        0 |
+|       306 | Cameron Stadium          | Sydney     |    75000 | 0133934506 |        0 |
++-----------+--------------------------+------------+----------+------------+----------+
+7 rows in set (0.00 sec)
+
+mysql> -- TASK 3.2
+mysql> -- TASK 3.2a
+mysql> UPDATE Stadium
+    -> SET capacity = 78000
+    -> WHERE capacity < 80000;
+Query OK, 4 rows affected (0.02 sec)
+Rows matched: 4  Changed: 4  Warnings: 0
+
+mysql> SELECT * FROM Stadium;
++-----------+--------------------------+------------+----------+------------+----------+
+| stadiumid | name                     | city       | capacity | telephone  | has_roof |
++-----------+--------------------------+------------+----------+------------+----------+
+|       300 | Sydney Football Stadium  | Sydney     |    85000 | 0133934500 |        1 |
+|       301 | Optus Stadium            | Perth      |    80000 | 0133934501 |        1 |
+|       302 | Brisbane Stadium         | Brisbane   |    78000 | 0133934502 |        0 |
+|       303 | Docklands Stadium        | Melbourne  |    78000 | 0133934503 |        1 |
+|       304 | Adelaide Oval            | Adelaide   |    78000 | 0133934504 |        0 |
+|       305 | North Queensland Stadium | Townsville |    85000 | 0133934505 |        0 |
+|       306 | Cameron Stadium          | Sydney     |    78000 | 0133934506 |        0 |
++-----------+--------------------------+------------+----------+------------+----------+
+7 rows in set (0.01 sec)
+
+mysql> -- TASK 3.2b
+mysql> DELETE FROM Stadium
+    -> WHERE has_roof = 1;
+Query OK, 3 rows affected (0.01 sec)
+
+mysql> SELECT * FROM Stadium;
++-----------+--------------------------+------------+----------+------------+----------+
+| stadiumid | name                     | city       | capacity | telephone  | has_roof |
++-----------+--------------------------+------------+----------+------------+----------+
+|       302 | Brisbane Stadium         | Brisbane   |    78000 | 0133934502 |        0 |
+|       304 | Adelaide Oval            | Adelaide   |    78000 | 0133934504 |        0 |
+|       305 | North Queensland Stadium | Townsville |    85000 | 0133934505 |        0 |
+|       306 | Cameron Stadium          | Sydney     |    78000 | 0133934506 |        0 |
++-----------+--------------------------+------------+----------+------------+----------+
+4 rows in set (0.00 sec)
+
+mysql> SOURCE .\PTCmds_21522611
+ERROR: 
+Failed to open file '.\PTCmds_21522611', error: 2
+mysql> SOURCE .\PTCmds_21522611
+ERROR: 
+Failed to open file '.\PTCmds_21522611', error: 2
+mysql> SOURCE .\PTCmds_21522611
+ERROR: 
+Failed to open file '.\PTCmds_21522611', error: 2
+mysql> .\PTCmds_21522611
+Default pager wasn't set, using stdout.
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.' at line 1
+mysql> .\ PTCmds_21522611
+ERROR: 
+Unknown command '\ '.
+    -> ^C
+mysql> \. PTCmds_21522611
+ERROR: 
+Failed to open file 'PTCmds_21522611', error: 2
+mysql> \. PTCmds_21522611
+ERROR: 
+Failed to open file 'PTCmds_21522611', error: 2
+mysql> \. PTCmds_21522611.txt
+ERROR: 
+Failed to open file 'PTCmds_21522611.txt', error: 2
+mysql> SHOW DATABASES
+    -> ;
++--------------------+
+| Database           |
++--------------------+
+| dswork             |
+| information_schema |
+| performance_schema |
++--------------------+
+3 rows in set (0.00 sec)
+
+mysql> \. PTCmds_21522611.txt
+ERROR: 
+Failed to open file 'PTCmds_21522611.txt', error: 2
+mysql> \. PTCmds_21522611.txt
+ERROR: 
+Failed to open file 'PTCmds_21522611.txt', error: 2
+mysql> exit

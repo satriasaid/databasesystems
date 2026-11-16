@@ -1,0 +1,26 @@
+CREATE TABLE TestStudent(
+	sno CHAR(8),
+	firstname VARCHAR(12),
+	lastname VARCHAR(15),
+	phoneno CHAR(10)
+);
+
+CREATE TABLE TestUnit(
+	unitindex CHAR(8),
+	dept CHAR(10),
+	unitname VARCHAR(40)
+);
+
+CREATE TABLE TestEnrolment(
+	unit CHAR(8),
+	student CHAR(8),
+	year CHAR(4),
+	mark INT(3),
+	grade CHAR(1)
+);
+
+SHOW TABLES;
+
+DESCRIBE Student;
+
+SHOW COLUMNS FROM Student;

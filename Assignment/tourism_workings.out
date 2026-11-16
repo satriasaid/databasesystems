@@ -1,0 +1,1334 @@
+tourism_workings.out - recorded run of all scripts on the Curtin Linux lab (MySQL 8.0.46, user dsuser)
+Satria Pamungkas 21522611, Database Systems 2026 S2 Assignment
+Order: tourism_create.sql, tourism_data.sql, tourism_queries.sql, tourism_advanced.sql, tourism_app.py
+NOTE: every ERROR below is an intended test (a constraint or trigger rejecting bad data).
+=====================================================================
+--------------
+SELECT VERSION(), CURRENT_USER(), NOW()
+--------------
+
++-------------------------+------------------+---------------------+
+| VERSION()               | CURRENT_USER()   | NOW()               |
++-------------------------+------------------+---------------------+
+| 8.0.46-0ubuntu0.22.04.4 | dsuser@localhost | 2026-10-10 08:54:29 |
++-------------------------+------------------+---------------------+
+1 row in set
+
+--------------
+CREATE DATABASE IF NOT EXISTS Pamungkas_21522611
+--------------
+
+Query OK, 1 row affected
+
+--------------
+DROP TABLE IF EXISTS StatChangeLog
+--------------
+
+Query OK, 0 rows affected, 1 warning
+
+--------------
+DROP TABLE IF EXISTS SiteCountry
+--------------
+
+Query OK, 0 rows affected, 1 warning
+
+--------------
+DROP TABLE IF EXISTS SiteCriteria
+--------------
+
+Query OK, 0 rows affected, 1 warning
+
+--------------
+DROP TABLE IF EXISTS HeritageSite
+--------------
+
+Query OK, 0 rows affected, 1 warning
+
+--------------
+DROP TABLE IF EXISTS YearlyStat
+--------------
+
+Query OK, 0 rows affected, 1 warning
+
+--------------
+DROP TABLE IF EXISTS Country
+--------------
+
+Query OK, 0 rows affected, 1 warning
+
+--------------
+DROP TABLE IF EXISTS IncomeGroup
+--------------
+
+Query OK, 0 rows affected, 1 warning
+
+--------------
+DROP TABLE IF EXISTS Region
+--------------
+
+Query OK, 0 rows affected, 1 warning
+
+--------------
+CREATE TABLE Region (
+    regionCode CHAR(3)     NOT NULL,
+    regionName VARCHAR(60) NOT NULL,
+    CONSTRAINT pk_region PRIMARY KEY (regionCode),
+    CONSTRAINT uq_region_name UNIQUE (regionName)
+)
+--------------
+
+Query OK, 0 rows affected
+
+--------------
+CREATE TABLE IncomeGroup (
+    incomeCode CHAR(3)     NOT NULL,
+    incomeName VARCHAR(30) NOT NULL,
+    CONSTRAINT pk_income PRIMARY KEY (incomeCode),
+    CONSTRAINT uq_income_name UNIQUE (incomeName)
+)
+--------------
+
+Query OK, 0 rows affected
+
+--------------
+CREATE TABLE Country (
+    countryCode CHAR(3)     NOT NULL,   
+    iso2Code    CHAR(2)     NOT NULL,   
+    countryName VARCHAR(50) NOT NULL,
+    capitalCity VARCHAR(50),
+    regionCode  CHAR(3)     NOT NULL,   
+    incomeCode  CHAR(3)     NOT NULL,   
+    CONSTRAINT pk_country PRIMARY KEY (countryCode),
+    CONSTRAINT uq_country_iso2 UNIQUE (iso2Code),
+    CONSTRAINT fk_country_region FOREIGN KEY (regionCode)
+        REFERENCES Region(regionCode) ON UPDATE CASCADE ON DELETE RESTRICT,
+    CONSTRAINT fk_country_income FOREIGN KEY (incomeCode)
+        REFERENCES IncomeGroup(incomeCode) ON UPDATE CASCADE ON DELETE RESTRICT
+)
+--------------
+
+Query OK, 0 rows affected
+
+--------------
+CREATE TABLE YearlyStat (
+    countryCode    CHAR(3)  NOT NULL,
+    statYear       SMALLINT NOT NULL,
+    arrivals       BIGINT,             
+    departures     BIGINT,             
+    receiptsUSD    BIGINT,             
+    expenditureUSD BIGINT,             
+    CONSTRAINT pk_yearlystat PRIMARY KEY (countryCode, statYear),
+    CONSTRAINT fk_yearlystat_country FOREIGN KEY (countryCode)
+        REFERENCES Country(countryCode) ON UPDATE CASCADE ON DELETE CASCADE,
+    CONSTRAINT chk_stat_year CHECK (statYear BETWEEN 1990 AND 2100),
+    CONSTRAINT chk_stat_values CHECK (arrivals >= 0 AND departures >= 0
+                                      AND receiptsUSD >= 0 AND expenditureUSD >= 0)
+)
+--------------
+
+Query OK, 0 rows affected
+
+--------------
+CREATE TABLE HeritageSite (
+    siteId        INT           NOT NULL,   
+    siteName      VARCHAR(200)  NOT NULL,
+    category      VARCHAR(10)   NOT NULL,
+    yearInscribed SMALLINT      NOT NULL,
+    areaHectares  DECIMAL(12,2),
+    inDanger      CHAR(1)       NOT NULL DEFAULT 'N',
+    latitude      DECIMAL(9,6),
+    longitude     DECIMAL(9,6),
+    CONSTRAINT pk_site PRIMARY KEY (siteId),
+    CONSTRAINT chk_site_category CHECK (category IN ('Cultural', 'Natural', 'Mixed')),
+    CONSTRAINT chk_site_year CHECK (yearInscribed >= 1978),   
+    CONSTRAINT chk_site_danger CHECK (inDanger IN ('Y', 'N')),
+    CONSTRAINT chk_site_area CHECK (areaHectares >= 0),
+    CONSTRAINT chk_site_lat CHECK (latitude BETWEEN -90 AND 90),
+    CONSTRAINT chk_site_lon CHECK (longitude BETWEEN -180 AND 180)
+)
+--------------
+
+Query OK, 0 rows affected
+
+--------------
+CREATE TABLE SiteCriteria (
+    siteId    INT        NOT NULL,
+    criterion VARCHAR(4) NOT NULL,   
+    CONSTRAINT pk_sitecriteria PRIMARY KEY (siteId, criterion),
+    CONSTRAINT fk_sitecriteria_site FOREIGN KEY (siteId)
+        REFERENCES HeritageSite(siteId) ON UPDATE CASCADE ON DELETE CASCADE,
+    CONSTRAINT chk_criterion CHECK (criterion IN
+        ('i', 'ii', 'iii', 'iv', 'v', 'vi', 'vii', 'viii', 'ix', 'x'))
+)
+--------------
+
+Query OK, 0 rows affected
+
+--------------
+CREATE TABLE SiteCountry (
+    siteId      INT     NOT NULL,
+    countryCode CHAR(3) NOT NULL,
+    CONSTRAINT pk_sitecountry PRIMARY KEY (siteId, countryCode),
+    CONSTRAINT fk_sitecountry_site FOREIGN KEY (siteId)
+        REFERENCES HeritageSite(siteId) ON UPDATE CASCADE ON DELETE CASCADE,
+    CONSTRAINT fk_sitecountry_country FOREIGN KEY (countryCode)
+        REFERENCES Country(countryCode) ON UPDATE CASCADE ON DELETE CASCADE
+)
+--------------
+
+Query OK, 0 rows affected
+
+--------------
+SHOW TABLES
+--------------
+
++------------------------------+
+| Tables_in_Pamungkas_21522611 |
++------------------------------+
+| Country                      |
+| HeritageSite                 |
+| IncomeGroup                  |
+| Region                       |
+| SiteCountry                  |
+| SiteCriteria                 |
+| YearlyStat                   |
++------------------------------+
+7 rows in set
+
+--------------
+SET NAMES utf8mb4
+--------------
+
+Query OK, 0 rows affected
+
+--------------
+INSERT INTO Region (regionCode, regionName) VALUES
+('EAS', 'East Asia & Pacific'),
+('ECS', 'Europe & Central Asia'),
+('LCN', 'Latin America & Caribbean'),
+... (remaining rows not shown here, see tourism_data.sql)
+--------------
+
+Query OK, 7 rows affected
+Records: 7  Duplicates: 0  Warnings: 0
+
+--------------
+INSERT INTO IncomeGroup (incomeCode, incomeName) VALUES
+('HIC', 'High income'),
+('UMC', 'Upper middle income'),
+('LMC', 'Lower middle income'),
+... (remaining rows not shown here, see tourism_data.sql)
+--------------
+
+Query OK, 4 rows affected
+Records: 4  Duplicates: 0  Warnings: 0
+
+--------------
+INSERT INTO Country (countryCode, iso2Code, countryName, capitalCity, regionCode, incomeCode) VALUES
+('AUS', 'AU', 'Australia', 'Canberra', 'EAS', 'HIC'),
+('BRA', 'BR', 'Brazil', 'Brasilia', 'LCN', 'UMC'),
+('EGY', 'EG', 'Egypt, Arab Rep.', 'Cairo', 'MEA', 'LMC'),
+... (remaining rows not shown here, see tourism_data.sql)
+--------------
+
+Query OK, 10 rows affected
+Records: 10  Duplicates: 0  Warnings: 0
+
+--------------
+INSERT INTO YearlyStat (countryCode, statYear, arrivals, departures, receiptsUSD, expenditureUSD) VALUES
+('AUS', 2010, 5790000, 7103000, 31064000000, 27851000000),
+('AUS', 2011, 5771000, 7788000, 34315000000, 33967000000),
+('AUS', 2012, 6032000, 8212000, 34137000000, 35226000000),
+... (remaining rows not shown here, see tourism_data.sql)
+--------------
+
+Query OK, 138 rows affected
+Records: 138  Duplicates: 0  Warnings: 0
+
+--------------
+INSERT INTO HeritageSite (siteId, siteName, category, yearInscribed, areaHectares, inDanger, latitude, longitude) VALUES
+(27, 'Mesa Verde National Park', 'Cultural', 1978, 21043.0, 'N', 37.261667, -108.485556),
+(28, 'Yellowstone National Park', 'Natural', 1978, 898349.0, 'N', 44.46056, -110.82778),
+(72, 'Kluane / Wrangell-St. Elias / Glacier Bay / Tatshenshini-Alsek', 'Natural', 1979, 9839121.0, 'N', 61.197583, -140.991972),
+... (remaining rows not shown here, see tourism_data.sql)
+--------------
+
+Query OK, 289 rows affected
+Records: 289  Duplicates: 0  Warnings: 0
+
+--------------
+INSERT INTO SiteCriteria (siteId, criterion) VALUES
+(27, 'iii'),
+(28, 'vii'),
+(28, 'viii'),
+... (remaining rows not shown here, see tourism_data.sql)
+--------------
+
+Query OK, 629 rows affected
+Records: 629  Duplicates: 0  Warnings: 0
+
+--------------
+INSERT INTO SiteCountry (siteId, countryCode) VALUES
+(27, 'USA'),
+(28, 'USA'),
+(72, 'USA'),
+... (remaining rows not shown here, see tourism_data.sql)
+--------------
+
+Query OK, 295 rows affected
+Records: 295  Duplicates: 0  Warnings: 0
+
+--------------
+SELECT 'Region' AS tableName, COUNT(*) AS numRows FROM Region
+UNION ALL SELECT 'IncomeGroup', COUNT(*) FROM IncomeGroup
+UNION ALL SELECT 'Country', COUNT(*) FROM Country
+UNION ALL SELECT 'YearlyStat', COUNT(*) FROM YearlyStat
+UNION ALL SELECT 'HeritageSite', COUNT(*) FROM HeritageSite
+UNION ALL SELECT 'SiteCriteria', COUNT(*) FROM SiteCriteria
+UNION ALL SELECT 'SiteCountry', COUNT(*) FROM SiteCountry
+--------------
+
++--------------+---------+
+| tableName    | numRows |
++--------------+---------+
+| Region       |       7 |
+| IncomeGroup  |       4 |
+| Country      |      10 |
+| YearlyStat   |     138 |
+| HeritageSite |     289 |
+| SiteCriteria |     629 |
+| SiteCountry  |     295 |
++--------------+---------+
+7 rows in set
+
+--------------
+INSERT INTO Country VALUES ('AUS', 'AU', 'Australia', 'Canberra', 'EAS', 'HIC')
+--------------
+
+ERROR 1062 (23000) at line 1426 in file: 'tourism_data.sql': Duplicate entry 'AUS' for key 'Country.PRIMARY'
+--------------
+INSERT INTO Country VALUES ('NZL', 'NZ', 'New Zealand', 'Wellington', 'XXX', 'HIC')
+--------------
+
+ERROR 1452 (23000) at line 1429 in file: 'tourism_data.sql': Cannot add or update a child row: a foreign key constraint fails (`Pamungkas_21522611`.`Country`, CONSTRAINT `fk_country_region` FOREIGN KEY (`regionCode`) REFERENCES `Region` (`regionCode`) ON DELETE RESTRICT ON UPDATE CASCADE)
+--------------
+INSERT INTO YearlyStat (countryCode, statYear, arrivals) VALUES ('NZL', 2019, 3702000)
+--------------
+
+ERROR 1452 (23000) at line 1432 in file: 'tourism_data.sql': Cannot add or update a child row: a foreign key constraint fails (`Pamungkas_21522611`.`YearlyStat`, CONSTRAINT `fk_yearlystat_country` FOREIGN KEY (`countryCode`) REFERENCES `Country` (`countryCode`) ON DELETE CASCADE ON UPDATE CASCADE)
+--------------
+INSERT INTO Country VALUES ('NZL', 'NZ', NULL, 'Wellington', 'EAS', 'HIC')
+--------------
+
+ERROR 1048 (23000) at line 1435 in file: 'tourism_data.sql': Column 'countryName' cannot be null
+--------------
+INSERT INTO HeritageSite (siteId, siteName, category, yearInscribed)
+VALUES (99999, 'Test site', 'Beach', 2020)
+--------------
+
+ERROR 3819 (HY000) at line 1438 in file: 'tourism_data.sql': Check constraint 'chk_site_category' is violated.
+--------------
+UPDATE YearlyStat SET arrivals = -5 WHERE countryCode = 'AUS' AND statYear = 2019
+--------------
+
+ERROR 3819 (HY000) at line 1442 in file: 'tourism_data.sql': Check constraint 'chk_stat_values' is violated.
+--------------
+DELETE FROM Region WHERE regionCode = 'EAS'
+--------------
+
+ERROR 1451 (23000) at line 1445 in file: 'tourism_data.sql': Cannot delete or update a parent row: a foreign key constraint fails (`Pamungkas_21522611`.`Country`, CONSTRAINT `fk_country_region` FOREIGN KEY (`regionCode`) REFERENCES `Region` (`regionCode`) ON DELETE RESTRICT ON UPDATE CASCADE)
+--------------
+INSERT INTO Country VALUES ('NZL', 'AU', 'New Zealand', 'Wellington', 'EAS', 'HIC')
+--------------
+
+ERROR 1062 (23000) at line 1448 in file: 'tourism_data.sql': Duplicate entry 'AU' for key 'Country.uq_country_iso2'
+--------------
+SELECT countryCode,
+       statYear,
+       ROUND(arrivals / 1000000, 2) AS arrivalsMillions
+FROM YearlyStat
+WHERE statYear = 2019
+  AND arrivals > 50000000
+ORDER BY arrivals DESC
+--------------
+
++-------------+----------+------------------+
+| countryCode | statYear | arrivalsMillions |
++-------------+----------+------------------+
+| FRA         |     2019 |            90.91 |
+| ESP         |     2019 |            83.51 |
+| USA         |     2019 |            79.44 |
+| ITA         |     2019 |            64.51 |
++-------------+----------+------------------+
+4 rows in set
+
+--------------
+SELECT siteId,
+       UPPER(siteName)      AS siteNameUpper,
+       CHAR_LENGTH(siteName) AS nameLength
+FROM HeritageSite
+WHERE siteName LIKE '%Cathedral%'
+   OR siteName LIKE '%Temple%'
+ORDER BY nameLength
+--------------
+
++--------+---------------------------------------------------------------------------------------------+------------+
+| siteId | siteNameUpper                                                                               | nameLength |
++--------+---------------------------------------------------------------------------------------------+------------+
+|    162 | AMIENS CATHEDRAL                                                                            |         16 |
+|    316 | BURGOS CATHEDRAL                                                                            |         16 |
+|    635 | BOURGES CATHEDRAL                                                                           |         17 |
+|     81 | CHARTRES CATHEDRAL                                                                          |         18 |
+|    592 | BOROBUDUR TEMPLE COMPOUNDS                                                                  |         26 |
+|    642 | PRAMBANAN TEMPLE COMPOUNDS                                                                  |         26 |
+|    913 | SHRINES AND TEMPLES OF NIKKO                                                                |         28 |
+|    827 | CATHEDRAL, TORRE CIVICA AND PIAZZA GRANDE, MODENA                                           |         49 |
+|    383 | CATHEDRAL, ALCÁZAR AND ARCHIVO DE INDIAS IN SEVILLE                                         |         51 |
+|   1487 | ARAB-NORMAN PALERMO AND THE CATHEDRAL CHURCHES OF CEFALÚ AND MONREALE                       |         69 |
+|    601 | CATHEDRAL OF NOTRE-DAME, FORMER ABBEY OF SAINT-RÉMI AND PALACE OF TAU, REIMS                |         76 |
+|   1277 | HIRAIZUMI – TEMPLES, GARDENS AND ARCHAEOLOGICAL SITES REPRESENTING THE BUDDHIST PURE LAND   |         89 |
++--------+---------------------------------------------------------------------------------------------+------------+
+12 rows in set
+
+--------------
+SELECT siteName,
+       yearInscribed,
+       YEAR(CURDATE()) - yearInscribed AS yearsOnList
+FROM HeritageSite
+WHERE category = 'Natural'
+  AND yearInscribed BETWEEN 2000 AND 2015
+ORDER BY yearInscribed
+--------------
+
++-----------------------------------------------------------------------------------+---------------+-------------+
+| siteName                                                                          | yearInscribed | yearsOnList |
++-----------------------------------------------------------------------------------+---------------+-------------+
+| Isole Eolie (Aeolian Islands)                                                     |          2000 |          26 |
+| Greater Blue Mountains Area                                                       |          2000 |          26 |
+| Central Amazon Conservation Complex                                               |          2000 |          26 |
+| Pantanal Conservation Area                                                        |          2000 |          26 |
+| Brazilian Atlantic Islands: Fernando de Noronha and Atol das Rocas Reserves       |          2001 |          25 |
+| Cerrado Protected Areas: Chapada dos Veadeiros and Emas National Parks            |          2001 |          25 |
+| Monte San Giorgio                                                                 |          2003 |          23 |
+| Purnululu National Park                                                           |          2003 |          23 |
+| Tropical Rainforest Heritage of Sumatra                                           |          2004 |          22 |
+| Dong Phayayen-Khao Yai Forest Complex                                             |          2005 |          21 |
+| Wadi Al-Hitan (Whale Valley)                                                      |          2005 |          21 |
+| Shiretoko                                                                         |          2005 |          21 |
+| Ancient and Primeval Beech Forests of the Carpathians and Other Regions of Europe |          2007 |          19 |
+| Teide National Park                                                               |          2007 |          19 |
+| Lagoons of New Caledonia: Reef Diversity and Associated Ecosystems                |          2008 |          18 |
+| The Dolomites                                                                     |          2009 |          17 |
+| Pitons, cirques and remparts of Reunion Island                                    |          2010 |          16 |
+| Ogasawara Islands                                                                 |          2011 |          15 |
+| Ningaloo Coast                                                                    |          2011 |          15 |
+| Mount Etna                                                                        |          2013 |          13 |
++-----------------------------------------------------------------------------------+---------------+-------------+
+20 rows in set
+
+--------------
+SELECT countryCode,
+       statYear,
+       arrivals
+FROM YearlyStat
+WHERE receiptsUSD IS NULL
+ORDER BY countryCode, statYear
+--------------
+
++-------------+----------+----------+
+| countryCode | statYear | arrivals |
++-------------+----------+----------+
+| BRA         |     2021 |   745871 |
+| BRA         |     2022 |  3630031 |
+| BRA         |     2023 |  5908341 |
+| BRA         |     2024 |  6773619 |
+| EGY         |     2021 |  7967000 |
+| EGY         |     2022 | 11625000 |
+| ESP         |     2010 | 52677000 |
+| ESP         |     2011 | 56177000 |
+| ESP         |     2012 | 57464000 |
+| ESP         |     2013 | 60675000 |
+| ESP         |     2014 | 64939000 |
+| ESP         |     2015 | 68175000 |
+| ESP         |     2016 | 75315000 |
+| ESP         |     2017 | 81869000 |
+| ESP         |     2018 | 82808000 |
+| ESP         |     2019 | 83509000 |
+| ESP         |     2020 | 18933000 |
+| ESP         |     2021 | 31181000 |
+| ESP         |     2022 | 71659000 |
+| ESP         |     2023 | 85169050 |
+| ESP         |     2024 | 93759300 |
+| FRA         |     2021 | 48395000 |
+| IDN         |     2021 |  1546300 |
+| IDN         |     2022 |  5764000 |
+| IDN         |     2023 | 11382000 |
+| IDN         |     2024 | 13603000 |
+| ITA         |     2010 | 43626000 |
+| ITA         |     2011 | 46119000 |
+| ITA         |     2012 | 46360000 |
+| ITA         |     2013 | 47704000 |
+| ITA         |     2014 | 48576000 |
+| ITA         |     2021 | 26888000 |
+| ITA         |     2022 | 49811000 |
+| ITA         |     2023 | 57250000 |
+| ITA         |     2024 | 57725000 |
+| JPN         |     2021 |   245800 |
+| JPN         |     2022 |  3832100 |
+| JPN         |     2023 | 25066000 |
+| JPN         |     2024 | 36870000 |
+| THA         |     2021 |   511000 |
+| USA         |     2021 | 22280146 |
+| USA         |     2022 | 50770684 |
+| USA         |     2023 | 66349860 |
+| USA         |     2024 | 72390320 |
++-------------+----------+----------+
+44 rows in set
+
+--------------
+SELECT CONCAT(category, ': ', SUBSTRING(siteName, 1, 25), '...') AS siteLabel,
+       FORMAT(areaHectares / 100, 0) AS areaKm2
+FROM HeritageSite
+WHERE areaHectares > 1000000
+ORDER BY areaHectares DESC
+--------------
+
++---------------------------------------+-----------+
+| siteLabel                             | areaKm2   |
++---------------------------------------+-----------+
+| Natural: French Austral Lands and ... | 1,662,671 |
+| Mixed: Papahānaumokuākea...           | 362,075   |
+| Natural: Great Barrier Reef...        | 348,700   |
+| Natural: Kluane / Wrangell-St. Eli... | 98,391    |
+| Natural: Central Amazon Conservati... | 52,320    |
+| Natural: Tropical Rainforest Herit... | 25,951    |
+| Natural: Lorentz National Park...     | 23,500    |
+| Natural: Shark Bay, Western Austra... | 22,009    |
+| Mixed: Kakadu National Park...        | 19,810    |
+| Mixed: Tasmanian Wilderness...        | 15,842    |
+| Natural: Lagoons of New Caledonia:... | 15,743    |
+| Natural: Greater Blue Mountains Ar... | 10,326    |
++---------------------------------------+-----------+
+12 rows in set
+
+--------------
+SELECT c.countryName,
+       r.regionName,
+       i.incomeName,
+       ROUND(y.receiptsUSD / 1000000000, 2) AS receiptsBillionUSD
+FROM Country c
+INNER JOIN Region r      ON c.regionCode = r.regionCode
+INNER JOIN IncomeGroup i ON c.incomeCode = i.incomeCode
+INNER JOIN YearlyStat y  ON c.countryCode = y.countryCode
+WHERE y.statYear = 2019
+ORDER BY y.receiptsUSD DESC
+--------------
+
++------------------+---------------------------------------------------+---------------------+--------------------+
+| countryName      | regionName                                        | incomeName          | receiptsBillionUSD |
++------------------+---------------------------------------------------+---------------------+--------------------+
+| United States    | North America                                     | High income         |             239.45 |
+| France           | Europe & Central Asia                             | High income         |              70.78 |
+| Thailand         | East Asia & Pacific                               | Upper middle income |              64.37 |
+| Italy            | Europe & Central Asia                             | High income         |              51.91 |
+| Japan            | East Asia & Pacific                               | High income         |              49.21 |
+| Australia        | East Asia & Pacific                               | High income         |              47.95 |
+| Indonesia        | East Asia & Pacific                               | Upper middle income |              18.41 |
+| Egypt, Arab Rep. | Middle East, North Africa, Afghanistan & Pakistan | Lower middle income |              14.26 |
+| Brazil           | Latin America & Caribbean                         | Upper middle income |               6.13 |
+| Spain            | Europe & Central Asia                             | High income         |               NULL |
++------------------+---------------------------------------------------+---------------------+--------------------+
+10 rows in set
+
+--------------
+SELECT c.countryName,
+       COUNT(*) AS totalSites,
+       SUM(h.category = 'Cultural') AS cultural,
+       SUM(h.category = 'Natural')  AS natural_,
+       SUM(h.category = 'Mixed')    AS mixed
+FROM Country c
+INNER JOIN SiteCountry sc ON c.countryCode = sc.countryCode
+INNER JOIN HeritageSite h ON sc.siteId = h.siteId
+GROUP BY c.countryName
+HAVING COUNT(*) >= 20
+ORDER BY totalSites DESC
+--------------
+
++---------------+------------+----------+----------+-------+
+| countryName   | totalSites | cultural | natural_ | mixed |
++---------------+------------+----------+----------+-------+
+| Italy         |         62 |       56 |        6 |     0 |
+| France        |         56 |       47 |        7 |     2 |
+| Spain         |         50 |       44 |        4 |     2 |
+| Japan         |         27 |       22 |        5 |     0 |
+| United States |         27 |       13 |       13 |     1 |
+| Brazil        |         26 |       16 |        9 |     1 |
+| Australia     |         21 |        5 |       12 |     4 |
++---------------+------------+----------+----------+-------+
+7 rows in set
+
+--------------
+SELECT r.regionName,
+       COUNT(DISTINCT c.countryCode)         AS numCountries,
+       ROUND(AVG(y.arrivals) / 1000000, 2)   AS avgArrivalsMillions,
+       ROUND(MAX(y.arrivals) / 1000000, 2)   AS maxArrivalsMillions
+FROM Region r
+LEFT JOIN Country c    ON r.regionCode = c.regionCode
+LEFT JOIN YearlyStat y ON c.countryCode = y.countryCode
+                      AND y.statYear BETWEEN 2015 AND 2019
+GROUP BY r.regionName
+ORDER BY avgArrivalsMillions DESC
+--------------
+
++---------------------------------------------------+--------------+---------------------+---------------------+
+| regionName                                        | numCountries | avgArrivalsMillions | maxArrivalsMillions |
++---------------------------------------------------+--------------+---------------------+---------------------+
+| North America                                     |            1 |               78.11 |               79.75 |
+| Europe & Central Asia                             |            3 |               74.22 |               90.91 |
+| East Asia & Pacific                               |            4 |               20.89 |               39.92 |
+| Middle East, North Africa, Afghanistan & Pakistan |            1 |                9.33 |               12.88 |
+| Latin America & Caribbean                         |            1 |                6.48 |                6.62 |
+| South Asia                                        |            0 |                NULL |                NULL |
+| Sub-Saharan Africa                                |            0 |                NULL |                NULL |
++---------------------------------------------------+--------------+---------------------+---------------------+
+7 rows in set
+
+--------------
+SELECT c.countryName,
+       ROUND(y.receiptsUSD / 1000000000, 2) AS receiptsBillionUSD
+FROM Country c
+INNER JOIN YearlyStat y ON c.countryCode = y.countryCode
+WHERE y.statYear = 2019
+  AND y.receiptsUSD > (SELECT AVG(receiptsUSD)
+                       FROM YearlyStat
+                       WHERE statYear = 2019)
+ORDER BY y.receiptsUSD DESC
+--------------
+
++---------------+--------------------+
+| countryName   | receiptsBillionUSD |
++---------------+--------------------+
+| United States |             239.45 |
+| France        |              70.78 |
+| Thailand      |              64.37 |
++---------------+--------------------+
+3 rows in set
+
+--------------
+SELECT c.countryName,
+       (SELECT y1.statYear
+        FROM YearlyStat y1
+        WHERE y1.countryCode = c.countryCode
+        ORDER BY y1.arrivals DESC
+        LIMIT 1) AS peakYear,
+       ROUND(100 * (y20.arrivals - y19.arrivals) / y19.arrivals, 1) AS changePct2020
+FROM Country c
+LEFT JOIN YearlyStat y19 ON c.countryCode = y19.countryCode AND y19.statYear = 2019
+LEFT JOIN YearlyStat y20 ON c.countryCode = y20.countryCode AND y20.statYear = 2020
+ORDER BY changePct2020
+--------------
+
++------------------+----------+---------------+
+| countryName      | peakYear | changePct2020 |
++------------------+----------+---------------+
+| Japan            |     2024 |         -87.1 |
+| Thailand         |     2019 |         -83.2 |
+| Australia        |     2019 |         -80.7 |
+| Spain            |     2024 |         -77.3 |
+| United States    |     2018 |         -75.8 |
+| Indonesia        |     2019 |         -74.7 |
+| Egypt, Arab Rep. |     2010 |         -71.9 |
+| Brazil           |     2024 |         -66.2 |
+| Italy            |     2019 |         -61.0 |
+| France           |     2019 |         -54.2 |
++------------------+----------+---------------+
+10 rows in set
+
+--------------
+SELECT h.siteName,
+       GROUP_CONCAT(c.countryName ORDER BY c.countryName SEPARATOR ', ') AS sharedBy
+FROM HeritageSite h
+INNER JOIN SiteCountry sc ON h.siteId = sc.siteId
+INNER JOIN Country c      ON sc.countryCode = c.countryCode
+WHERE h.siteId IN (SELECT siteId
+                   FROM SiteCountry
+                   GROUP BY siteId
+                   HAVING COUNT(*) > 1)
+GROUP BY h.siteId, h.siteName
+--------------
+
++--------------------------------------------------------------------------------------------+----------------------+
+| siteName                                                                                   | sharedBy             |
++--------------------------------------------------------------------------------------------+----------------------+
+| Pyrénées - Mont Perdu                                                                      | France, Spain        |
+| Ancient and Primeval Beech Forests of the Carpathians and Other Regions of Europe          | France, Italy, Spain |
+| The Architectural Work of Le Corbusier, an Outstanding Contribution to the Modern Movement | France, Japan        |
+| Prehistoric Pile Dwellings around the Alps                                                 | France, Italy        |
+| The Great Spa Towns of Europe                                                              | France, Italy        |
++--------------------------------------------------------------------------------------------+----------------------+
+5 rows in set
+
+--------------
+DROP VIEW IF EXISTS CountrySummary
+--------------
+
+Query OK, 0 rows affected, 1 warning
+
+--------------
+DROP PROCEDURE IF EXISTS getCountryStats
+--------------
+
+Query OK, 0 rows affected, 1 warning
+
+--------------
+DROP PROCEDURE IF EXISTS arrivalGrowth
+--------------
+
+Query OK, 0 rows affected, 1 warning
+
+--------------
+DROP PROCEDURE IF EXISTS listSitesByCategory
+--------------
+
+Query OK, 0 rows affected, 1 warning
+
+--------------
+DROP PROCEDURE IF EXISTS addYearlyStat
+--------------
+
+Query OK, 0 rows affected, 1 warning
+
+--------------
+DROP TRIGGER IF EXISTS before_stat_insert
+--------------
+
+Query OK, 0 rows affected, 1 warning
+
+--------------
+DROP TRIGGER IF EXISTS after_stat_update
+--------------
+
+Query OK, 0 rows affected, 1 warning
+
+--------------
+DROP TABLE IF EXISTS StatChangeLog
+--------------
+
+Query OK, 0 rows affected, 1 warning
+
+--------------
+CREATE VIEW CountrySummary AS
+SELECT c.countryCode,
+       c.countryName,
+       r.regionName,
+       i.incomeName,
+       y.statYear,
+       y.arrivals,
+       y.receiptsUSD,
+       ROUND(y.receiptsUSD / y.arrivals, 2) AS receiptsPerArrival,
+       (SELECT COUNT(*) FROM SiteCountry sc
+        WHERE sc.countryCode = c.countryCode) AS numHeritageSites
+FROM Country c
+INNER JOIN Region r      ON c.regionCode = r.regionCode
+INNER JOIN IncomeGroup i ON c.incomeCode = i.incomeCode
+INNER JOIN YearlyStat y  ON c.countryCode = y.countryCode
+--------------
+
+Query OK, 0 rows affected
+
+--------------
+CREATE INDEX idx_site_name ON HeritageSite (siteName)
+--------------
+
+Query OK, 0 rows affected
+Records: 0  Duplicates: 0  Warnings: 0
+
+--------------
+CREATE TABLE StatChangeLog (
+    logId        INT         NOT NULL AUTO_INCREMENT,
+    countryCode  CHAR(3)     NOT NULL,
+    statYear     SMALLINT    NOT NULL,
+    oldArrivals  BIGINT,
+    newArrivals  BIGINT,
+    changedBy    VARCHAR(100) NOT NULL,
+    changedAt    DATETIME    NOT NULL,
+    CONSTRAINT pk_statchangelog PRIMARY KEY (logId)
+)
+--------------
+
+Query OK, 0 rows affected
+
+--------------
+CREATE PROCEDURE getCountryStats(IN pCountry CHAR(3))
+    COMMENT 'Show the yearly tourism statistics of a given country.'
+BEGIN
+    SELECT statYear, arrivals, departures, receiptsUSD, expenditureUSD
+    FROM YearlyStat
+    WHERE countryCode = pCountry
+    ORDER BY statYear DESC;
+END
+--------------
+
+Query OK, 0 rows affected
+
+--------------
+CREATE PROCEDURE arrivalGrowth(
+    IN  pCountry  CHAR(3),
+    IN  pFromYear SMALLINT,
+    IN  pToYear   SMALLINT,
+    OUT pGrowth   DECIMAL(8,2),
+    OUT pMessage  VARCHAR(100)
+)
+    COMMENT 'Percentage change of arrivals between two years.'
+BEGIN
+    
+    DECLARE fromArr BIGINT DEFAULT NULL;
+    DECLARE toArr   BIGINT DEFAULT NULL;
+
+    SELECT arrivals INTO fromArr FROM YearlyStat
+    WHERE countryCode = pCountry AND statYear = pFromYear;
+
+    SELECT arrivals INTO toArr FROM YearlyStat
+    WHERE countryCode = pCountry AND statYear = pToYear;
+
+    IF fromArr IS NULL OR toArr IS NULL OR fromArr = 0 THEN
+        SET pGrowth  = NULL;
+        SET pMessage = 'No arrival data for one of the years';
+    ELSE
+        SET pGrowth = ROUND((toArr - fromArr) * 100 / fromArr, 2);
+        IF pGrowth > 0 THEN
+            SET pMessage = CONCAT(pCountry, ' arrivals GREW by ', pGrowth, '%');
+        ELSEIF pGrowth < 0 THEN
+            SET pMessage = CONCAT(pCountry, ' arrivals DROPPED by ', ABS(pGrowth), '%');
+        ELSE
+            SET pMessage = CONCAT(pCountry, ' arrivals did not change');
+        END IF;
+    END IF;
+END
+--------------
+
+Query OK, 0 rows affected
+
+--------------
+CREATE PROCEDURE listSitesByCategory(
+    IN  pCountry  CHAR(3),
+    IN  pCategory VARCHAR(10),
+    OUT pList     TEXT,
+    OUT pCount    INT
+)
+    COMMENT 'List the heritage sites of a country for a given category.'
+BEGIN
+    
+    DECLARE done  INT DEFAULT 0;
+    DECLARE sName VARCHAR(200);
+
+    
+    DECLARE curSites CURSOR FOR
+        SELECT h.siteName
+        FROM HeritageSite h
+        INNER JOIN SiteCountry sc ON h.siteId = sc.siteId
+        WHERE sc.countryCode = pCountry AND h.category = pCategory
+        ORDER BY h.yearInscribed;
+
+    
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
+
+    SET pList  = '';
+    SET pCount = 0;
+
+    OPEN curSites;
+    readSites: LOOP
+        FETCH curSites INTO sName;
+        IF done = 1 THEN
+            LEAVE readSites;
+        END IF;
+
+        SET pCount = pCount + 1;
+        IF pList = '' THEN
+            SET pList = sName;
+        ELSE
+            SET pList = CONCAT(pList, '; ', sName);
+        END IF;
+    END LOOP readSites;
+    CLOSE curSites;
+
+    IF pCount = 0 THEN
+        SET pList = 'No sites found';
+    END IF;
+END
+--------------
+
+Query OK, 0 rows affected
+
+--------------
+CREATE PROCEDURE addYearlyStat(
+    IN  pCountry  CHAR(3),
+    IN  pYear     SMALLINT,
+    IN  pArrivals BIGINT,
+    OUT pResult   VARCHAR(100)
+)
+    COMMENT 'Insert a yearly record inside a transaction.'
+BEGIN
+    
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+        ROLLBACK;
+        SET pResult = CONCAT('ROLLBACK: record for ', pCountry, ' ', pYear, ' was NOT added');
+    END;
+
+    START TRANSACTION;
+        INSERT INTO YearlyStat (countryCode, statYear, arrivals)
+        VALUES (pCountry, pYear, pArrivals);
+    COMMIT;
+    SET pResult = CONCAT('COMMIT: record for ', pCountry, ' ', pYear, ' added');
+END
+--------------
+
+Query OK, 0 rows affected
+
+--------------
+CREATE TRIGGER before_stat_insert
+    BEFORE INSERT ON YearlyStat
+    FOR EACH ROW
+BEGIN
+    DECLARE errMsg VARCHAR(150);
+
+    IF NEW.arrivals < 0 THEN
+        SET errMsg = CONCAT('Arrivals cannot be negative: ', NEW.arrivals);
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = errMsg;
+    END IF;
+
+    IF NEW.statYear > YEAR(CURDATE()) THEN
+        SET errMsg = CONCAT('Year ', NEW.statYear, ' is in the future');
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = errMsg;
+    END IF;
+END
+--------------
+
+Query OK, 0 rows affected
+
+--------------
+CREATE TRIGGER after_stat_update
+    AFTER UPDATE ON YearlyStat
+    FOR EACH ROW
+BEGIN
+    IF NOT (OLD.arrivals <=> NEW.arrivals) THEN   
+        INSERT INTO StatChangeLog (countryCode, statYear, oldArrivals, newArrivals, changedBy, changedAt)
+        VALUES (NEW.countryCode, NEW.statYear, OLD.arrivals, NEW.arrivals, USER(), NOW());
+    END IF;
+END
+--------------
+
+Query OK, 0 rows affected
+
+--------------
+SHOW PROCEDURE STATUS WHERE Db = DATABASE()
+--------------
+
++--------------------+---------------------+-----------+------------------+---------------------+---------------------+---------------+------------------------------------------------------------+----------------------+----------------------+--------------------+
+| Db                 | Name                | Type      | Definer          | Modified            | Created             | Security_type | Comment                                                    | character_set_client | collation_connection | Database Collation |
++--------------------+---------------------+-----------+------------------+---------------------+---------------------+---------------+------------------------------------------------------------+----------------------+----------------------+--------------------+
+| Pamungkas_21522611 | addYearlyStat       | PROCEDURE | dsuser@localhost | 2026-10-10 08:54:30 | 2026-10-10 08:54:30 | DEFINER       | Insert a yearly record inside a transaction.               | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| Pamungkas_21522611 | arrivalGrowth       | PROCEDURE | dsuser@localhost | 2026-10-10 08:54:30 | 2026-10-10 08:54:30 | DEFINER       | Percentage change of arrivals between two years.           | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| Pamungkas_21522611 | getCountryStats     | PROCEDURE | dsuser@localhost | 2026-10-10 08:54:30 | 2026-10-10 08:54:30 | DEFINER       | Show the yearly tourism statistics of a given country.     | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| Pamungkas_21522611 | listSitesByCategory | PROCEDURE | dsuser@localhost | 2026-10-10 08:54:30 | 2026-10-10 08:54:30 | DEFINER       | List the heritage sites of a country for a given category. | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
++--------------------+---------------------+-----------+------------------+---------------------+---------------------+---------------+------------------------------------------------------------+----------------------+----------------------+--------------------+
+4 rows in set
+
+--------------
+SHOW TRIGGERS
+--------------
+
++--------------------+--------+------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------+------------------------+-----------------------------------------------------------------------------------------------------------------------+------------------+----------------------+----------------------+--------------------+
+| Trigger            | Event  | Table      | Statement                                                                                                                                                                                                                                                                                                                                                                                                               | Timing | Created                | sql_mode                                                                                                              | Definer          | character_set_client | collation_connection | Database Collation |
++--------------------+--------+------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------+------------------------+-----------------------------------------------------------------------------------------------------------------------+------------------+----------------------+----------------------+--------------------+
+| before_stat_insert | INSERT | YearlyStat | BEGIN
+    DECLARE errMsg VARCHAR(150);
+
+    IF NEW.arrivals < 0 THEN
+        SET errMsg = CONCAT('Arrivals cannot be negative: ', NEW.arrivals);
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = errMsg;
+    END IF;
+
+    IF NEW.statYear > YEAR(CURDATE()) THEN
+        SET errMsg = CONCAT('Year ', NEW.statYear, ' is in the future');
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = errMsg;
+    END IF;
+END | BEFORE | 2026-10-10 08:54:30.08 | ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION | dsuser@localhost | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| after_stat_update  | UPDATE | YearlyStat | BEGIN
+    IF NOT (OLD.arrivals <=> NEW.arrivals) THEN   
+        INSERT INTO StatChangeLog (countryCode, statYear, oldArrivals, newArrivals, changedBy, changedAt)
+        VALUES (NEW.countryCode, NEW.statYear, OLD.arrivals, NEW.arrivals, USER(), NOW());
+    END IF;
+END                                                                                                                                           | AFTER  | 2026-10-10 08:54:30.09 | ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION | dsuser@localhost | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
++--------------------+--------+------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------+------------------------+-----------------------------------------------------------------------------------------------------------------------+------------------+----------------------+----------------------+--------------------+
+2 rows in set
+
+--------------
+SELECT countryName, regionName, arrivals, receiptsUSD, receiptsPerArrival, numHeritageSites
+FROM CountrySummary
+WHERE statYear = 2019
+ORDER BY receiptsPerArrival DESC
+--------------
+
++------------------+---------------------------------------------------+----------+--------------+--------------------+------------------+
+| countryName      | regionName                                        | arrivals | receiptsUSD  | receiptsPerArrival | numHeritageSites |
++------------------+---------------------------------------------------+----------+--------------+--------------------+------------------+
+| Australia        | East Asia & Pacific                               |  9466000 |  47953000000 |            5065.81 |               21 |
+| United States    | North America                                     | 79442000 | 239447000000 |            3014.11 |               27 |
+| Thailand         | East Asia & Pacific                               | 39916000 |  64371000000 |            1612.66 |                9 |
+| Japan            | East Asia & Pacific                               | 31881000 |  49209000000 |            1543.52 |               27 |
+| Indonesia        | East Asia & Pacific                               | 15455000 |  18405000000 |            1190.88 |               10 |
+| Egypt, Arab Rep. | Middle East, North Africa, Afghanistan & Pakistan | 12876000 |  14256000000 |            1107.18 |                7 |
+| Brazil           | Latin America & Caribbean                         |  6353000 |   6127000000 |             964.43 |               26 |
+| Italy            | Europe & Central Asia                             | 64513000 |  51910000000 |             804.64 |               62 |
+| France           | Europe & Central Asia                             | 90914000 |  70776000000 |             778.49 |               56 |
+| Spain            | Europe & Central Asia                             | 83509000 |         NULL |               NULL |               50 |
++------------------+---------------------------------------------------+----------+--------------+--------------------+------------------+
+10 rows in set
+
+--------------
+EXPLAIN SELECT siteId, siteName FROM HeritageSite WHERE siteName LIKE 'Great%'
+--------------
+
++----+-------------+--------------+------------+-------+---------------+---------------+---------+------+------+----------+--------------------------+
+| id | select_type | table        | partitions | type  | possible_keys | key           | key_len | ref  | rows | filtered | Extra                    |
++----+-------------+--------------+------------+-------+---------------+---------------+---------+------+------+----------+--------------------------+
+|  1 | SIMPLE      | HeritageSite | NULL       | range | idx_site_name | idx_site_name | 802     | NULL |    3 |   100.00 | Using where; Using index |
++----+-------------+--------------+------------+-------+---------------+---------------+---------+------+------+----------+--------------------------+
+1 row in set, 1 warning
+
+--------------
+CALL getCountryStats('AUS')
+--------------
+
++----------+----------+------------+-------------+----------------+
+| statYear | arrivals | departures | receiptsUSD | expenditureUSD |
++----------+----------+------------+-------------+----------------+
+|     2020 |  1828000 |    2832000 | 26234000000 |     7654000000 |
+|     2019 |  9466000 |   11624000 | 47953000000 |    41345000000 |
+|     2018 |  9246000 |   11403000 | 47327000000 |    42439000000 |
+|     2017 |  8815000 |   10932000 | 43975000000 |    39710000000 |
+|     2016 |  8269000 |   10390000 | 39059000000 |    35718000000 |
+|     2015 |  7449000 |    9810000 | 36249000000 |    34071000000 |
+|     2014 |  6922000 |    9480000 | 35736000000 |    35666000000 |
+|     2013 |  6482000 |    9052000 | 32889000000 |    35197000000 |
+|     2012 |  6032000 |    8212000 | 34137000000 |    35226000000 |
+|     2011 |  5771000 |    7788000 | 34315000000 |    33967000000 |
+|     2010 |  5790000 |    7103000 | 31064000000 |    27851000000 |
++----------+----------+------------+-------------+----------------+
+11 rows in set
+
+Query OK, 0 rows affected
+
+--------------
+CALL arrivalGrowth('JPN', 2019, 2024, @growth, @msg)
+--------------
+
+Query OK, 1 row affected
+
+--------------
+SELECT @growth AS growthPct, @msg AS message
+--------------
+
++-----------+-----------------------------+
+| growthPct | message                     |
++-----------+-----------------------------+
+|     15.65 | JPN arrivals GREW by 15.65% |
++-----------+-----------------------------+
+1 row in set
+
+--------------
+CALL arrivalGrowth('AUS', 2019, 2020, @growth, @msg)
+--------------
+
+Query OK, 1 row affected
+
+--------------
+SELECT @growth AS growthPct, @msg AS message
+--------------
+
++-----------+--------------------------------+
+| growthPct | message                        |
++-----------+--------------------------------+
+|    -80.69 | AUS arrivals DROPPED by 80.69% |
++-----------+--------------------------------+
+1 row in set
+
+--------------
+CALL arrivalGrowth('AUS', 2019, 2023, @growth, @msg)
+--------------
+
+Query OK, 0 rows affected
+
+--------------
+SELECT @growth AS growthPct, @msg AS message
+--------------
+
++-----------+--------------------------------------+
+| growthPct | message                              |
++-----------+--------------------------------------+
+|      NULL | No arrival data for one of the years |
++-----------+--------------------------------------+
+1 row in set
+
+--------------
+CALL listSitesByCategory('AUS', 'Mixed', @list, @cnt)
+--------------
+
+Query OK, 0 rows affected
+
+--------------
+SELECT @cnt AS numSites, @list AS sites
+--------------
+
++----------+----------------------------------------------------------------------------------------------------+
+| numSites | sites                                                                                              |
++----------+----------------------------------------------------------------------------------------------------+
+|        4 | Kakadu National Park; Willandra Lakes Region; Tasmanian Wilderness; Uluru-Kata Tjuta National Park |
++----------+----------------------------------------------------------------------------------------------------+
+1 row in set
+
+--------------
+CALL listSitesByCategory('EGY', 'Natural', @list, @cnt)
+--------------
+
+Query OK, 0 rows affected
+
+--------------
+SELECT @cnt AS numSites, @list AS sites
+--------------
+
++----------+------------------------------+
+| numSites | sites                        |
++----------+------------------------------+
+|        1 | Wadi Al-Hitan (Whale Valley) |
++----------+------------------------------+
+1 row in set
+
+--------------
+CALL listSitesByCategory('THA', 'Mixed', @list, @cnt)
+--------------
+
+Query OK, 0 rows affected
+
+--------------
+SELECT @cnt AS numSites, @list AS sites
+--------------
+
++----------+----------------+
+| numSites | sites          |
++----------+----------------+
+|        0 | No sites found |
++----------+----------------+
+1 row in set
+
+--------------
+INSERT INTO YearlyStat (countryCode, statYear, arrivals) VALUES ('AUS', 2025, -100)
+--------------
+
+ERROR 1644 (45000) at line 293 in file: 'tourism_advanced.sql': Arrivals cannot be negative: -100
+--------------
+INSERT INTO YearlyStat (countryCode, statYear, arrivals) VALUES ('AUS', 2099, 100)
+--------------
+
+ERROR 1644 (45000) at line 294 in file: 'tourism_advanced.sql': Year 2099 is in the future
+--------------
+CALL addYearlyStat('AUS', 2025, 8000000, @res)
+--------------
+
+Query OK, 0 rows affected
+
+--------------
+SELECT @res AS result
+--------------
+
++-----------------------------------+
+| result                            |
++-----------------------------------+
+| COMMIT: record for AUS 2025 added |
++-----------------------------------+
+1 row in set
+
+--------------
+CALL addYearlyStat('AUS', 2025, 8000000, @res)
+--------------
+
+Query OK, 0 rows affected
+
+--------------
+SELECT @res AS result
+--------------
+
++---------------------------------------------+
+| result                                      |
++---------------------------------------------+
+| ROLLBACK: record for AUS 2025 was NOT added |
++---------------------------------------------+
+1 row in set
+
+--------------
+CALL addYearlyStat('JPN', 2025, -1, @res)
+--------------
+
+Query OK, 0 rows affected
+
+--------------
+SELECT @res AS result
+--------------
+
++---------------------------------------------+
+| result                                      |
++---------------------------------------------+
+| ROLLBACK: record for JPN 2025 was NOT added |
++---------------------------------------------+
+1 row in set
+
+--------------
+SELECT * FROM YearlyStat WHERE statYear = 2025
+--------------
+
++-------------+----------+----------+------------+-------------+----------------+
+| countryCode | statYear | arrivals | departures | receiptsUSD | expenditureUSD |
++-------------+----------+----------+------------+-------------+----------------+
+| AUS         |     2025 |  8000000 |       NULL |        NULL |           NULL |
++-------------+----------+----------+------------+-------------+----------------+
+1 row in set
+
+--------------
+UPDATE YearlyStat SET arrivals = 8100000 WHERE countryCode = 'AUS' AND statYear = 2025
+--------------
+
+Query OK, 1 row affected
+Rows matched: 1  Changed: 1  Warnings: 0
+
+--------------
+SELECT * FROM StatChangeLog
+--------------
+
++-------+-------------+----------+-------------+-------------+------------------+---------------------+
+| logId | countryCode | statYear | oldArrivals | newArrivals | changedBy        | changedAt           |
++-------+-------------+----------+-------------+-------------+------------------+---------------------+
+|     1 | AUS         |     2025 |     8000000 |     8100000 | dsuser@localhost | 2026-10-10 08:54:30 |
++-------+-------------+----------+-------------+-------------+------------------+---------------------+
+1 row in set
+
+--------------
+START TRANSACTION
+--------------
+
+Query OK, 0 rows affected
+
+--------------
+UPDATE YearlyStat SET arrivals = 9999999 WHERE countryCode = 'AUS' AND statYear = 2025
+--------------
+
+Query OK, 1 row affected
+Rows matched: 1  Changed: 1  Warnings: 0
+
+--------------
+SELECT COUNT(*) AS logRowsInsideTransaction FROM StatChangeLog
+--------------
+
++--------------------------+
+| logRowsInsideTransaction |
++--------------------------+
+|                        2 |
++--------------------------+
+1 row in set
+
+--------------
+ROLLBACK
+--------------
+
+Query OK, 0 rows affected
+
+--------------
+SELECT COUNT(*) AS logRowsAfterRollback FROM StatChangeLog
+--------------
+
++----------------------+
+| logRowsAfterRollback |
++----------------------+
+|                    1 |
++----------------------+
+1 row in set
+
+--------------
+SELECT arrivals AS arrivalsAfterRollback FROM YearlyStat WHERE countryCode = 'AUS' AND statYear = 2025
+--------------
+
++-----------------------+
+| arrivalsAfterRollback |
++-----------------------+
+|               8100000 |
++-----------------------+
+1 row in set
+
+--------------
+DELETE FROM YearlyStat WHERE countryCode = 'AUS' AND statYear = 2025
+--------------
+
+Query OK, 1 row affected
+
+Bye
+
+
+===================== python3 tourism_app.py =====================
+MySQL username: dsuser
+MySQL password: 
+Connected to database Pamungkas_21522611 on MySQL 8.0.46-0ubuntu0.22.04.4
+
+Q1: Countries with > 50 million arrivals in 2019
+------------------------------------------------
+country | year | arrivals (millions)
+FRA | 2019 | 90.91
+ESP | 2019 | 83.51
+USA | 2019 | 79.44
+ITA | 2019 | 64.51
+(4 rows)
+
+Q7: Heritage sites per country (at least 20 sites)
+--------------------------------------------------
+country | total | cultural | natural | mixed
+Italy | 62 | 56 | 6 | 0
+France | 56 | 47 | 7 | 2
+Spain | 50 | 44 | 4 | 2
+Japan | 27 | 22 | 5 | 0
+United States | 27 | 13 | 13 | 1
+Brazil | 26 | 16 | 9 | 1
+Australia | 21 | 5 | 12 | 4
+(7 rows)
+
+Q6: Receipts of THA in 2019
+---------------------------
+country | region | income group | receipts (billion US$)
+Thailand | East Asia & Pacific | Upper middle income | 64.37
+(1 rows)
+
+INSERT done: 1 row
+
+YearlyStat row AUS 2025
+-----------------------
+country | year | arrivals
+AUS | 2025 | 8000000
+(1 rows)
+
+UPDATE done: 1 row
+
+YearlyStat row AUS 2025
+-----------------------
+country | year | arrivals
+AUS | 2025 | 8250000
+(1 rows)
+
+DELETE done: 1 row
+
+YearlyStat row AUS 2025
+-----------------------
+country | year | arrivals
+(0 rows)
+
+Bad INSERT rejected by the database: Arrivals cannot be negative: -10
+
+Connection closed.

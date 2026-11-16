@@ -1,0 +1,23 @@
+-- Creating Stadium table
+CREATE TABLE Stadium(
+	stadiumid INT,
+	name VARCHAR(30),
+	city VARCHAR(20),
+	capacity INT,
+	telephone CHAR(10),
+	has_roof BOOLEAN
+);	
+-- adding data to stadium table
+INSERT INTO Stadium VALUES(300, 'Sydney Football Stadium', 'Sydney', 85000, '0133934500', TRUE);
+
+INSERT INTO Stadium VALUES(301, 'Optus Stadium', 'Perth', 80000, '0133934501', TRUE);
+
+INSERT INTO Stadium VALUES(302, 'Brisbane Stadium', 'Brisbane', 59000, '0133934502', FALSE);
+
+INSERT INTO Stadium VALUES(303, 'Docklands Stadium', 'Melbourne', 68000, '0133934503', TRUE);
+
+INSERT INTO Stadium VALUES(304, 'Adelaide Oval', 'Adelaide', 79000, '0133934504', FALSE);
+
+INSERT INTO Stadium VALUES(305, 'North Queensland Stadium', 'Townsville', 85000, '0133934505', FALSE);
+
+INSERT INTO Stadium VALUES(306, 'Cameron Stadium', 'Sydney', 75000, '0133934506', FALSE);

@@ -1,0 +1,7 @@
+Task 1
+======
+Q1. Considering Actors as the left table, and Performs as the right table. I think it is better to have INNER JOIN to avoid any nulls. or LEFT JOIN, so all actors are mapped with a movie. The attributes to join in: movie_id.
+
+Q2. JOIN using address. The prac says that it is better to use LEFT OUTER JOIN using address.
+
+Q3. JOIN using shipname. 

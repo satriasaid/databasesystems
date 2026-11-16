@@ -1,0 +1,99 @@
+-- Name: Satria Pamungkas
+-- Student ID: 21522611
+-- Lab: 314.117
+-- Class: Fri 10AM - 12PM
+
+-- Task 1: Stored procedure example
+SHOW DATABASES;
+USE dswork;
+SOURCE /home/21522611/DBS/Prac07/task1/create_tables.sql;
+SOURCE /home/21522611/DBS/Prac07/task1/insdept.sql;
+SOURCE /home/21522611/DBS/Prac07/task1/insemp.sql;
+
+-- ### Add new column to an existing table ###
+SHOW TABLES;
+SHOW COLUMNS FROM Emp;
+ALTER TABLE Emp
+ADD COLUMN newBonus decimal(8,2);
+
+-- ### Write procedure resetEmpNewBonus to set newBonus value of all employees to zero. Save this procedure in a .sql file named reset1.sql
+SELECT newBonus FROM Emp;
+SOURCE reset1.sql;
+CALL resetEmpNewBonus();
+SELECT newBonus FROM Emp;
+
+-- ### see the list of stored procedures created in the database
+SHOW PROCEDURE STATUS WHERE Db='dswork'
+
+-- ### drop any procedures
+DROP PROCEDURE resetEmpNewBonus;
+
+-- ### add employee bonuses using input (IN)
+SOURCE reset2.sql;
+SELECT newBonus FROM Emp;
+CALL resetEmpNewBonus2(200);
+SELECT newBonus FROM Emp;
+CALL resetEmpNewBonus2(400);
+SELECT newBonus FROM Emp;
+
+-- ## add new employee records
+SOURCE insert1.sql
+SELECT * FROM Emp;
+CALL insEmpDetails('000341','Satria', 'H', 'Pamungkas', 'D11', 123840.00);
+SELECT * FROM Emp;
+CALL insEmpDetails('000342','Bella', 'L', 'Dorra', 'D11', 129840.00);
+SELECT * FROM Emp;
+
+-- ## add new employee records but the ID is automatically created -- but it is missing the first zeros
+SOURCE insert2.sql
+SELECT * FROM Emp;
+CALL insEmpDetails2('Deasy', 'I', 'Indrawati', 'D11', 139840.00);
+SELECT * FROM Emp;
+
+-- ## find count of employees based on the input (IN)
+SOURCE finder.sql
+SELECT * FROM Emp;
+CALL countNumEmp('A00', @result);
+SELECT @result;
+CALL countNumEmp('C01', @result);
+SELECT @result;
+
+-- ## find count of employees based on the input (IN) but the out is using user defined variable
+SOURCE finder2.sql
+SELECT * FROM Emp;
+CALL countNumEmp2('A00');
+SELECT @num;
+CALL countNumEmp2('C01');
+SELECT @num;
+
+-- ## LOOP and IF examples
+SOURCE iterate.sql
+CALL doIterate(5);
+SELECT @x;
+CALL doIterate(10); -- will freeze
+CALL doIterate(15); -- will freeze
+
+-- ### cursor to dislay the list of programmer's names
+SOURCE cursorList.sql
+CALL createProgList(@list);
+SELECT @list;
+
+-- Task2: Stored procedure with two cursors example
+SOURCE /home/21522611/DBS/Prac07/task2/createTable_t1t2t3.sql
+SHOW TABLES;
+SHOW COLUMNS FROM t1;
+SHOW COLUMNS FROM t2;
+SHOW COLUMNS FROM t3;
+SOURCE /home/21522611/DBS/Prac07/task2/inst1t2.sql
+SELECT * FROM t1;
+SELECT * FROM t2;
+
+-- ### double cursor procedure
+SOURCE cursorInsert.sql
+
+-- ### create curdemo() stored procedure by sourcing the cursorInsert.sql file. Then call the sored procedure
+CALL curdemo;
+SELECT id3 AS idi, dat3 AS dati FROM t3;
+
+-- Task 3: More Stored Procedures
+

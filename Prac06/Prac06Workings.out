@@ -1,0 +1,488 @@
+mysql> SHOW DATABASESL
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DATABASESL' at line 1
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| dswork             |
+| information_schema |
+| performance_schema |
++--------------------+
+3 rows in set (0.00 sec)
+
+mysql> USE dswork;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> SHOW TABLES;
++------------------+
+| Tables_in_dswork |
++------------------+
+| Dept             |
+| Emp              |
+| Proj             |
+| Pworks           |
++------------------+
+4 rows in set (0.00 sec)
+
+mysql> SHOW COLUMNS FROM Dept;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| deptno   | char(3)     | NO   | PRI | NULL    |       |
+| deptname | varchar(36) | NO   |     | NULL    |       |
+| mgrno    | char(6)     | YES  |     | NULL    |       |
+| admrdept | char(3)     | NO   |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> SHOW COLUMNS FROM Emp;
++-----------+--------------+------+-----+---------+-------+
+| Field     | Type         | Null | Key | Default | Extra |
++-----------+--------------+------+-----+---------+-------+
+| empno     | char(6)      | NO   | PRI | NULL    |       |
+| firstname | varchar(12)  | YES  |     | NULL    |       |
+| midinit   | char(1)      | YES  |     | NULL    |       |
+| lastname  | varchar(15)  | YES  |     | NULL    |       |
+| workdept  | char(3)      | YES  | MUL | NULL    |       |
+| phoneno   | char(4)      | YES  |     | NULL    |       |
+| hiredate  | date         | YES  |     | NULL    |       |
+| job       | char(10)     | YES  |     | NULL    |       |
+| edlevel   | int          | YES  |     | NULL    |       |
+| gender    | char(1)      | YES  |     | NULL    |       |
+| birthdate | date         | YES  |     | NULL    |       |
+| salary    | decimal(8,2) | YES  |     | NULL    |       |
+| bonus     | decimal(8,2) | YES  |     | NULL    |       |
+| comm      | decimal(8,2) | YES  |     | NULL    |       |
++-----------+--------------+------+-----+---------+-------+
+14 rows in set (0.00 sec)
+
+mysql> SHOW COLUMNS FROM Proj;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| projno   | char(6)     | NO   | PRI | NULL    |       |
+| projname | varchar(24) | NO   |     | NULL    |       |
+| deptno   | char(3)     | NO   | MUL | NULL    |       |
+| respemp  | char(6)     | NO   | MUL | NULL    |       |
+| prstdate | date        | YES  |     | NULL    |       |
+| prendate | date        | YES  |     | NULL    |       |
+| majproj  | char(6)     | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+mysql> SHOW COLUMNS FROM PWorks;
+ERROR 1146 (42S02): Table 'dswork.PWorks' doesn't exist
+mysql> SHOW COLUMNS FROM Pworks;
++--------+----------+------+-----+---------+-------+
+| Field  | Type     | Null | Key | Default | Extra |
++--------+----------+------+-----+---------+-------+
+| empno  | char(6)  | NO   | PRI | NULL    |       |
+| projno | char(6)  | NO   | PRI | NULL    |       |
+| hours  | smallint | YES  |     | NULL    |       |
++--------+----------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT
+    -> deptname
+    -> FROM Dept
+    -> INNER JOIN Proj ON Dept.deptno = Proj.deptno
+    -> WHERE (SELECT COUNT(*) FROM Proj) > 1;
++------------------------+
+| deptname               |
++------------------------+
+| Planning               |
+| Information Centre     |
+| Information Centre     |
+| Development Centre     |
+| Development Centre     |
+| Manufacturing Systems  |
+| Manufacturing Systems  |
+| Manufacturing Systems  |
+| Manufacturing Systems  |
+| Administration Systems |
+| Administration Systems |
+| Administration Systems |
+| Administration Systems |
+| Support Services       |
+| Support Services       |
+| Operations             |
+| Software Support       |
+| Software Support       |
+| Software Support       |
+| Software Support       |
++------------------------+
+20 rows in set (0.00 sec)
+
+mysql> SELECT COUNT(*) FROM Proj
+    -> ;
++----------+
+| COUNT(*) |
++----------+
+|       20 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT
+    -> deptname,
+    -> COUNT(projno) as no_proj
+    -> FROM Dept
+    -> INNER JOIN Proj ON Dept.deptno = Proj.deptno;
+ERROR 1140 (42000): In aggregated query without GROUP BY, expression #1 of SELECT list contains nonaggregated column 'dswork.Dept.deptname'; this is incompatible with sql_mode=only_full_group_by
+mysql> SELECT
+    -> deptname,
+    -> COUNT(projno) as no_proj
+    -> FROM Dept
+    -> INNER JOIN Proj ON Dept.deptno = Proj.deptno
+    -> GROUP BY 1;
++------------------------+---------+
+| deptname               | no_proj |
++------------------------+---------+
+| Planning               |       1 |
+| Information Centre     |       2 |
+| Development Centre     |       2 |
+| Manufacturing Systems  |       4 |
+| Administration Systems |       4 |
+| Support Services       |       2 |
+| Operations             |       1 |
+| Software Support       |       4 |
++------------------------+---------+
+8 rows in set (0.00 sec)
+
+mysql> SELECT
+    -> deptname,
+    -> COUNT(projno) as no_proj
+    -> FROM Dept
+    -> INNER JOIN Proj ON Dept.deptno = Proj.deptno
+    -> GROUP BY 1
+    -> WHERE COUNT(projno) > 1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE COUNT(projno) > 1' at line 7
+mysql> 
+mysql> SELECT
+    -> deptname,
+    -> COUNT(projno) as no_proj
+    -> FROM Dept
+    -> INNER JOIN Proj ON Dept.deptno = Proj.deptno
+    -> GROUP BY 1
+    -> HAVING COUNT(projno) > 1;
++------------------------+---------+
+| deptname               | no_proj |
++------------------------+---------+
+| Information Centre     |       2 |
+| Development Centre     |       2 |
+| Manufacturing Systems  |       4 |
+| Administration Systems |       4 |
+| Support Services       |       2 |
+| Software Support       |       4 |
++------------------------+---------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT
+    -> projname,
+    -> prstdate,
+    -> DATE_DIFF(prendate, prstdate) AS duration
+    -> FROM proj;
+ERROR 1146 (42S02): Table 'dswork.proj' doesn't exist
+mysql> SELECT
+    -> projname,
+    -> prstdate,
+    -> DATE_DIFF(prendate, prstdate) AS duration
+    -> FROM Proj;
+ERROR 1305 (42000): FUNCTION dswork.DATE_DIFF does not exist
+mysql> SELECT
+    -> projname,
+    -> prstdate,
+    -> DATEDIFF(prendate, prstdate) AS duration
+    -> FROM Proj;
++----------------------+------------+----------+
+| projname             | prstdate   | duration |
++----------------------+------------+----------+
+| Admin Services       | 2014-01-01 |      396 |
+| General AD Systems   | 2014-01-01 |      396 |
+| Payroll Programming  | 2014-01-01 |      396 |
+| Personnel Programmg  | 2014-01-01 |      396 |
+| Account.Programming  | 2014-01-01 |      396 |
+| Query Services       | 2014-01-01 |      396 |
+| User Education       | 2014-01-01 |      396 |
+| Weld Line Automation | 2014-01-01 |      396 |
+| W L Programming      | 2014-01-01 |      396 |
+| W L Program Design   | 2014-01-01 |      334 |
+| W L Robot Design     | 2014-01-01 |      334 |
+| W L Prod Cont Progs  | 2014-02-15 |      289 |
+| Operation Support    | 2014-01-01 |      396 |
+| Operation            | 2014-01-01 |      396 |
+| GEN Systems Services | 2014-01-01 |      396 |
+| Systems Support      | 2014-01-01 |      396 |
+| SCP Systems Support  | 2014-01-01 |      396 |
+| Applications Support | 2014-01-01 |      396 |
+| DB/DC Support        | 2014-01-01 |      396 |
+| Weld Line Planning   | 2014-01-01 |      257 |
++----------------------+------------+----------+
+20 rows in set (0.00 sec)
+
+mysql> SELECT
+    -> projname,
+    -> prstdate,
+    -> ROUND((DATEDIFF(prendate, prstdate)/30),0) AS duration
+    -> FROM Proj;
++----------------------+------------+----------+
+| projname             | prstdate   | duration |
++----------------------+------------+----------+
+| Admin Services       | 2014-01-01 |       13 |
+| General AD Systems   | 2014-01-01 |       13 |
+| Payroll Programming  | 2014-01-01 |       13 |
+| Personnel Programmg  | 2014-01-01 |       13 |
+| Account.Programming  | 2014-01-01 |       13 |
+| Query Services       | 2014-01-01 |       13 |
+| User Education       | 2014-01-01 |       13 |
+| Weld Line Automation | 2014-01-01 |       13 |
+| W L Programming      | 2014-01-01 |       13 |
+| W L Program Design   | 2014-01-01 |       11 |
+| W L Robot Design     | 2014-01-01 |       11 |
+| W L Prod Cont Progs  | 2014-02-15 |       10 |
+| Operation Support    | 2014-01-01 |       13 |
+| Operation            | 2014-01-01 |       13 |
+| GEN Systems Services | 2014-01-01 |       13 |
+| Systems Support      | 2014-01-01 |       13 |
+| SCP Systems Support  | 2014-01-01 |       13 |
+| Applications Support | 2014-01-01 |       13 |
+| DB/DC Support        | 2014-01-01 |       13 |
+| Weld Line Planning   | 2014-01-01 |        9 |
++----------------------+------------+----------+
+20 rows in set (0.00 sec)
+
+mysql> SELECT
+    -> projname,
+    -> prstdate,
+    -> ROUND((DATEDIFF(prendate, prstdate)/30),0) AS duration
+    -> FROM Proj
+    -> WHERE prstdate = (SELECT prstdate FROM Proj ORDER BY 1 ASC LIMIT 1);
++----------------------+------------+----------+
+| projname             | prstdate   | duration |
++----------------------+------------+----------+
+| Admin Services       | 2014-01-01 |       13 |
+| General AD Systems   | 2014-01-01 |       13 |
+| Payroll Programming  | 2014-01-01 |       13 |
+| Personnel Programmg  | 2014-01-01 |       13 |
+| Account.Programming  | 2014-01-01 |       13 |
+| Query Services       | 2014-01-01 |       13 |
+| User Education       | 2014-01-01 |       13 |
+| Weld Line Automation | 2014-01-01 |       13 |
+| W L Programming      | 2014-01-01 |       13 |
+| W L Program Design   | 2014-01-01 |       11 |
+| W L Robot Design     | 2014-01-01 |       11 |
+| Operation Support    | 2014-01-01 |       13 |
+| Operation            | 2014-01-01 |       13 |
+| GEN Systems Services | 2014-01-01 |       13 |
+| Systems Support      | 2014-01-01 |       13 |
+| SCP Systems Support  | 2014-01-01 |       13 |
+| Applications Support | 2014-01-01 |       13 |
+| DB/DC Support        | 2014-01-01 |       13 |
+| Weld Line Planning   | 2014-01-01 |        9 |
++----------------------+------------+----------+
+19 rows in set (0.00 sec)
+
+mysql> SELECT
+    -> projname,
+    -> prstdate,
+    -> ROUND((DATEDIFF(prendate, prstdate)/30),0) AS duration
+    -> FROM Proj
+    -> WHERE prendate = (SELECT prendate FROM Proj ORDER BY 1 ASC LIMIT 1);
++--------------------+------------+----------+
+| projname           | prstdate   | duration |
++--------------------+------------+----------+
+| Weld Line Planning | 2014-01-01 |        9 |
++--------------------+------------+----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM Emp LIMIT 5;
++--------+-----------+---------+----------+----------+---------+------------+---------+---------+--------+------------+-----------+---------+---------+
+| empno  | firstname | midinit | lastname | workdept | phoneno | hiredate   | job     | edlevel | gender | birthdate  | salary    | bonus   | comm    |
++--------+-----------+---------+----------+----------+---------+------------+---------+---------+--------+------------+-----------+---------+---------+
+| 000010 | Christine | I       | Haas     | A00      | 3978    | 2000-01-01 | Pres    |      18 | F      | 1968-08-14 | 312750.00 | 1000.00 | 4220.00 |
+| 000020 | Michael   | L       | Thompson | B01      | 3476    | 2008-10-10 | Manager |      18 | M      | 1983-02-02 | 161250.00 |  800.00 | 3000.00 |
+| 000030 | Sally     | A       | Kwan     | C01      | 4738    | 2010-05-05 | Manager |      20 | F      | 1980-05-11 | 158250.00 |  800.00 | 3060.00 |
+| 000050 | John      | B       | Geyer    | E01      | 6789    | 2003-08-17 | Manager |      16 | M      | 1975-09-15 | 160175.00 |  800.00 | 3214.00 |
+| 000060 | Irving    | F       | Stern    | D11      | 6423    | 2003-09-14 | Manager |      16 | M      | 1975-07-07 | 155555.00 |  600.00 | 2580.00 |
++--------+-----------+---------+----------+----------+---------+------------+---------+---------+--------+------------+-----------+---------+---------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT
+    -> empno,
+    -> firstname,
+    -> lastname,
+    -> gender
+    -> FROM Emp
+    -> WHERE gender = 'F' 
+    -> AND
+    -> WHERE edlevel > 
+    -> (SELECT AVG(edlevel) FROM Emp);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE edlevel > 
+(SELECT AVG(edlevel) FROM Emp)' at line 9
+mysql> SELECT
+    -> empno,
+    -> firstname,
+    -> lastname,
+    -> gender
+    -> FROM Emp
+    -> WHERE gender = 'F' 
+    -> AND
+    -> edlevel > 
+    -> (SELECT AVG(edlevel) FROM Emp);
++--------+-----------+-----------+--------+
+| empno  | firstname | lastname  | gender |
++--------+-----------+-----------+--------+
+| 000010 | Christine | Haas      | F      |
+| 000030 | Sally     | Kwan      | F      |
+| 000140 | Heather   | Nicholls  | F      |
+| 000160 | Elizabeth | Pianka    | F      |
+| 000180 | Marilyn   | Scoutten  | F      |
+| 000220 | Jennifer  | Lutz      | F      |
+| 000280 | Ethel     | Schneider | F      |
++--------+-----------+-----------+--------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT
+    -> lastname,
+    -> job,
+    -> salary
+    -> FROM Emp e
+    -> LEFT JOIN Pworks p ON e.empno = p.empno;
++-----------+------------+-----------+
+| lastname  | job        | salary    |
++-----------+------------+-----------+
+| Haas      | Pres       | 312750.00 |
+| Thompson  | Manager    | 161250.00 |
+| Kwan      | Manager    | 158250.00 |
+| Kwan      | Manager    | 158250.00 |
+| Geyer     | Manager    | 160175.00 |
+| Geyer     | Manager    | 160175.00 |
+| Stern     | Manager    | 155555.00 |
+| Stern     | Manager    | 155555.00 |
+| Stern     | Manager    | 155555.00 |
+| Stern     | Manager    | 155555.00 |
+| Pulaski   | Manager    | 156170.00 |
+| Pulaski   | Manager    | 156170.00 |
+| Pulaski   | Manager    | 156170.00 |
+| Pulaski   | Manager    | 156170.00 |
+| Henderson | Manager    | 149750.00 |
+| Spenser   | Manager    | 146150.00 |
+| Spenser   | Manager    | 146150.00 |
+| Spenser   | Manager    | 146150.00 |
+| Spenser   | Manager    | 146150.00 |
+| Lucchesi  | Salesrep   | 156500.00 |
+| Oconnell  | Programmer |  99250.00 |
+| Quintana  | Analyst    |  93800.00 |
+| Quintana  | Analyst    |  93800.00 |
+| Nicholls  | Analyst    |  88420.00 |
+| Nicholls  | Analyst    |  88420.00 |
+| Adamson   | Designer   |  95280.00 |
+| Adamson   | Designer   |  95280.00 |
+| Adamson   | Designer   |  95280.00 |
+| Adamson   | Designer   |  95280.00 |
+| Pianka    | Designer   |  92250.00 |
+| Pianka    | Designer   |  92250.00 |
+| Pianka    | Designer   |  92250.00 |
+| Pianka    | Designer   |  92250.00 |
+| Yoshimura | Designer   |  84680.00 |
+| Yoshimura | Designer   |  84680.00 |
+| Yoshimura | Designer   |  84680.00 |
+| Yoshimura | Designer   |  84680.00 |
+| Scoutten  | Designer   |  81340.00 |
+| Scoutten  | Designer   |  81340.00 |
+| Scoutten  | Designer   |  81340.00 |
+| Scoutten  | Designer   |  81340.00 |
+| Walker    | Designer   |  70450.00 |
+| Walker    | Designer   |  70450.00 |
+| Walker    | Designer   |  70450.00 |
+| Walker    | Designer   |  70450.00 |
+| Brown     | Designer   |  77740.00 |
+| Brown     | Designer   |  77740.00 |
+| Brown     | Designer   |  77740.00 |
+| Brown     | Designer   |  77740.00 |
+| Jones     | Designer   |  88270.00 |
+| Jones     | Designer   |  88270.00 |
+| Jones     | Designer   |  88270.00 |
+| Jones     | Designer   |  88270.00 |
+| Lutz      | Designer   |  89840.00 |
+| Lutz      | Designer   |  89840.00 |
+| Lutz      | Designer   |  89840.00 |
+| Lutz      | Designer   |  89840.00 |
+| Jefferson | Programmer |  62180.00 |
+| Jefferson | Programmer |  62180.00 |
+| Jefferson | Programmer |  62180.00 |
+| Jefferson | Programmer |  62180.00 |
+| Marino    | Programmer |  68760.00 |
+| Marino    | Programmer |  68760.00 |
+| Marino    | Programmer |  68760.00 |
+| Marino    | Programmer |  68760.00 |
+| Smith     | Programmer |  59180.00 |
+| Smith     | Programmer |  59180.00 |
+| Smith     | Programmer |  59180.00 |
+| Smith     | Programmer |  59180.00 |
+| Johnson   | Programmer |  57250.00 |
+| Johnson   | Programmer |  57250.00 |
+| Johnson   | Programmer |  57250.00 |
+| Johnson   | Programmer |  57250.00 |
+| Perez     | Programmer |  57380.00 |
+| Perez     | Programmer |  57380.00 |
+| Perez     | Programmer |  57380.00 |
+| Perez     | Programmer |  57380.00 |
+| Schneider | Operator   |  86250.00 |
+| Parker    | Operator   |  75340.00 |
+| Smith     | Operator   |  77750.00 |
+| Setright  | Operator   |  75900.00 |
+| Mehta     | Fieldrep   |  99950.00 |
+| Mehta     | Fieldrep   |  99950.00 |
+| Mehta     | Fieldrep   |  99950.00 |
+| Mehta     | Fieldrep   |  99950.00 |
+| Lee       | Fieldrep   |  95370.00 |
+| Lee       | Fieldrep   |  95370.00 |
+| Lee       | Fieldrep   |  95370.00 |
+| Lee       | Fieldrep   |  95370.00 |
+| Gounot    | Fieldrep   | 123840.00 |
+| Gounot    | Fieldrep   | 123840.00 |
+| Gounot    | Fieldrep   | 123840.00 |
+| Gounot    | Fieldrep   | 123840.00 |
++-----------+------------+-----------+
+93 rows in set (0.00 sec)
+
+mysql> SELECT
+    -> lastname,
+    -> job,
+    -> salary,
+    -> COUNT(e.projno)
+    -> FROM Emp e
+    -> LEFT JOIN Pworks p ON e.empno = p.empno
+    -> HAVING COUNT(e.projno) < 1;
+ERROR 1054 (42S22): Unknown column 'e.projno' in 'field list'
+mysql> SELECT
+    -> lastname,
+    -> job,
+    -> salary,
+    -> COUNT(p.projno)
+    -> FROM Emp e
+    -> LEFT JOIN Pworks p ON e.empno = p.empno
+    -> HAVING COUNT(p.projno) < 1;
+ERROR 1140 (42000): In aggregated query without GROUP BY, expression #1 of SELECT list contains nonaggregated column 'dswork.e.lastname'; this is incompatible with sql_mode=only_full_group_by
+mysql> SELECT
+    -> lastname,
+    -> job,
+    -> salary,
+    -> COUNT(p.projno)
+    -> FROM Emp e
+    -> LEFT JOIN Pworks p ON e.empno = p.empno
+    -> GROUP BY 1,2,3
+    -> HAVING COUNT(p.projno) < 1;
++----------+------------+-----------+-----------------+
+| lastname | job        | salary    | COUNT(p.projno) |
++----------+------------+-----------+-----------------+
+| Haas     | Pres       | 312750.00 |               0 |
+| Lucchesi | Salesrep   | 156500.00 |               0 |
+| Oconnell | Programmer |  99250.00 |               0 |
++----------+------------+-----------+-----------------+
+3 rows in set (0.00 sec)
+
+mysql> EXIT

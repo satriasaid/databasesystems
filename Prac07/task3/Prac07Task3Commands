@@ -1,0 +1,28 @@
+-- Name : Satria Pamungkas
+-- Student ID: 21522611
+-- Class: 314.117
+-- Session: Fri 10AM-12PM
+
+SHOW DATABASES;
+USE dswork;
+SOURCE rebuild.sql;
+
+-- Q1: write a stored procedure to help assign an employee to a project.
+SOURCE assignproj.sql
+CALL assignProj('000340','AD3110',-5);
+SELECT * FROM Pworks WHERE empno = '000340';
+
+-- Q2: same but make sure that when the added emp is not in the emp list of Emp then abort
+SOURCE assignproj2.sql
+CALL assignProj('000341','AD3110',-5);
+SELECT * FROM Pworks WHERE empno = '000341';
+
+SOURCE assignproj2alt.sql
+CALL assignProj('000341','AD3110',-5);
+SELECT * FROM Pworks WHERE empno = '000341';
+
+-- Q3: change the total number of hours an employee works on projects
+SOURCE chgtotalhrs.sql
+SELECT empno, SUM(hours) as tot_hours FROM Pworks GROUP BY empno;
+CALL chgtotHrs('000340',40);
+

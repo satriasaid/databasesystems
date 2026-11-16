@@ -1,0 +1,59 @@
+# This is mysql comment
+-- This is also mysql comment
+/* This is a mysql comment too
+*/
+
+SHOW DATABASES;
+
+USE dswork;
+
+SHOW TABLES;
+
+DROP TABLE TestStudent;
+DROP TABLE TestEnrolment;
+DROP TABLE TestUnit;
+
+SHOW COLUMNS FROM Student;
+SHOW COLUMNS FROM Enrolment;
+SHOW COLUMNS FROM Unit;
+
+INSERT INTO Student VALUES ('12345007','Rudy','Steiner','0408007007');
+Query OK, 1 row affected (0.01 sec)
+
+SELECT * FROM Student;
+
+INSERT INTO Unit VALUES ('ISYS5008','COMPUTING','Database Systems');
+INSERT INTO Unit VALUES ('COMP6010','COMPUTING','Planning and Handling Uncertainty in ML');
+
+INSERT INTO Enrolment VALUES ('ISYS5008','12345007', '2026', NULL, NULL);
+INSERT INTO Enrolment VALUES ('ISYS5008','21522611', '2026', NULL, NULL);
+INSERT INTO Enrolment VALUES ('COMP6010','12345007', '2026', NULL, NULL);
+INSERT INTO Enrolment VALUES ('COMP6010','21522611', '2026', NULL, NULL);
+INSERT INTO Enrolment VALUES ('COMP6013','12345007', '2026', NULL, NULL);
+INSERT INTO Enrolment VALUES ('COMP6013','21522611', '2026', NULL, NULL);
+INSERT INTO Enrolment VALUES ('COMP6020','12345007', '2026', NULL, NULL);
+INSERT INTO Enrolment VALUES ('COMP6020','21522611', '2026', NULL, NULL);
+
+SELECT firstname, phoneno FROM Student;
+SELECT unitname, dept FROM Unit;
+SELECT unit from Enrolment;
+SELECT DISTINCT unit from Enrolment;
+
+SELECT unitindex, unitname 
+FROM Unit
+WHERE dept = 'COMPUTING';
+
+SELECT student, mark, grade
+FROM Enrolment
+WHERE mark > 60;
+
+SELECT student, mark, grade
+FROM Enrolment
+WHERE mark BETWEEN 66 AND 85;
+
+UPDATE Unit
+SET unitindex = 'ISYS2014'
+WHERE unitname = 'Database Systems';
+
+DELETE FROM Student WHERE sno = '12345007';
+DELETE FROM Unit WHERE unitindex = 'ISYS2014';

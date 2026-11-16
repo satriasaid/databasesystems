@@ -1,0 +1,68 @@
+-- Name: Satria Pamungkas
+-- StudentID: 21522611
+-- Prac06 Part 2
+
+-- Task 1: Creating table with referential integrity constraints
+-- Q1
+
+CREATE TABLE Classes(
+class CHAR(15) PRIMARY KEY,
+ctype CHAR(2),
+country VARCHAR(12),
+numGuns INT(2),
+bore INT(2),
+displacement INT(6)
+);
+
+CREATE TABLE Ships(
+name CHAR(15) PRIMARY KEY,
+class CHAR(15),
+launched INT(4),
+CONSTRAINT fk_class FOREIGN KEY (class) REFERENCES Classes(class) ON DELETE SET NULL ON UPDATE CASCADE
+);
+
+CREATE TABLE Battles(
+name CHAR(15) PRIMARY KEY,
+bdate DATE
+);
+
+CREATE TABLE Outcomes(
+ship CHAR(15),
+battle CHAR(15),
+result CHAR(7),
+CONSTRAINT fk_shipname FOREIGN KEY (ship) REFERENCES Ships(name) ON DELETE SET NULL ON UPDATE CASCADE,
+CONSTRAINT fk_battlename FOREIGN KEY (battle) REFERENCES Battles(name) ON DELETE SET NULL ON UPDATE CASCADE
+);
+
+-- Q2
+-- ran successfully
+
+-- Q3
+LOAD DATA LOCAL INFILE 'Classes.csv'
+INTO TABLE Classes
+FIELDS TERMINATED BY ','
+OPTIONALLY ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+LOAD DATA LOCAL INFILE 'Ships.csv'
+INTO TABLE Ships
+FIELDS TERMINATED BY ','
+OPTIONALLY ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+LOAD DATA LOCAL INFILE 'Battles.csv'
+INTO TABLE Battles
+FIELDS TERMINATED BY ','
+OPTIONALLY ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+LOAD DATA LOCAL INFILE 'Outcomes.csv'
+INTO TABLE Outcomes
+FIELDS TERMINATED BY ','
+OPTIONALLY ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+

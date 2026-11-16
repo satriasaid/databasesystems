@@ -1,0 +1,134 @@
+-- Name: Satria Pamungkas
+-- SID : 21522611
+
+SOURCE createdept.sql;
+SOURCE createemp.sql;
+SOURCE createproj.sql;
+SOURCE createpworks.sql;
+SHOW TABLES;
+
+SOURCE insdept.sql;
+SOURCE insemp.sql;
+SOURCE insproj.sql;
+SOURCE inspworks.sql;
+
+SELECT
+firstname,
+lastname,
+job,
+salary,
+projname
+FROM Emp
+INNER JOIN Proj ON Emp.empno = Proj.respemp
+WHERE projname LIKE '%Design%';
+
+SELECT
+firstname,
+lastname,
+job,
+deptno AS 'Managing Dept No',
+deptname AS 'Managing Dept Name'
+FROM Emp
+INNER JOIN Dept ON Emp.empno = Dept.mgrno;
+
+SELECT
+deptno AS 'Managing Dept No',
+deptname AS 'Managing Dept Name',
+firstname,
+lastname,
+job
+FROM Emp
+INNER JOIN Dept ON Emp.empno = Dept.mgrno;
+
+-- Q4 Join
+SELECT
+a.lastname,
+a.job,
+a. edlevel
+FROM Emp a
+INNER JOIN Emp b ON b.edlevel >= a.edlevel
+WHERE b.job = 'Pres';
+
+-- Q4 Subquery
+SELECT
+lastname,
+job,
+edlevel
+FROM Emp
+WHERE edlevel = (
+SELECT
+edlevel
+FROM Emp
+WHERE job = 'Pres'
+);
+
+-- Q5
+SELECT
+job,
+MIN(salary) as min_salary,
+MAX(salary) as max_salary,
+COUNT(*) AS no_employee
+FROM Emp
+GROUP BY job;
+
+-- Q6
+SELECT
+workdept,
+COUNT(*) as emp_count,
+AVG(salary) as avg_salary
+FROM Emp
+GROUP BY workdept
+HAVING COUNT(*) > 5;
+
+-- Q7
+SELECT
+e.empno,
+lastname,
+salary,
+SUM(hours) AS TotalHrs
+FROM Emp AS e
+INNER JOIN Pworks AS p ON e.empno = p.empno
+GROUP BY e.empno,lastname,salary;
+
+-- Q8
+SELECT
+e.empno,
+lastname,
+salary,
+SUM(hours) AS TotalHrs,
+COUNT(projno) AS NumofProject
+FROM Emp AS e
+LEFT OUTER JOIN Pworks AS p ON e.empno = p.empno
+GROUP BY e.empno,lastname,salary;
+
+-- Q9
+-- without ORDER BY it is sorting ascending based on empno
+SELECT
+e.empno,
+lastname,
+salary,
+SUM(hours) AS TotalHrs,
+COUNT(projno) AS NumofProject
+FROM Emp AS e
+LEFT JOIN Pworks AS p ON e.empno = p.empno
+GROUP BY e.empno,lastname,salary
+ORDER BY TotalHrs DESC;
+
+-- Q10
+SELECT
+p.projno,
+p.projname,
+sub.projno,
+sub.projname
+FROM Proj p
+LEFT OUTER JOIN Proj sub ON sub.majproj = p.projno;
+
+-- Q11
+SELECT
+p.projno,
+p.projname,
+sub.projno,
+sub.projname
+FROM Proj p
+INNER JOIN Proj sub ON sub.majproj = p.projno;
+
